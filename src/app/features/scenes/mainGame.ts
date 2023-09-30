@@ -25,22 +25,25 @@ export default class MainGame extends Phaser.Scene {
     this.drawBackground();
     this.toolboxManager.initialize();
     this.addInteraction();
-    
-    
   }
 
-  update() {
-
-  }
+  update() {}
 
   private drawBackground() {
     const map = this.make.tilemap({
       key: "tilemap",
     });
     // https://github.com/sporadic-labs/tile-extruder
-    const tileset = map.addTilesetImage("all_tiles", "all_tiles", Constants.TILESIZE, Constants.TILESIZE, 1, 2);
+    const tileset = map.addTilesetImage(
+      "all_tiles",
+      "all_tiles",
+      Constants.TILESIZE,
+      Constants.TILESIZE,
+      1,
+      2
+    );
     if (!tileset) return;
-    
+
     const grassLayer = map.createLayer("Grass", tileset);
     const houseLayer = map.createLayer("House", tileset);
     if (!grassLayer || !houseLayer) return;
@@ -54,7 +57,7 @@ export default class MainGame extends Phaser.Scene {
       Constants.WIDTH * Constants.TILESIZE,
       Constants.HEIGHT * Constants.TILESIZE
     );
-    
+
     // Make camera draggable
     this.input.on("pointerdown", (pointer: any) => {
       if (pointer.leftButtonDown) {
@@ -68,10 +71,6 @@ export default class MainGame extends Phaser.Scene {
         this.input.off("pointermove");
       });
     });
-  }
-
-  private drawToolBar() {
-
   }
 
   private addInteraction() {
@@ -97,6 +96,4 @@ export default class MainGame extends Phaser.Scene {
 
     return [tileX, tileY];
   }
-
-  
 }
