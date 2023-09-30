@@ -1,29 +1,35 @@
 import { Constants } from "../constants";
+import ToolboxManager from "../managers/ToolboxManager";
 
 export default class MainGame extends Phaser.Scene {
-  private container: Phaser.GameObjects.Container | null;
+  private toolboxManager?: ToolboxManager;
 
   constructor() {
     super({ key: "MainGame" });
-    this.container = null;
   }
 
   preload() {
     // Load tilemap and tileset
     this.load.tilemapTiledJSON("tilemap", "assets/nothing_farm.json");
     this.load.image("all_tiles", "assets/all_tiles2.png");
+    this.load.spritesheet("tools", "assets/tools.png", {
+      frameWidth: Constants.TILESIZE,
+      frameHeight: Constants.TILESIZE,
+    });
   }
 
   create() {
+    this.toolboxManager = new ToolboxManager(this);
     // Draw game elements
     this.addCamera();
     this.drawBackground();
+    this.toolboxManager.initialize();
+    this.addInteraction();
     
     
   }
 
   update() {
-   
 
   }
 
@@ -63,4 +69,34 @@ export default class MainGame extends Phaser.Scene {
       });
     });
   }
+
+  private drawToolBar() {
+
+  }
+
+  private addInteraction() {
+    // Add interaction
+    this.input.on("pointerdown", (pointer: any) => {
+      if (pointer.leftButtonDown()) {
+        const [tileX, tileY] = this.getTileCoordinates();
+        console.log(`Tile X: ${tileX}, Tile Y: ${tileY}`);
+      }
+    });
+  }
+
+  private getTileCoordinates() {
+    // Get mouse position and camera position
+    const mouse = this.input.mousePointer;
+    const camera = this.cameras.main;
+    const cameraX = camera.scrollX;
+    const cameraY = camera.scrollY;
+
+    // Get tile position
+    const tileX = Math.floor((mouse.x + cameraX) / Constants.TILESIZE);
+    const tileY = Math.floor((mouse.y + cameraY) / Constants.TILESIZE);
+
+    return [tileX, tileY];
+  }
+
+  
 }

@@ -1,9 +1,10 @@
 import Phaser from "phaser";
 import MainGame from "./scenes/mainGame";
+import { Constants } from "./constants";
 
 const config = {
-  width: 384,
-  height: 256,
+  width: Constants.WIDTH,
+  height: Constants.HEIGHT,
   type: Phaser.AUTO,
   scene: [MainGame],
   scale: {
