@@ -27,8 +27,6 @@ export default class MainGame extends Phaser.Scene {
     this.addInteraction();
   }
 
-  update() {}
-
   private drawBackground() {
     const map = this.make.tilemap({
       key: "tilemap",
@@ -78,7 +76,8 @@ export default class MainGame extends Phaser.Scene {
     this.input.on("pointerdown", (pointer: any) => {
       if (pointer.leftButtonDown()) {
         const [tileX, tileY] = this.getTileCoordinates();
-        console.log(`Tile X: ${tileX}, Tile Y: ${tileY}`);
+
+        this.toolboxManager?.selectedTool?.use(tileX, tileY);
       }
     });
   }

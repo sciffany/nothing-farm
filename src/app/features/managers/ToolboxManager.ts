@@ -8,7 +8,7 @@ export default class ToolboxManager {
   private scene: Phaser.Scene;
   private selector: Phaser.GameObjects.Rectangle | null;
 
-  private selectedTool: Tool | null;
+  public selectedTool: Tool | null;
   private tools: Tool[] = [];
   private hoe: Hoe | null;
 
@@ -49,7 +49,10 @@ export default class ToolboxManager {
     this.scene.input.on("pointerdown", (pointer: any) => {
       if (!this.selector) return;
 
+      const x = Math.floor(pointer.x / Constants.TILESIZE);
       const y = Math.floor(pointer.y / Constants.TILESIZE);
+
+      if (x !== 0) return;
       this.selector.y = y * Constants.TILESIZE;
       this.selectedTool = this.tools?.[y];
     });
