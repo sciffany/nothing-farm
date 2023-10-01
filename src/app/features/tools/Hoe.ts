@@ -1,7 +1,7 @@
 import Tool from "./Tool";
 import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import { Constants } from "../constants";
-import { TileNum } from "../enums/tiles";
+import { PLAIN_SOILS } from "../enums/tiles";
 
 const HOE_FRAME = 0;
 const TILLED_SOIL_FRAME = 5;
@@ -22,7 +22,7 @@ export default class Hoe extends Tool {
   public use(x: number, y: number) {
     const tileNum = y * Constants.MAP_WIDTH + x;
     const tile = nothingFarmJson.layers[0].data[tileNum];
-    if (tile === TileNum.PLAIN_SOIL) {
+    if (PLAIN_SOILS.includes(tile)) {
       const soil = this.scene.add.sprite(
         x * Constants.TILESIZE,
         y * Constants.TILESIZE,

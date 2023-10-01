@@ -1,8 +1,12 @@
 import { Constants } from "../constants";
+import DayManager from "../managers/DayManager";
+import MoneyManager from "../managers/MoneyManager";
 import ToolboxManager from "../managers/ToolboxManager";
 
 export default class MainGame extends Phaser.Scene {
   private toolboxManager?: ToolboxManager;
+  private dayManager?: DayManager;
+  private moneyManager?: MoneyManager;
 
   constructor() {
     super({ key: "MainGame" });
@@ -20,14 +24,20 @@ export default class MainGame extends Phaser.Scene {
       frameWidth: Constants.TILESIZE,
       frameHeight: Constants.TILESIZE,
     });
+    this.load.image("marker", "assets/marker.png");
   }
 
   create() {
     this.toolboxManager = new ToolboxManager(this);
+    this.dayManager = new DayManager(this);
+    this.moneyManager = new MoneyManager(this);
+
     // Draw game elements
     this.addCamera();
     this.drawBackground();
     this.toolboxManager.initialize();
+    this.dayManager.initialize();
+    this.moneyManager.initialize();
     this.addInteraction();
   }
 
