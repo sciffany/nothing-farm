@@ -17,6 +17,7 @@ export default class ToolboxManager {
     this.hoe = new Hoe(this.scene);
     this.selectedTool = this.hoe;
     this.selector = null;
+    this.tools = [this.hoe];
   }
 
   public initialize() {
