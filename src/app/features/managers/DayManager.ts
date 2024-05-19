@@ -2,6 +2,9 @@ import { Constants } from "../constants";
 
 export default class DayManager {
   private scene: Phaser.Scene;
+  private day: number = 1;
+
+  private dayText: Phaser.GameObjects.Text | null = null;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -20,7 +23,7 @@ export default class DayManager {
     const dayText = this.scene.add.text(
       Constants.WIDTH - 2 * Constants.TILESIZE,
       Constants.TILESIZE / 2,
-      "Day 1",
+      `Day ${this.day}`,
       {
         fontSize: "8px",
         fontFamily: "Arial",
@@ -56,5 +59,10 @@ export default class DayManager {
       )
       .setOrigin(0.5, 0.5);
     nextDayText.setScrollFactor(0);
+  }
+
+  public nextDay() {
+    this.day += 1;
+    this.dayText?.setText(`Day ${this.day}`);
   }
 }

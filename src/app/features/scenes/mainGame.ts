@@ -72,10 +72,10 @@ export default class MainGame extends Phaser.Scene {
 
     // Make camera draggable
     this.input.on("pointerdown", (pointer: any) => {
-      if (pointer.leftButtonDown) {
+      if (pointer.middleButtonDown()) {
         this.input.on("pointermove", (pointer: any) => {
-          this.cameras.main.scrollX -= pointer.velocity.x / 10;
-          this.cameras.main.scrollY -= pointer.velocity.y / 10;
+          this.cameras.main.scrollX -= pointer.x - pointer.prevPosition.x;
+          this.cameras.main.scrollY -= pointer.y - pointer.prevPosition.y;
         });
       }
 
