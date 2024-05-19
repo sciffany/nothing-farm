@@ -91,8 +91,8 @@ export default class MainGame extends Phaser.Scene {
 
   private addInteraction() {
     // Add interaction
-    this.input.on("pointerdown", (pointer: any) => {
-      if (pointer.leftButtonDown()) {
+    this.input.on("pointerup", (pointer: Phaser.Input.Pointer) => {
+      if (pointer.leftButtonReleased()) {
         const [tileX, tileY] = this.getTileCoordinates();
 
         this.toolboxManager?.selectedTool?.use(tileX, tileY);

@@ -15,6 +15,6 @@ export default abstract class Tool {
     if (!this.sprite) return;
     this.sprite.setScrollFactor(0);
     this.sprite.x = x;
-    this.sprite.y = y * Constants.TILESIZE;
+    this.sprite.y = y * Constants.TILE_DISPLAY_SIZE;
   }
 }
