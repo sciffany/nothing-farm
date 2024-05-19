@@ -57,7 +57,11 @@ export default class MainGame extends Phaser.Scene {
     if (!tileset) return;
 
     const grassLayer = map.createLayer("Grass", tileset);
+    if (!grassLayer) return;
+    grassLayer.scale = 2;
     const houseLayer = map.createLayer("House", tileset);
+    if (!houseLayer) return;
+    houseLayer.scale = 2;
     if (!grassLayer || !houseLayer) return;
   }
 
@@ -104,8 +108,8 @@ export default class MainGame extends Phaser.Scene {
     const cameraY = camera.scrollY;
 
     // Get tile position
-    const tileX = Math.floor((mouse.x + cameraX) / Constants.TILESIZE);
-    const tileY = Math.floor((mouse.y + cameraY) / Constants.TILESIZE);
+    const tileX = Math.floor((mouse.x + cameraX) / Constants.TILE_DISPLAY_SIZE);
+    const tileY = Math.floor((mouse.y + cameraY) / Constants.TILE_DISPLAY_SIZE);
 
     return [tileX, tileY];
   }

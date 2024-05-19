@@ -32,7 +32,8 @@ export default class ToolboxManager {
       const box = this.scene.add
         .sprite(0, 0, "tools", TOOLBOX_FRAME)
         .setOrigin(0, 0);
-      box.y = 16 * i;
+      box.y = Constants.TILE_DISPLAY_SIZE * i;
+      box.scale = 2;
       box.setScrollFactor(0);
       return box;
     });
@@ -40,7 +41,13 @@ export default class ToolboxManager {
 
   private drawToolSelector() {
     this.selector = this.scene.add
-      .rectangle(0, 0, 16, 16, 0x00ff00)
+      .rectangle(
+        0,
+        0,
+        Constants.TILE_DISPLAY_SIZE,
+        Constants.TILE_DISPLAY_SIZE,
+        0x00ff00
+      )
       .setOrigin(0, 0);
     this.selector.alpha = 0.2;
     this.selector.setScrollFactor(0);
@@ -50,11 +57,11 @@ export default class ToolboxManager {
     this.scene.input.on("pointerdown", (pointer: any) => {
       if (!this.selector) return;
 
-      const x = Math.floor(pointer.x / Constants.TILESIZE);
-      const y = Math.floor(pointer.y / Constants.TILESIZE);
+      const x = Math.floor(pointer.x / Constants.TILE_DISPLAY_SIZE);
+      const y = Math.floor(pointer.y / Constants.TILE_DISPLAY_SIZE);
 
       if (x !== 0) return;
-      this.selector.y = y * Constants.TILESIZE;
+      this.selector.y = y * Constants.TILE_DISPLAY_SIZE;
       this.selectedTool = this.tools?.[y];
     });
   }

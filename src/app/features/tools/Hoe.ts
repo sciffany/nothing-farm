@@ -16,6 +16,8 @@ export default class Hoe extends Tool {
       .sprite(0, 0, "tools", HOE_FRAME)
       .setOrigin(0, 0);
 
+    this.sprite.scale = 2;
+
     this.moveToPosition(0, 0);
   }
 
@@ -24,11 +26,12 @@ export default class Hoe extends Tool {
     const tile = nothingFarmJson.layers[0].data[tileNum];
     if (PLAIN_SOILS.includes(tile)) {
       const soil = this.scene.add.sprite(
-        x * Constants.TILESIZE,
-        y * Constants.TILESIZE,
+        x * Constants.TILE_DISPLAY_SIZE,
+        y * Constants.TILE_DISPLAY_SIZE,
         "all_tiles_sprite",
         TILLED_SOIL_FRAME
       );
+      soil.scale = 2;
       soil.setOrigin(0, 0);
       soil.setDepth(1);
     }

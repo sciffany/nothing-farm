@@ -17,15 +17,17 @@ export default class DayManager {
 
   private drawDayCounter() {
     const marker = this.scene.add
-      .image(Constants.WIDTH - 4 * Constants.TILESIZE, 0, "marker", 0)
+      .image(Constants.WIDTH - 4 * Constants.TILE_DISPLAY_SIZE, 0, "marker", 0)
       .setOrigin(0, 0);
     marker.setScrollFactor(0);
+    marker.scale = 2;
+
     const dayText = this.scene.add.text(
-      Constants.WIDTH - 2 * Constants.TILESIZE,
-      Constants.TILESIZE / 2,
+      Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
+      Constants.TILE_DISPLAY_SIZE / 2,
       `Day ${this.day}`,
       {
-        fontSize: "8px",
+        fontSize: "16px",
         fontFamily: "Arial",
         color: "#000000",
       }
@@ -37,22 +39,24 @@ export default class DayManager {
   private drawNextButton() {
     const marker = this.scene.add
       .image(
-        Constants.WIDTH - 4 * Constants.TILESIZE,
-        Constants.HEIGHT - Constants.TILESIZE,
+        Constants.WIDTH - 4 * Constants.TILE_DISPLAY_SIZE,
+        Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE,
         "marker",
         0
       )
       .setOrigin(0, 0);
 
+    marker.scale = 2;
+
     marker.setScrollFactor(0);
 
     const nextDayText = this.scene.add
       .text(
-        Constants.WIDTH - 2 * Constants.TILESIZE,
-        Constants.HEIGHT - Constants.TILESIZE / 2,
+        Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
+        Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE / 2,
         "Next Day",
         {
-          fontSize: "8px",
+          fontSize: "16px",
           fontFamily: "Arial",
           color: "#000000",
         }
