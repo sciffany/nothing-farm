@@ -71,7 +71,7 @@ export default class ToolboxManager {
       this.selector.y = y * Constants.TILE_DISPLAY_SIZE;
       this.selectedTool = this.tools?.[y];
 
-      if (!this.toolName) return;
+      if (!this.toolName || !this.selectedTool) return;
       this.toolName.text = this.selectedTool.name;
     });
   }
