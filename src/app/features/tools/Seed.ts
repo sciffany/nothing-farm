@@ -1,7 +1,6 @@
 import Tool from "./Tool";
-import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
-import { Constants } from "../constants";
-import { PLAIN_SOILS } from "../enums/tiles";
+import MainGame from "../scenes/mainGame";
+import { TilePlantType, TileType } from "../managers/TileManager";
 
 const SEED_FRAME = 5;
 
@@ -21,18 +20,9 @@ export default class Seed extends Tool {
   }
 
   public use(x: number, y: number) {
-    const tileNum = y * Constants.MAP_WIDTH + x;
-    const tile = nothingFarmJson.layers[0].data[tileNum];
-    if (PLAIN_SOILS.includes(tile)) {
-      const soil = this.scene.add.sprite(
-        x * Constants.TILE_DISPLAY_SIZE,
-        y * Constants.TILE_DISPLAY_SIZE,
-        "all_tiles_sprite"
-        // TILLED_SOIL_FRAME
-      );
-      soil.scale = 2;
-      soil.setOrigin(0, 0);
-      soil.setDepth(1);
+    const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
+    if (tile?.getType() === TileType.TILLED) {
+      tile.plantType = TilePlantType.SEEDED;
     }
   }
 }
