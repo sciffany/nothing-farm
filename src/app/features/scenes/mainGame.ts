@@ -14,6 +14,7 @@ export default class MainGame extends Phaser.Scene {
 
   preload() {
     // Load tilemap and tileset
+
     this.load.tilemapTiledJSON("tilemap", "assets/nothing_farm.json");
     this.load.image("all_tiles", "assets/all_tiles2.png");
     this.load.spritesheet("tools", "assets/tools.png", {
@@ -45,6 +46,7 @@ export default class MainGame extends Phaser.Scene {
     const map = this.make.tilemap({
       key: "tilemap",
     });
+    this.input.setDefaultCursor("url(assets/hand.cur), pointer");
     // https://github.com/sporadic-labs/tile-extruder
     const tileset = map.addTilesetImage(
       "all_tiles",
@@ -59,10 +61,10 @@ export default class MainGame extends Phaser.Scene {
     const grassLayer = map.createLayer("Grass", tileset);
     if (!grassLayer) return;
     grassLayer.scale = 2;
+
     const houseLayer = map.createLayer("House", tileset);
     if (!houseLayer) return;
     houseLayer.scale = 2;
-    if (!grassLayer || !houseLayer) return;
   }
 
   private addCamera() {

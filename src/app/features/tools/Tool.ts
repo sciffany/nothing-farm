@@ -3,9 +3,11 @@ import { Constants } from "../constants";
 export default abstract class Tool {
   protected scene: Phaser.Scene;
   protected sprite: Phaser.GameObjects.Sprite | null = null;
+  public name: string;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: Phaser.Scene, name: string) {
     this.scene = scene;
+    this.name = name;
   }
 
   abstract initialize(): void;

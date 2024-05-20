@@ -8,7 +8,7 @@ const TILLED_SOIL_FRAME = 5;
 
 export default class Hoe extends Tool {
   constructor(scene: Phaser.Scene) {
-    super(scene);
+    super(scene, "Hoe");
   }
 
   public initialize() {

@@ -7,7 +7,7 @@ const SEED_FRAME = 5;
 
 export default class Seed extends Tool {
   constructor(scene: Phaser.Scene) {
-    super(scene);
+    super(scene, "Seed");
   }
 
   public initialize() {

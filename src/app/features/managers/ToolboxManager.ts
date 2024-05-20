@@ -8,6 +8,7 @@ const TOOLBOX_FRAME = 15;
 export default class ToolboxManager {
   private scene: Phaser.Scene;
   private selector: Phaser.GameObjects.Rectangle | null;
+  private toolName: Phaser.GameObjects.Text | null;
 
   public selectedTool: Tool | null;
   private tools: Tool[] = [];
@@ -20,10 +21,12 @@ export default class ToolboxManager {
     this.seed = new Seed(this.scene);
     this.selectedTool = this.hoe;
     this.selector = null;
-    this.tools = [this.hoe];
+    this.toolName = null;
+    this.tools = [this.hoe, this.seed];
   }
 
   public initialize() {
+    this.drawToolName();
     this.drawToolbox();
     this.hoe?.initialize();
     this.seed?.initialize();
@@ -67,6 +70,37 @@ export default class ToolboxManager {
       if (x !== 0) return;
       this.selector.y = y * Constants.TILE_DISPLAY_SIZE;
       this.selectedTool = this.tools?.[y];
+
+      if (!this.toolName) return;
+      this.toolName.text = this.selectedTool.name;
     });
+  }
+
+  private drawToolName() {
+    const marker = this.scene.add
+      .image(
+        Constants.TILE_DISPLAY_SIZE,
+        Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE,
+        "marker",
+        0
+      )
+      .setOrigin(0, 0);
+    marker.setScrollFactor(0);
+    marker.scale = 2;
+
+    this.toolName = this.scene.add.text(
+      Constants.TILE_DISPLAY_SIZE * 3,
+      Constants.HEIGHT -
+        Constants.TILE_DISPLAY_SIZE +
+        Constants.TILE_DISPLAY_SIZE / 2,
+      this.selectedTool?.name ?? "",
+      {
+        fontSize: "12px",
+        fontFamily: "Arial",
+        color: "#000000",
+      }
+    );
+    this.toolName.setOrigin(0.5, 0.5);
+    this.toolName.setScrollFactor(0);
   }
 }
