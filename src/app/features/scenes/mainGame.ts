@@ -23,6 +23,10 @@ export default class MainGame extends Phaser.Scene {
       frameWidth: Constants.TILESIZE,
       frameHeight: Constants.TILESIZE,
     });
+    this.load.spritesheet("plants", "assets/plants.png", {
+      frameWidth: Constants.TILESIZE,
+      frameHeight: Constants.TILESIZE * 2,
+    });
     this.load.spritesheet("all_tiles_sprite", "assets/all_tiles.png", {
       frameWidth: Constants.TILESIZE,
       frameHeight: Constants.TILESIZE,
@@ -81,7 +85,11 @@ export default class MainGame extends Phaser.Scene {
 
     // Make camera draggable
     this.input.on("pointerdown", (pointer: any) => {
-      if (pointer.middleButtonDown()) {
+      if (
+        pointer.middleButtonDown() ||
+        (pointer.leftButtonDown() &&
+          this.toolboxManager?.selectedTool?.name === "Travel")
+      ) {
         this.input.on("pointermove", (pointer: any) => {
           this.cameras.main.scrollX -= pointer.x - pointer.prevPosition.x;
           this.cameras.main.scrollY -= pointer.y - pointer.prevPosition.y;

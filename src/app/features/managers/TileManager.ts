@@ -73,18 +73,20 @@ export class Tile {
     this.tileSprite.scale = 2;
   }
 
-  public changePlantType(type: TileType) {
-    this.type = type;
+  public changePlantType(tilePlantType: TilePlantType) {
+    this.plantType = tilePlantType;
     this.tilePlantSprite?.destroy();
 
-    // this.tileSprite = this.scene.add.sprite(
-    //   this.x * Constants.TILE_DISPLAY_SIZE,
-    //   this.y * Constants.TILE_DISPLAY_SIZE,
-    // );
+    this.tilePlantSprite = this.scene.add.sprite(
+      this.x * Constants.TILE_DISPLAY_SIZE,
+      (this.y - 1) * Constants.TILE_DISPLAY_SIZE,
+      "plants",
+      0
+    );
 
-    // this.tileSprite.setOrigin(0, 0);
+    this.tilePlantSprite.setOrigin(0, 0);
 
-    // this.tileSprite.scale = 2;
+    this.tilePlantSprite.scale = 2;
   }
 
   public typeToSpriteFrame(type: TileType) {

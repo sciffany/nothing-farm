@@ -22,7 +22,7 @@ export default class Seed extends Tool {
   public use(x: number, y: number) {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (tile?.getType() === TileType.TILLED) {
-      tile.plantType = TilePlantType.SEEDED;
+      tile.changePlantType(TilePlantType.SEEDED);
     }
   }
 }
