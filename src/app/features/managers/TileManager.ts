@@ -5,6 +5,7 @@ export enum TileType {
   PLAIN,
   GROUND,
   TILLED,
+  WATERED,
   DOOR,
   ITEM,
 }
@@ -59,18 +60,23 @@ export class Tile {
 
   public changeType(type: TileType) {
     this.type = type;
-    this.tileSprite?.destroy();
+    if (this.tileSprite) {
+      this.tileSprite.setTexture(
+        "all_tiles_sprite",
+        this.typeToSpriteFrame(this.type)
+      );
+    } else {
+      this.tileSprite = this.scene.add.sprite(
+        this.x * Constants.TILE_DISPLAY_SIZE,
+        this.y * Constants.TILE_DISPLAY_SIZE,
+        "all_tiles_sprite",
+        this.typeToSpriteFrame(this.type)
+      );
 
-    this.tileSprite = this.scene.add.sprite(
-      this.x * Constants.TILE_DISPLAY_SIZE,
-      this.y * Constants.TILE_DISPLAY_SIZE,
-      "all_tiles_sprite",
-      this.typeToSpriteFrame(this.type)
-    );
+      this.tileSprite.setOrigin(0, 0);
 
-    this.tileSprite.setOrigin(0, 0);
-
-    this.tileSprite.scale = 2;
+      this.tileSprite.scale = 2;
+    }
   }
 
   public changePlantType(tilePlantType: TilePlantType) {
@@ -87,6 +93,7 @@ export class Tile {
     this.tilePlantSprite.setOrigin(0, 0);
 
     this.tilePlantSprite.scale = 2;
+    this.tilePlantSprite.z = 1;
   }
 
   public typeToSpriteFrame(type: TileType) {
@@ -95,6 +102,8 @@ export class Tile {
         return 0;
       case TileType.TILLED:
         return 5;
+      case TileType.WATERED:
+        return 6;
     }
   }
 

@@ -3,6 +3,7 @@ import Hoe from "../tools/Hoe";
 import Seed from "../tools/Seed";
 import Tool from "../tools/Tool";
 import Travel from "../tools/Travel";
+import WateringCan from "../tools/WateringCan";
 
 const TOOLBOX_FRAME = 15;
 
@@ -15,17 +16,19 @@ export default class ToolboxManager {
   private tools: Tool[] = [];
   private hoe: Hoe | null;
   private seed: Seed | null;
-  private travel: Tool | null;
+  private travel: Travel | null;
+  private wateringCan: WateringCan | null;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.hoe = new Hoe(this.scene);
     this.seed = new Seed(this.scene);
     this.travel = new Travel(this.scene);
+    this.wateringCan = new WateringCan(this.scene);
     this.selectedTool = this.hoe;
     this.selector = null;
     this.toolName = null;
-    this.tools = [this.hoe, this.seed, this.travel];
+    this.tools = [this.hoe, this.seed, this.travel, this.wateringCan];
   }
 
   public initialize() {
@@ -34,6 +37,7 @@ export default class ToolboxManager {
     this.hoe?.initialize();
     this.seed?.initialize();
     this.travel?.initialize();
+    this.wateringCan?.initialize();
     this.drawToolSelector();
     this.initializeToolSelector();
   }
