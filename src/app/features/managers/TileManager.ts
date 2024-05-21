@@ -10,7 +10,7 @@ export enum TileType {
   ITEM,
 }
 
-export enum TilePlantType {
+export enum TilePlantStage {
   NONE,
   SEEDED,
   GROWN_STAGE_1,
@@ -24,7 +24,7 @@ export class Tile {
   public x: number;
   public y: number;
   public type: TileType;
-  public plantType: TilePlantType;
+  public plantStage: TilePlantStage;
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
   private tilePlantSprite: Phaser.GameObjects.Sprite | null = null;
   private scene: Phaser.Scene;
@@ -34,7 +34,7 @@ export class Tile {
     this.y = y;
     this.scene = scene;
 
-    this.plantType = TilePlantType.NONE;
+    this.plantStage = TilePlantStage.NONE;
 
     switch (design) {
       case 161:
@@ -79,8 +79,8 @@ export class Tile {
     }
   }
 
-  public changePlantType(tilePlantType: TilePlantType) {
-    this.plantType = tilePlantType;
+  public changePlantStage(plantStage: TilePlantStage) {
+    this.plantStage = plantStage;
     this.tilePlantSprite?.destroy();
 
     this.tilePlantSprite = this.scene.add.sprite(

@@ -1,6 +1,6 @@
 import Tool from "./Tool";
 import MainGame from "../scenes/mainGame";
-import { TilePlantType, TileType } from "../managers/TileManager";
+import { TilePlantStage, TileType } from "../managers/TileManager";
 
 const SEED_FRAME = 5;
 
@@ -25,7 +25,7 @@ export default class Seed extends Tool {
       tile?.getType() === TileType.TILLED ||
       tile?.getType() === TileType.WATERED
     ) {
-      tile.changePlantType(TilePlantType.SEEDED);
+      tile.changePlantStage(TilePlantStage.SEEDED);
     }
   }
 }

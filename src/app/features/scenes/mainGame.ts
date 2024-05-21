@@ -104,18 +104,16 @@ export default class MainGame extends Phaser.Scene {
 
   private addInteraction() {
     // Add interaction
-    this.input.on("pointerup", (pointer: Phaser.Input.Pointer) => {
-      if (pointer.leftButtonReleased()) {
-        const [tileX, tileY] = this.getTileCoordinates();
+    this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
+      const [tileX, tileY] = this.getTileCoordinates();
 
-        this.toolboxManager?.selectedTool?.use(tileX, tileY);
-      }
+      this.toolboxManager?.selectedTool?.use(tileX, tileY);
     });
   }
 
   private getTileCoordinates() {
     // Get mouse position and camera position
-    const mouse = this.input.mousePointer;
+    const mouse = this.input.activePointer.position;
     const camera = this.cameras.main;
     const cameraX = camera.scrollX;
     const cameraY = camera.scrollY;
