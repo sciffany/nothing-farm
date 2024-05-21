@@ -1,19 +1,19 @@
 import { Constants } from "../constants";
-import Hoe from "../tools/Hoe";
-import Seed from "../tools/Seed";
-import Tool from "../tools/Tool";
-import Travel from "../tools/Travel";
-import WateringCan from "../tools/WateringCan";
+import Hoe from "../items/Hoe";
+import Seed from "../items/Seed";
+import Item from "../items/Item";
+import Travel from "../items/Travel";
+import WateringCan from "../items/WateringCan";
 
 const TOOLBOX_FRAME = 15;
 
-export default class ToolboxManager {
+export default class ItemManager {
   private scene: Phaser.Scene;
   private selector: Phaser.GameObjects.Rectangle | null;
-  private toolName: Phaser.GameObjects.Text | null;
+  private itemName: Phaser.GameObjects.Text | null;
 
-  public selectedTool: Tool | null;
-  private tools: Tool[] = [];
+  public selectedItem: Item | null;
+  private items: Item[] = [];
   private hoe: Hoe | null;
   private seed: Seed | null;
   private travel: Travel | null;
@@ -22,24 +22,24 @@ export default class ToolboxManager {
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.hoe = new Hoe(this.scene);
-    this.seed = new Seed(this.scene);
+    this.seed = new Seed(this.scene, 10);
     this.travel = new Travel(this.scene);
-    this.wateringCan = new WateringCan(this.scene);
-    this.selectedTool = this.hoe;
+    this.wateringCan = new WateringCan(this.scene, 45);
+    this.selectedItem = this.hoe;
     this.selector = null;
-    this.toolName = null;
-    this.tools = [this.hoe, this.seed, this.travel, this.wateringCan];
+    this.itemName = null;
+    this.items = [this.hoe, this.seed, this.travel, this.wateringCan];
   }
 
   public initialize() {
-    this.drawToolName();
+    this.drawItemName();
     this.drawToolbox();
     this.hoe?.initialize();
     this.seed?.initialize();
     this.travel?.initialize();
     this.wateringCan?.initialize();
-    this.drawToolSelector();
-    this.initializeToolSelector();
+    this.drawItemSelector();
+    this.initializeItemSelector();
   }
 
   private drawToolbox() {
@@ -54,7 +54,7 @@ export default class ToolboxManager {
     });
   }
 
-  private drawToolSelector() {
+  private drawItemSelector() {
     this.selector = this.scene.add
       .rectangle(
         0,
@@ -68,7 +68,7 @@ export default class ToolboxManager {
     this.selector.setScrollFactor(0);
   }
 
-  private initializeToolSelector() {
+  private initializeItemSelector() {
     this.scene.input.on("pointerdown", (pointer: any) => {
       if (!this.selector) return;
 
@@ -77,14 +77,15 @@ export default class ToolboxManager {
 
       if (x !== 0) return;
       this.selector.y = y * Constants.TILE_DISPLAY_SIZE;
-      this.selectedTool = this.tools?.[y];
+      this.selectedItem = this.items?.[y];
 
-      if (!this.toolName || !this.selectedTool) return;
-      this.toolName.text = this.selectedTool.name;
+      if (!this.itemName || !this.selectedItem) return;
+      this.itemName.text =
+        `${this.selectedItem.name} (${this.selectedItem.quantity})` ?? "";
     });
   }
 
-  private drawToolName() {
+  private drawItemName() {
     const marker = this.scene.add
       .image(
         Constants.TILE_DISPLAY_SIZE,
@@ -96,19 +97,24 @@ export default class ToolboxManager {
     marker.setScrollFactor(0);
     marker.scale = 2;
 
-    this.toolName = this.scene.add.text(
+    this.itemName = this.scene.add.text(
       Constants.TILE_DISPLAY_SIZE * 3,
       Constants.HEIGHT -
         Constants.TILE_DISPLAY_SIZE +
         Constants.TILE_DISPLAY_SIZE / 2,
-      this.selectedTool?.name ?? "",
+      `${this.selectedItem?.name} (${this.selectedItem?.quantity})` ?? "",
       {
         fontSize: "12px",
         fontFamily: "Arial",
         color: "#000000",
       }
     );
-    this.toolName.setOrigin(0.5, 0.5);
-    this.toolName.setScrollFactor(0);
+    this.itemName.setOrigin(0.5, 0.5);
+    this.itemName.setScrollFactor(0);
+  }
+
+  public updateItemQuantity(item: Item) {
+    if (!this.itemName) return;
+    this.itemName.text = `${item.name} (${item.quantity})`;
   }
 }

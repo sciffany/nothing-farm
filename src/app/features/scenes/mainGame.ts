@@ -2,10 +2,10 @@ import { Constants } from "../constants";
 import DayManager from "../managers/DayManager";
 import MoneyManager from "../managers/MoneyManager";
 import TileManager from "../managers/TileManager";
-import ToolboxManager from "../managers/ToolboxManager";
+import ItemManager from "../managers/ItemManager";
 
 export default class MainGame extends Phaser.Scene {
-  public toolboxManager?: ToolboxManager;
+  public itemManager?: ItemManager;
   public dayManager?: DayManager;
   public moneyManager?: MoneyManager;
   public tileManager?: TileManager;
@@ -16,7 +16,6 @@ export default class MainGame extends Phaser.Scene {
 
   preload() {
     // Load tilemap and tileset
-
     this.load.tilemapTiledJSON("tilemap", "assets/nothing_farm.json");
     this.load.image("all_tiles", "assets/all_tiles2.png");
     this.load.spritesheet("tools", "assets/tools.png", {
@@ -35,7 +34,7 @@ export default class MainGame extends Phaser.Scene {
   }
 
   create() {
-    this.toolboxManager = new ToolboxManager(this);
+    this.itemManager = new ItemManager(this);
     this.dayManager = new DayManager(this);
     this.moneyManager = new MoneyManager(this);
     this.tileManager = new TileManager(this);
@@ -43,7 +42,7 @@ export default class MainGame extends Phaser.Scene {
     // Draw game elements
     this.addCamera();
     this.drawBackground();
-    this.toolboxManager.initialize();
+    this.itemManager.initialize();
     this.dayManager.initialize();
     this.moneyManager.initialize();
     this.addInteraction();
@@ -88,7 +87,7 @@ export default class MainGame extends Phaser.Scene {
       if (
         pointer.middleButtonDown() ||
         (pointer.leftButtonDown() &&
-          this.toolboxManager?.selectedTool?.name === "Travel")
+          this.itemManager?.selectedItem?.name === "Travel")
       ) {
         this.input.on("pointermove", (pointer: any) => {
           this.cameras.main.scrollX -= pointer.x - pointer.prevPosition.x;
@@ -106,8 +105,9 @@ export default class MainGame extends Phaser.Scene {
     // Add interaction
     this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
       const [tileX, tileY] = this.getTileCoordinates();
+      if (tileX === 0) return;
 
-      this.toolboxManager?.selectedTool?.use(tileX, tileY);
+      this.itemManager?.selectedItem?.use(tileX, tileY);
     });
   }
 

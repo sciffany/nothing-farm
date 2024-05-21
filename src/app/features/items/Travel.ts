@@ -1,8 +1,8 @@
-import Tool from "./Tool";
+import Item from "./Item";
 
 const TRAVEL_FRAME = 6;
 
-export default class Travel extends Tool {
+export default class Travel extends Item {
   constructor(scene: Phaser.Scene) {
     super(scene, "Travel");
   }

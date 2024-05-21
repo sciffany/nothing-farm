@@ -1,12 +1,12 @@
 import { TileType } from "../managers/TileManager";
 import MainGame from "../scenes/mainGame";
-import Tool from "./Tool";
+import Item from "./Item";
 
 const WATERING_CAN_FRAME = 1;
 
-export default class WateringCan extends Tool {
-  constructor(scene: Phaser.Scene) {
-    super(scene, "Watering Can");
+export default class WateringCan extends Item {
+  constructor(scene: Phaser.Scene, quantity: number) {
+    super(scene, "Watering Can", quantity);
   }
 
   public initialize() {
@@ -20,6 +20,7 @@ export default class WateringCan extends Tool {
   }
 
   public use(x: number, y: number) {
+    this.useUp();
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (tile?.getType() === TileType.TILLED) {
       tile?.changeType(TileType.WATERED);

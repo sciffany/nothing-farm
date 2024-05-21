@@ -1,10 +1,10 @@
-import Tool from "./Tool";
+import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TileType } from "../managers/TileManager";
 
 const HOE_FRAME = 0;
 
-export default class Hoe extends Tool {
+export default class Hoe extends Item {
   constructor(scene: Phaser.Scene) {
     super(scene, "Hoe");
   }

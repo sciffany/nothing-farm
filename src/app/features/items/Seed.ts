@@ -1,12 +1,12 @@
-import Tool from "./Tool";
+import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
 
 const SEED_FRAME = 5;
 
-export default class Seed extends Tool {
-  constructor(scene: Phaser.Scene) {
-    super(scene, "Seed");
+export default class Seed extends Item {
+  constructor(scene: Phaser.Scene, quantity: number = 1) {
+    super(scene, "Seed", quantity);
   }
 
   public initialize() {
@@ -20,6 +20,7 @@ export default class Seed extends Tool {
   }
 
   public use(x: number, y: number) {
+    this.useUp();
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (
       tile?.getType() === TileType.TILLED ||
