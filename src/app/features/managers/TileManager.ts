@@ -30,6 +30,7 @@ export class Tile {
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
   private tilePlantSprite: Phaser.GameObjects.Sprite | null = null;
   private scene: Phaser.Scene;
+  private plantType: PlantType | null = null;
 
   constructor(scene: Phaser.Scene, x: number, y: number, design: number) {
     this.x = x;
@@ -60,6 +61,30 @@ export class Tile {
     }
   }
 
+  public nextDay() {
+    if (
+      this.plantStage === TilePlantStage.SEEDED &&
+      this.type === TileType.WATERED
+    ) {
+      this.changePlantStage(this.plantType!, TilePlantStage.GROWN_STAGE_1);
+    } else if (
+      this.plantStage === TilePlantStage.GROWN_STAGE_1 &&
+      this.type === TileType.WATERED
+    ) {
+      this.changePlantStage(this.plantType!, TilePlantStage.GROWN_STAGE_2);
+    } else if (
+      this.plantStage === TilePlantStage.GROWN_STAGE_2 &&
+      this.type === TileType.WATERED
+    ) {
+      this.changePlantStage(this.plantType!, TilePlantStage.GROWN_STAGE_3);
+    } else if (
+      this.plantStage === TilePlantStage.GROWN_STAGE_3 &&
+      this.type === TileType.WATERED
+    ) {
+      this.changePlantStage(this.plantType!, TilePlantStage.GROWN_STAGE_4);
+    }
+  }
+
   public changeType(type: TileType) {
     this.type = type;
     if (this.tileSprite) {
@@ -82,6 +107,7 @@ export class Tile {
   }
 
   public changePlantStage(plantType: PlantType, plantStage: TilePlantStage) {
+    this.plantType = plantType;
     this.plantStage = plantStage;
     const plantFrame =
       plantStage - 1 + (Object.keys(TilePlantStage).length / 2 - 1) * plantType;
@@ -120,6 +146,7 @@ export class Tile {
 
 export default class TileManager {
   private tileMap: Array<Array<Tile>>;
+  private occupiedTileList: Array<Tile> = [];
   private scene: Phaser.Scene;
 
   constructor(scene: Phaser.Scene) {
@@ -142,5 +169,15 @@ export default class TileManager {
 
   public getTile(x: number, y: number) {
     return this.tileMap[y][x];
+  }
+
+  public nextDay() {
+    this.occupiedTileList.forEach((tile) => {
+      tile?.nextDay();
+    });
+  }
+
+  public addTile(tile: Tile) {
+    this.occupiedTileList.push(tile);
   }
 }

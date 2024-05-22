@@ -1,4 +1,5 @@
 import { Constants } from "../constants";
+import MainGame from "../scenes/mainGame";
 
 export default class DayManager {
   private scene: Phaser.Scene;
@@ -22,7 +23,7 @@ export default class DayManager {
     marker.setScrollFactor(0);
     marker.scale = 2;
 
-    const dayText = this.scene.add.text(
+    this.dayText = this.scene.add.text(
       Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
       Constants.TILE_DISPLAY_SIZE / 2,
       `Day ${this.day}`,
@@ -32,8 +33,8 @@ export default class DayManager {
         color: "#000000",
       }
     );
-    dayText.setOrigin(0.5, 0.5);
-    dayText.setScrollFactor(0);
+    this.dayText.setOrigin(0.5, 0.5);
+    this.dayText.setScrollFactor(0);
   }
 
   private drawNextButton() {
@@ -63,10 +64,19 @@ export default class DayManager {
       )
       .setOrigin(0.5, 0.5);
     nextDayText.setScrollFactor(0);
+
+    marker.setInteractive();
+    marker.on("pointerdown", () => {
+      this.nextDay();
+    });
   }
 
   public nextDay() {
     this.day += 1;
-    this.dayText?.setText(`Day ${this.day}`);
+
+    if (!this.dayText?.text) return;
+    this.dayText.text = `Day ${this.day}`;
+
+    (this.scene as MainGame).tileManager?.nextDay();
   }
 }

@@ -21,6 +21,8 @@ export default class Hoe extends Item {
 
   public use(x: number, y: number) {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
+    if (!tile) return;
+    (this.scene as MainGame).tileManager?.addTile(tile);
     if (tile?.getType() === TileType.GROUND) {
       tile?.changeType(TileType.TILLED);
     }
