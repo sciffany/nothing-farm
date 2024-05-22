@@ -14,11 +14,6 @@ export class BackgroundManager {
 
   public initialize(houseType: HouseType) {
     this.houseType = houseType;
-    console.log(
-      this.houseType,
-      HouseType.Home,
-      this.houseType == HouseType.Home
-    );
     if (this.houseType == HouseType.Farm) {
       const map = this.scene.make.tilemap({
         key: "tilemap",
