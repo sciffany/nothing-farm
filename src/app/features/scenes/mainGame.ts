@@ -3,12 +3,14 @@ import DayManager from "../managers/DayManager";
 import MoneyManager from "../managers/MoneyManager";
 import TileManager from "../managers/TileManager";
 import ItemManager from "../managers/ItemManager";
+import HouseManager from "../managers/HouseManager";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager?: ItemManager;
   public dayManager?: DayManager;
   public moneyManager?: MoneyManager;
   public tileManager?: TileManager;
+  public houseManager?: HouseManager;
 
   constructor() {
     super({ key: "MainGame" });
@@ -17,6 +19,10 @@ export default class MainGame extends Phaser.Scene {
   preload() {
     // Load tilemap and tileset
     this.load.tilemapTiledJSON("tilemap", "assets/nothing_farm.json");
+    this.load.spritesheet("houses", "assets/houses.png", {
+      frameWidth: Constants.TILESIZE * 4,
+      frameHeight: Constants.TILESIZE * 4,
+    });
     this.load.image("all_tiles", "assets/all_tiles2.png");
     this.load.spritesheet("tools", "assets/tools.png", {
       frameWidth: Constants.TILESIZE,
@@ -38,12 +44,14 @@ export default class MainGame extends Phaser.Scene {
     this.dayManager = new DayManager(this);
     this.moneyManager = new MoneyManager(this);
     this.tileManager = new TileManager(this);
+    this.houseManager = new HouseManager(this);
 
     // Draw game elements
     this.addCamera();
     this.drawBackground();
     this.itemManager.initialize();
     this.dayManager.initialize();
+    this.houseManager.initialize();
     this.moneyManager.initialize();
     this.addInteraction();
   }

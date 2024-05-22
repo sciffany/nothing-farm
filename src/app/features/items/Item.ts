@@ -22,7 +22,6 @@ export default abstract class Item {
 
   public addQuantity(quantity: number) {
     this.quantity += quantity;
-    (this.scene as MainGame).itemManager?.updateItemQuantity(this);
   }
 
   public moveToPosition(x: number, y: number) {
