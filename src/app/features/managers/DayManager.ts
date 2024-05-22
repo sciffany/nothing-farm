@@ -1,13 +1,14 @@
 import { Constants } from "../constants";
+import { NothingFarm } from "../game";
 import MainGame from "../scenes/mainGame";
 
 export default class DayManager {
-  private scene: Phaser.Scene;
+  private scene: MainGame;
   private day: number = 1;
 
   private dayText: Phaser.GameObjects.Text | null = null;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: MainGame) {
     this.scene = scene;
   }
 

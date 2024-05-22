@@ -31,4 +31,10 @@ export const NothingFarmSingleton = (function () {
   };
 })();
 
-class NothingFarm extends Phaser.Game {}
+export class NothingFarm extends Phaser.Game {
+  public activeScene: Phaser.Scene | null = null;
+
+  constructor(config: Phaser.Types.Core.GameConfig) {
+    super(config);
+  }
+}

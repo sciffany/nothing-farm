@@ -5,11 +5,12 @@ import Item from "../items/Item";
 import Travel from "../items/Travel";
 import WateringCan from "../items/WateringCan";
 import Hand from "../items/Hand";
+import MainGame from "../scenes/mainGame";
 
 const TOOLBOX_FRAME = 15;
 
 export default class ItemManager {
-  private scene: Phaser.Scene;
+  private scene: MainGame;
   private selector: Phaser.GameObjects.Rectangle | null;
   private itemName: Phaser.GameObjects.Text | null;
 
@@ -20,7 +21,7 @@ export default class ItemManager {
   private wateringCan: WateringCan | null;
   private hand: Hand | null;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: MainGame) {
     this.scene = scene;
     this.hoe = new Hoe(this.scene);
     const turnipSeeds = new Seed(this.scene, PlantType.TURNIP, 10);

@@ -3,17 +3,26 @@ import DayManager from "../managers/DayManager";
 import MoneyManager from "../managers/MoneyManager";
 import TileManager from "../managers/TileManager";
 import ItemManager from "../managers/ItemManager";
-import HouseManager from "../managers/HouseManager";
+import HouseManager, { HouseType } from "../managers/HouseManager";
+import { BackgroundManager } from "../managers/BackgroundManager";
 
 export default class MainGame extends Phaser.Scene {
-  public itemManager?: ItemManager;
-  public dayManager?: DayManager;
-  public moneyManager?: MoneyManager;
-  public tileManager?: TileManager;
-  public houseManager?: HouseManager;
+  public itemManager: ItemManager;
+  public dayManager: DayManager;
+  public moneyManager: MoneyManager;
+  public tileManager: TileManager;
+  public houseManager: HouseManager;
+  public backgroundManager: BackgroundManager;
+  public currLoc: HouseType = HouseType.Farm;
 
   constructor() {
     super({ key: "MainGame" });
+    this.backgroundManager = new BackgroundManager(this);
+    this.houseManager = new HouseManager(this);
+    this.itemManager = new ItemManager(this);
+    this.dayManager = new DayManager(this);
+    this.moneyManager = new MoneyManager(this);
+    this.tileManager = new TileManager(this);
   }
 
   preload() {
@@ -25,6 +34,7 @@ export default class MainGame extends Phaser.Scene {
       margin: 1,
       spacing: 2,
     });
+    this.load.image("home", "assets/home.png");
     this.load.image("all_tiles", "assets/all_tiles2.png");
     this.load.spritesheet("tools", "assets/tools.png", {
       frameWidth: Constants.TILESIZE,
@@ -42,45 +52,23 @@ export default class MainGame extends Phaser.Scene {
   }
 
   create() {
-    this.itemManager = new ItemManager(this);
-    this.dayManager = new DayManager(this);
-    this.moneyManager = new MoneyManager(this);
-    this.tileManager = new TileManager(this);
-    this.houseManager = new HouseManager(this);
-
     // Draw game elements
+    this.input.setDefaultCursor("url(assets/hand.cur), pointer");
     this.addCamera();
-    this.drawBackground();
+    this.backgroundManager.initialize(HouseType.Farm);
+    this.houseManager.initialize(HouseType.Farm);
     this.itemManager.initialize();
-    this.dayManager.initialize();
-    this.houseManager.initialize();
     this.moneyManager.initialize();
+    this.dayManager.initialize();
     this.addInteraction();
   }
 
-  private drawBackground() {
-    const map = this.make.tilemap({
-      key: "tilemap",
-    });
-    this.input.setDefaultCursor("url(assets/hand.cur), pointer");
-    // https://github.com/sporadic-labs/tile-extruder
-    const tileset = map.addTilesetImage(
-      "all_tiles",
-      "all_tiles",
-      Constants.TILESIZE,
-      Constants.TILESIZE,
-      1,
-      2
-    );
-    if (!tileset) return;
-
-    const grassLayer = map.createLayer("Grass", tileset);
-    if (!grassLayer) return;
-    grassLayer.scale = 2;
-
-    const houseLayer = map.createLayer("House", tileset);
-    if (!houseLayer) return;
-    houseLayer.scale = 2;
+  public changeLocation(houseType: HouseType) {
+    this.currLoc = houseType;
+    this.backgroundManager.destroy();
+    this.backgroundManager.initialize(houseType);
+    this.houseManager.destroy();
+    this.houseManager.initialize(houseType);
   }
 
   private addCamera() {

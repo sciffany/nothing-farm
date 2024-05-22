@@ -1,6 +1,7 @@
 import { Constants } from "../constants";
 import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import { PlantType } from "../items/Seed";
+import MainGame from "../scenes/mainGame";
 
 export enum TileType {
   PLAIN,
@@ -29,10 +30,10 @@ export class Tile {
   public plantStage: TilePlantStage;
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
   private tilePlantSprite: Phaser.GameObjects.Sprite | null = null;
-  private scene: Phaser.Scene;
+  private scene: MainGame;
   public plantType: PlantType = PlantType.TURNIP;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, design: number) {
+  constructor(scene: MainGame, x: number, y: number, design: number) {
     this.x = x;
     this.y = y;
     this.scene = scene;
@@ -162,9 +163,9 @@ export class Tile {
 export default class TileManager {
   private tileMap: Array<Array<Tile>>;
   private occupiedTileList: Array<Tile> = [];
-  private scene: Phaser.Scene;
+  private scene: MainGame;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: MainGame) {
     this.scene = scene;
     this.tileMap = Array(Constants.MAP_HEIGHT)
       .fill(0)
