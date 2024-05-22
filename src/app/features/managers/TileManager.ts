@@ -1,5 +1,6 @@
 import { Constants } from "../constants";
 import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
+import { PlantType } from "../items/Seed";
 
 export enum TileType {
   PLAIN,
@@ -17,6 +18,7 @@ export enum TilePlantStage {
   GROWN_STAGE_2,
   GROWN_STAGE_3,
   GROWN_STAGE_4,
+  HARVESTED,
   WITHERED,
 }
 
@@ -79,21 +81,25 @@ export class Tile {
     }
   }
 
-  public changePlantStage(plantStage: TilePlantStage) {
+  public changePlantStage(plantType: PlantType, plantStage: TilePlantStage) {
     this.plantStage = plantStage;
-    this.tilePlantSprite?.destroy();
+    const plantFrame =
+      plantStage - 1 + (Object.keys(TilePlantStage).length / 2 - 1) * plantType;
+    if (this.tilePlantSprite) {
+      this.tilePlantSprite.setTexture("plants", plantFrame);
+    } else {
+      this.tilePlantSprite = this.scene.add.sprite(
+        this.x * Constants.TILE_DISPLAY_SIZE,
+        (this.y - 1) * Constants.TILE_DISPLAY_SIZE,
+        "plants",
+        plantFrame
+      );
 
-    this.tilePlantSprite = this.scene.add.sprite(
-      this.x * Constants.TILE_DISPLAY_SIZE,
-      (this.y - 1) * Constants.TILE_DISPLAY_SIZE,
-      "plants",
-      0
-    );
+      this.tilePlantSprite.setOrigin(0, 0);
 
-    this.tilePlantSprite.setOrigin(0, 0);
-
-    this.tilePlantSprite.scale = 2;
-    this.tilePlantSprite.z = 1;
+      this.tilePlantSprite.scale = 2;
+      this.tilePlantSprite.z = 1;
+    }
   }
 
   public typeToSpriteFrame(type: TileType) {

@@ -1,6 +1,6 @@
 import { Constants } from "../constants";
 import Hoe from "../items/Hoe";
-import Seed from "../items/Seed";
+import Seed, { PlantType } from "../items/Seed";
 import Item from "../items/Item";
 import Travel from "../items/Travel";
 import WateringCan from "../items/WateringCan";
@@ -22,13 +22,20 @@ export default class ItemManager {
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.hoe = new Hoe(this.scene);
-    this.seed = new Seed(this.scene, 10);
+    const turnipSeeds = new Seed(this.scene, PlantType.TURNIP, 10);
     this.travel = new Travel(this.scene);
     this.wateringCan = new WateringCan(this.scene, 45);
+    const tomatoSeeds = new Seed(this.scene, PlantType.TOMATO, 5);
     this.selectedItem = this.hoe;
     this.selector = null;
     this.itemName = null;
-    this.items = [this.hoe, this.seed, this.travel, this.wateringCan];
+    this.items = [
+      this.hoe,
+      turnipSeeds,
+      this.travel,
+      this.wateringCan,
+      tomatoSeeds,
+    ];
   }
 
   public initialize() {
