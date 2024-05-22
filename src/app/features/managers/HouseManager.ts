@@ -15,6 +15,10 @@ export const Houses = {
       location: { x: 1, y: 3 },
       spriteFrame: 0,
     },
+    [HouseType.Barn]: {
+      location: { x: 6, y: 0 },
+      spriteFrame: 1,
+    },
     [HouseType.Market]: {
       location: { x: 22, y: 8 },
       spriteFrame: 2,

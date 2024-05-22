@@ -34,6 +34,7 @@ export default class MainGame extends Phaser.Scene {
       margin: 1,
       spacing: 2,
     });
+    this.load.image("market", "assets/market4.png");
     this.load.image("home", "assets/home.png");
     this.load.image("all_tiles", "assets/all_tiles2.png");
     this.load.spritesheet("tools", "assets/tools.png", {

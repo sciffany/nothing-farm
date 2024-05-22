@@ -43,6 +43,10 @@ export class BackgroundManager {
       house.setOrigin(0, 0);
       house.scale = 2;
       this.sprites.push(house);
+    } else if (this.houseType == HouseType.Market) {
+      const market = this.scene.add.image(0, 0, "market");
+      market.setOrigin(0, 0);
+      this.sprites.push(market);
     }
   }
 
