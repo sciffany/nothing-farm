@@ -15,7 +15,6 @@ export default class ItemManager {
   public selectedItem: Item | null;
   private items: Item[] = [];
   private hoe: Hoe | null;
-  private seed: Seed | null;
   private travel: Travel | null;
   private wateringCan: WateringCan | null;
 
@@ -41,10 +40,7 @@ export default class ItemManager {
   public initialize() {
     this.drawItemName();
     this.drawToolbox();
-    this.hoe?.initialize();
-    this.seed?.initialize();
-    this.travel?.initialize();
-    this.wateringCan?.initialize();
+    this.items.map((item, index) => item.initialize(index));
     this.drawItemSelector();
     this.initializeItemSelector();
   }

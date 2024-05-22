@@ -9,14 +9,14 @@ export default class WateringCan extends Item {
     super(scene, "Watering Can", quantity);
   }
 
-  public initialize() {
+  public initialize(position: number) {
     this.sprite = this.scene.add
       .sprite(0, 0, "tools", WATERING_CAN_FRAME)
       .setOrigin(0, 0);
 
     this.sprite.scale = 2;
 
-    this.moveToPosition(0, 3);
+    this.moveToPosition(0, position);
   }
 
   public use(x: number, y: number) {

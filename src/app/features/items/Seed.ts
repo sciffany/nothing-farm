@@ -35,14 +35,14 @@ export default class Seed extends Item {
     this.plantType = plantType;
   }
 
-  public initialize() {
+  public initialize(position: number) {
     this.sprite = this.scene.add
       .sprite(0, 0, "tools", SEED_FRAME)
       .setOrigin(0, 0);
 
     this.sprite.scale = 2;
 
-    this.moveToPosition(0, 1);
+    this.moveToPosition(0, position);
 
     const plantFrame =
       TilePlantStage.SEEDED -
@@ -55,7 +55,7 @@ export default class Seed extends Item {
 
     this.sprite.scale = 2;
 
-    this.moveToPosition(0, 0);
+    this.moveToPosition(0, position - 1);
   }
 
   public use(x: number, y: number) {

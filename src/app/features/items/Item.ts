@@ -13,7 +13,7 @@ export default abstract class Item {
     this.quantity = quantity;
   }
 
-  abstract initialize(): void;
+  abstract initialize(index: number): void;
   abstract use(x: number, y: number): void;
   public useUp() {
     this.quantity--;
