@@ -4,6 +4,7 @@ import Seed, { PlantType } from "../items/Seed";
 import Item from "../items/Item";
 import Travel from "../items/Travel";
 import WateringCan from "../items/WateringCan";
+import Hand from "../items/Hand";
 
 const TOOLBOX_FRAME = 15;
 
@@ -17,6 +18,7 @@ export default class ItemManager {
   private hoe: Hoe | null;
   private travel: Travel | null;
   private wateringCan: WateringCan | null;
+  private hand: Hand | null;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -25,6 +27,7 @@ export default class ItemManager {
     this.travel = new Travel(this.scene);
     this.wateringCan = new WateringCan(this.scene, 45);
     const tomatoSeeds = new Seed(this.scene, PlantType.TOMATO, 5);
+    this.hand = new Hand(this.scene);
     this.selectedItem = this.hoe;
     this.selector = null;
     this.itemName = null;
@@ -34,6 +37,7 @@ export default class ItemManager {
       this.travel,
       this.wateringCan,
       tomatoSeeds,
+      this.hand,
     ];
   }
 
@@ -43,6 +47,17 @@ export default class ItemManager {
     this.items.map((item, index) => item.initialize(index));
     this.drawItemSelector();
     this.initializeItemSelector();
+  }
+
+  public addItem(item: Item) {
+    const existingItem = this.items.find((i) => i.name === item.name);
+    if (existingItem) {
+      existingItem.addQuantity(item.quantity);
+      return;
+    }
+
+    this.items.push(item);
+    item.initialize(this.items.length - 1);
   }
 
   private drawToolbox() {

@@ -30,7 +30,7 @@ export class Tile {
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
   private tilePlantSprite: Phaser.GameObjects.Sprite | null = null;
   private scene: Phaser.Scene;
-  private plantType: PlantType | null = null;
+  public plantType: PlantType = PlantType.TURNIP;
 
   constructor(scene: Phaser.Scene, x: number, y: number, design: number) {
     this.x = x;
@@ -62,26 +62,32 @@ export class Tile {
   }
 
   public nextDay() {
+    // grow plant
     if (
       this.plantStage === TilePlantStage.SEEDED &&
       this.type === TileType.WATERED
     ) {
-      this.changePlantStage(this.plantType!, TilePlantStage.GROWN_STAGE_1);
+      this.changePlantStage(TilePlantStage.GROWN_STAGE_1);
     } else if (
       this.plantStage === TilePlantStage.GROWN_STAGE_1 &&
       this.type === TileType.WATERED
     ) {
-      this.changePlantStage(this.plantType!, TilePlantStage.GROWN_STAGE_2);
+      this.changePlantStage(TilePlantStage.GROWN_STAGE_2);
     } else if (
       this.plantStage === TilePlantStage.GROWN_STAGE_2 &&
       this.type === TileType.WATERED
     ) {
-      this.changePlantStage(this.plantType!, TilePlantStage.GROWN_STAGE_3);
+      this.changePlantStage(TilePlantStage.GROWN_STAGE_3);
     } else if (
       this.plantStage === TilePlantStage.GROWN_STAGE_3 &&
       this.type === TileType.WATERED
     ) {
-      this.changePlantStage(this.plantType!, TilePlantStage.GROWN_STAGE_4);
+      this.changePlantStage(TilePlantStage.GROWN_STAGE_4);
+    }
+
+    // unwater tile
+    if (this.type === TileType.WATERED) {
+      this.changeType(TileType.TILLED);
     }
   }
 
@@ -106,32 +112,41 @@ export class Tile {
     }
   }
 
-  public changePlantStage(plantType: PlantType, plantStage: TilePlantStage) {
-    this.plantType = plantType;
+  public changePlantStage(plantStage: TilePlantStage, plantType?: PlantType) {
+    if (plantType) {
+      this.plantType = plantType;
+    }
     this.plantStage = plantStage;
-    const plantFrame =
-      plantStage - 1 + (Object.keys(TilePlantStage).length / 2 - 1) * plantType;
-    if (this.tilePlantSprite) {
-      this.tilePlantSprite.setTexture("plants", plantFrame);
+
+    if (this.plantStage === TilePlantStage.NONE) {
+      this.tilePlantSprite?.destroy();
     } else {
-      this.tilePlantSprite = this.scene.add.sprite(
-        this.x * Constants.TILE_DISPLAY_SIZE,
-        (this.y - 1) * Constants.TILE_DISPLAY_SIZE,
-        "plants",
-        plantFrame
-      );
+      const plantFrame =
+        plantStage -
+        1 +
+        (Object.keys(TilePlantStage).length / 2 - 1) * this.plantType!;
 
-      this.tilePlantSprite.setOrigin(0, 0);
+      if (this.tilePlantSprite) {
+        this.tilePlantSprite.setTexture("plants", plantFrame);
+      } else {
+        this.tilePlantSprite = this.scene.add.sprite(
+          this.x * Constants.TILE_DISPLAY_SIZE,
+          (this.y - 1) * Constants.TILE_DISPLAY_SIZE,
+          "plants",
+          plantFrame
+        );
 
-      this.tilePlantSprite.scale = 2;
-      this.tilePlantSprite.z = 1;
+        this.tilePlantSprite.setOrigin(0, 0);
+
+        this.tilePlantSprite.scale = 2;
+      }
     }
   }
 
   public typeToSpriteFrame(type: TileType) {
     switch (type) {
       case TileType.PLAIN:
-        return 0;
+        return 8;
       case TileType.TILLED:
         return 5;
       case TileType.WATERED:

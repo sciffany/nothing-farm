@@ -20,6 +20,11 @@ export default abstract class Item {
     (this.scene as MainGame).itemManager?.updateItemQuantity(this);
   }
 
+  public addQuantity(quantity: number) {
+    this.quantity += quantity;
+    (this.scene as MainGame).itemManager?.updateItemQuantity(this);
+  }
+
   public moveToPosition(x: number, y: number) {
     if (!this.sprite) return;
     this.sprite.setScrollFactor(0);
