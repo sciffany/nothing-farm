@@ -67,6 +67,7 @@ export default class HouseManager {
         marker.setOrigin(0, 0);
         marker.setScale(2);
         marker.scaleX *= 0.5;
+        marker.setAlpha(0.1);
         sprite = marker;
       }
       sprite.setInteractive();

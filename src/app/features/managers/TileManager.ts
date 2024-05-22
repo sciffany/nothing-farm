@@ -2,6 +2,8 @@ import { Constants } from "../constants";
 import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import { PlantType } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
+import { HouseType } from "./HouseManager";
+import { initialize } from "next/dist/server/lib/render-server";
 
 export enum TileType {
   PLAIN,
@@ -108,9 +110,19 @@ export class Tile {
       );
 
       this.tileSprite.setOrigin(0, 0);
-
+      this.tileSprite.depth = 1;
       this.tileSprite.scale = 2;
     }
+  }
+
+  public hide() {
+    this.tilePlantSprite?.setAlpha(0);
+    this.tileSprite?.setAlpha(0);
+  }
+
+  public show() {
+    this.tilePlantSprite?.setAlpha(1);
+    this.tileSprite?.setAlpha(1);
   }
 
   public changePlantStage(plantStage: TilePlantStage, plantType?: PlantType) {
@@ -138,6 +150,7 @@ export class Tile {
         );
 
         this.tilePlantSprite.setOrigin(0, 0);
+        this.tilePlantSprite.depth = 1;
 
         this.tilePlantSprite.scale = 2;
       }
@@ -161,39 +174,63 @@ export class Tile {
 }
 
 export default class TileManager {
-  private tileMap: Array<Array<Tile>>;
-  private occupiedTileList: Array<Tile> = [];
+  private currLoc: HouseType = HouseType.Farm;
+  private currentTileMap?: Array<Array<Tile>>;
+  private tileMap: { [houseType: string]: Array<Array<Tile>> };
+  private occupiedTileList: { [houseType: string]: Array<Tile> } = {};
   private scene: MainGame;
+  private sprites: Phaser.GameObjects.GameObject[] = [];
 
   constructor(scene: MainGame) {
     this.scene = scene;
-    this.tileMap = Array(Constants.MAP_HEIGHT)
-      .fill(0)
-      .map((_, y) =>
-        Array(Constants.MAP_WIDTH)
-          .fill(0)
-          .map((_, x) => {
-            return new Tile(
-              scene,
-              x,
-              y,
-              nothingFarmJson.layers[0].data[Constants.MAP_WIDTH * y + x]
-            );
-          })
-      );
+    this.tileMap = {
+      [HouseType.Farm]: Array(Constants.MAP_HEIGHT)
+        .fill(0)
+        .map((_, y) =>
+          Array(Constants.MAP_WIDTH)
+            .fill(0)
+            .map((_, x) => {
+              return new Tile(
+                scene,
+                x,
+                y,
+                nothingFarmJson.layers[0].data[Constants.MAP_WIDTH * y + x]
+              );
+            })
+        ),
+    };
+  }
+
+  public initialize(currLoc: HouseType) {
+    this.currLoc = currLoc;
+    this.currentTileMap = this.tileMap[currLoc];
+
+    if (this.occupiedTileList[this.currLoc]) {
+      this.occupiedTileList[this.currLoc].forEach((tile) => {
+        tile.show();
+      });
+    } else {
+      this.occupiedTileList[this.currLoc] = [];
+    }
+  }
+
+  public destroy() {
+    this.occupiedTileList[this.currLoc].forEach((tile) => {
+      tile.hide();
+    });
   }
 
   public getTile(x: number, y: number) {
-    return this.tileMap[y][x];
+    return this.currentTileMap?.[y][x];
   }
 
   public nextDay() {
-    this.occupiedTileList.forEach((tile) => {
+    this.occupiedTileList[this.currLoc].forEach((tile) => {
       tile?.nextDay();
     });
   }
 
   public addTile(tile: Tile) {
-    this.occupiedTileList.push(tile);
+    this.occupiedTileList[this.currLoc]?.push(tile);
   }
 }

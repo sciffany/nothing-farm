@@ -57,6 +57,7 @@ export default class MainGame extends Phaser.Scene {
     this.addCamera();
     this.backgroundManager.initialize(HouseType.Farm);
     this.houseManager.initialize(HouseType.Farm);
+    this.tileManager.initialize(HouseType.Farm);
     this.itemManager.initialize();
     this.moneyManager.initialize();
     this.dayManager.initialize();
@@ -69,6 +70,8 @@ export default class MainGame extends Phaser.Scene {
     this.backgroundManager.initialize(houseType);
     this.houseManager.destroy();
     this.houseManager.initialize(houseType);
+    this.tileManager.destroy();
+    this.tileManager.initialize(houseType);
   }
 
   private addCamera() {

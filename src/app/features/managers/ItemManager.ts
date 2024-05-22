@@ -66,6 +66,7 @@ export default class ItemManager {
       const box = this.scene.add
         .sprite(0, 0, "tools", TOOLBOX_FRAME)
         .setOrigin(0, 0);
+      box.depth = 1;
       box.y = Constants.TILE_DISPLAY_SIZE * i;
       box.scale = 2;
       box.setScrollFactor(0);
@@ -84,6 +85,7 @@ export default class ItemManager {
       )
       .setOrigin(0, 0);
     this.selector.alpha = 0.2;
+    this.selector.depth = 1;
     this.selector.setScrollFactor(0);
   }
 
@@ -113,6 +115,7 @@ export default class ItemManager {
         0
       )
       .setOrigin(0, 0);
+    marker.depth = 1;
     marker.setScrollFactor(0);
     marker.scale = 2;
 
@@ -128,6 +131,7 @@ export default class ItemManager {
         color: "#000000",
       }
     );
+    this.itemName.depth = 1;
     this.itemName.setOrigin(0.5, 0.5);
     this.itemName.setScrollFactor(0);
   }

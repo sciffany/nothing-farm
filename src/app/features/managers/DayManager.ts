@@ -22,6 +22,7 @@ export default class DayManager {
       .image(Constants.WIDTH - 4 * Constants.TILE_DISPLAY_SIZE, 0, "marker", 0)
       .setOrigin(0, 0);
     marker.setScrollFactor(0);
+    marker.depth = 1;
     marker.scale = 2;
 
     this.dayText = this.scene.add.text(
@@ -34,6 +35,7 @@ export default class DayManager {
         color: "#000000",
       }
     );
+    this.dayText.depth = 1;
     this.dayText.setOrigin(0.5, 0.5);
     this.dayText.setScrollFactor(0);
   }
@@ -48,6 +50,7 @@ export default class DayManager {
       )
       .setOrigin(0, 0);
 
+    marker.depth = 1;
     marker.scale = 2;
 
     marker.setScrollFactor(0);
@@ -64,6 +67,7 @@ export default class DayManager {
         }
       )
       .setOrigin(0.5, 0.5);
+    nextDayText.depth = 1;
     nextDayText.setScrollFactor(0);
 
     marker.setInteractive();

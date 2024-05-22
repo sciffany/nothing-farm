@@ -15,6 +15,7 @@ export default class WateringCan extends Item {
       .setOrigin(0, 0);
 
     this.sprite.scale = 2;
+    this.sprite.depth = 1;
 
     this.moveToPosition(0, position);
   }
