@@ -29,8 +29,8 @@ export default class DayManager {
       Constants.TILE_DISPLAY_SIZE / 2,
       `Day ${this.day}`,
       {
-        fontSize: "16px",
-        fontFamily: "Georgia",
+        fontSize: "12px",
+        fontFamily: "joystix",
         color: "#000000",
       }
     );
@@ -59,8 +59,8 @@ export default class DayManager {
         Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE / 2,
         "Next Day",
         {
-          fontSize: "16px",
-          fontFamily: "Georgia",
+          fontSize: "12px",
+          fontFamily: "joystix",
           color: "#000000",
         }
       )

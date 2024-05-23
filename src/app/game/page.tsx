@@ -3,6 +3,7 @@
 import Phaser from "phaser";
 import { useEffect } from "react";
 import { NothingFarmSingleton } from "../features/game";
+import "./page.css";
 
 export default function App() {
   useEffect(() => {
@@ -10,8 +11,19 @@ export default function App() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="game-display"></div>
-    </div>
+    <>
+      <div
+        style={{
+          fontFamily: "joystix",
+          visibility: "hidden",
+          position: "absolute",
+        }}
+      >
+        .
+      </div>
+      <div className='flex justify-center items-center'>
+        <div className='game-display'></div>
+      </div>
+    </>
   );
 }

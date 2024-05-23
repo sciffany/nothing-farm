@@ -125,8 +125,8 @@ export default class ItemManager {
         Constants.TILE_DISPLAY_SIZE / 2,
       `${this.selectedItem?.name} (${this.selectedItem?.quantity})` ?? "",
       {
-        fontSize: "16px",
-        fontFamily: "Georgia",
+        fontSize: "12px",
+        fontFamily: "joystix",
         color: "#000000",
       }
     );

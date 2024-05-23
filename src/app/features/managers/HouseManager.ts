@@ -58,6 +58,7 @@ export default class HouseManager {
           spriteFrame
         );
         houseSprite.setOrigin(0, 0);
+        houseSprite.setScale(2);
         sprite = houseSprite;
       } else {
         // Invisible marker that leads to the location
@@ -68,7 +69,6 @@ export default class HouseManager {
           0
         );
         marker.setOrigin(0, 0);
-        marker.setScale(2);
         marker.scaleX *= 0.5;
         marker.setAlpha(0.1);
         sprite = marker;

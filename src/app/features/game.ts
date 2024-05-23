@@ -11,6 +11,7 @@ const config = {
     mode: Phaser.Scale.FIT,
     parent: "game-display",
   },
+  pixelArt: true,
 };
 
 export const NothingFarmSingleton = (function () {
