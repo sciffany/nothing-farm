@@ -68,7 +68,7 @@ export default class ItemManager {
         .setOrigin(0, 0);
       box.depth = 1;
       box.y = Constants.TILE_DISPLAY_SIZE * i;
-      box.scale = 2;
+      // box.scale = 2;
       box.setScrollFactor(0);
       return box;
     });
@@ -117,7 +117,6 @@ export default class ItemManager {
       .setOrigin(0, 0);
     marker.depth = 1;
     marker.setScrollFactor(0);
-    marker.scale = 2;
 
     this.itemName = this.scene.add.text(
       Constants.TILE_DISPLAY_SIZE * 3,
@@ -126,8 +125,8 @@ export default class ItemManager {
         Constants.TILE_DISPLAY_SIZE / 2,
       `${this.selectedItem?.name} (${this.selectedItem?.quantity})` ?? "",
       {
-        fontSize: "12px",
-        fontFamily: "Arial",
+        fontSize: "16px",
+        fontFamily: "Georgia",
         color: "#000000",
       }
     );

@@ -111,7 +111,7 @@ export class Tile {
 
       this.tileSprite.setOrigin(0, 0);
       this.tileSprite.depth = 1;
-      this.tileSprite.scale = 2;
+      // this.tileSprite.scale = 2;
     }
   }
 
@@ -152,7 +152,7 @@ export class Tile {
         this.tilePlantSprite.setOrigin(0, 0);
         this.tilePlantSprite.depth = 1;
 
-        this.tilePlantSprite.scale = 2;
+        // this.tilePlantSprite.scale = 2;
       }
     }
   }

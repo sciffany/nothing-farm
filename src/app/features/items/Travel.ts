@@ -12,7 +12,7 @@ export default class Travel extends Item {
       .sprite(0, 0, "tools", TRAVEL_FRAME)
       .setOrigin(0, 0);
 
-    this.sprite.scale = 2;
+    // this.sprite.scale = 2;
     this.sprite.depth = 1;
 
     this.moveToPosition(0, position);

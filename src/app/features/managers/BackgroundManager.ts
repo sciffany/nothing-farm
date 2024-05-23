@@ -22,8 +22,8 @@ export class BackgroundManager {
       const tileset = map.addTilesetImage(
         "all_tiles",
         "all_tiles",
-        Constants.TILESIZE,
-        Constants.TILESIZE,
+        Constants.TILESIZE * 2,
+        Constants.TILESIZE * 2,
         1,
         2
       );

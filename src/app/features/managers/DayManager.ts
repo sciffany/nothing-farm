@@ -23,7 +23,6 @@ export default class DayManager {
       .setOrigin(0, 0);
     marker.setScrollFactor(0);
     marker.depth = 1;
-    marker.scale = 2;
 
     this.dayText = this.scene.add.text(
       Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
@@ -31,7 +30,7 @@ export default class DayManager {
       `Day ${this.day}`,
       {
         fontSize: "16px",
-        fontFamily: "Arial",
+        fontFamily: "Georgia",
         color: "#000000",
       }
     );
@@ -51,7 +50,6 @@ export default class DayManager {
       .setOrigin(0, 0);
 
     marker.depth = 1;
-    marker.scale = 2;
 
     marker.setScrollFactor(0);
 
@@ -62,7 +60,7 @@ export default class DayManager {
         "Next Day",
         {
           fontSize: "16px",
-          fontFamily: "Arial",
+          fontFamily: "Georgia",
           color: "#000000",
         }
       )

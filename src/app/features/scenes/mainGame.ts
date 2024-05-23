@@ -28,26 +28,28 @@ export default class MainGame extends Phaser.Scene {
   preload() {
     // Load tilemap and tileset
     this.load.tilemapTiledJSON("tilemap", "assets/nothing_farm.json");
-    this.load.spritesheet("houses", "assets/houses2.png", {
-      frameWidth: Constants.TILESIZE * 4,
-      frameHeight: Constants.TILESIZE * 4,
-      margin: 1,
-      spacing: 2,
+    this.load.spritesheet("houses", "assets/houses3.png", {
+      frameWidth: Constants.TILESIZE * 8,
+      frameHeight: Constants.TILESIZE * 8,
+      margin: 2,
+      spacing: 4,
     });
     this.load.image("market", "assets/market4.png");
     this.load.image("home", "assets/home.png");
-    this.load.image("all_tiles", "assets/all_tiles2.png");
-    this.load.spritesheet("tools", "assets/tools.png", {
-      frameWidth: Constants.TILESIZE,
-      frameHeight: Constants.TILESIZE,
-    });
-    this.load.spritesheet("plants", "assets/plants.png", {
-      frameWidth: Constants.TILESIZE,
+    this.load.image("all_tiles", "assets/all_tilesx2_2.png");
+    this.load.spritesheet("tools", "assets/tools2.png", {
+      frameWidth: Constants.TILESIZE * 2,
       frameHeight: Constants.TILESIZE * 2,
     });
-    this.load.spritesheet("all_tiles_sprite", "assets/all_tiles.png", {
-      frameWidth: Constants.TILESIZE,
-      frameHeight: Constants.TILESIZE,
+    this.load.spritesheet("plants", "assets/plants.png", {
+      frameWidth: Constants.TILESIZE * 2,
+      frameHeight: Constants.TILESIZE * 4,
+    });
+    this.load.spritesheet("all_tiles_sprite", "assets/all_tilesx2_2.png", {
+      frameWidth: Constants.TILESIZE * 2,
+      frameHeight: Constants.TILESIZE * 2,
+      margin: 1,
+      spacing: 2,
     });
     this.load.image("marker", "assets/marker.png");
   }

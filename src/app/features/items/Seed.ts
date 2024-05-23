@@ -41,24 +41,24 @@ export default class Seed extends Item {
       .sprite(0, 0, "tools", SEED_FRAME)
       .setOrigin(0, 0);
 
-    this.sprite.scale = 2;
+    // this.sprite.scale = 2;
     this.sprite.depth = 1;
 
     this.moveToPosition(0, position);
 
-    const plantFrame =
-      TilePlantStage.SEEDED -
-      1 +
-      (Object.keys(TilePlantStage).length / 2 - 1) * this.plantType;
+    // const plantFrame =
+    //   TilePlantStage.HARVESTED -
+    //   1 +
+    //   (Object.keys(TilePlantStage).length / 2 - 1) * this.plantType;
 
-    this.sprite = this.scene.add
-      .sprite(0, 0, "plants", plantFrame)
-      .setOrigin(0, 0);
+    // this.sprite = this.scene.add
+    //   .sprite(0, 0, "plants", plantFrame)
+    //   .setOrigin(0, 0);
 
-    this.sprite.scale = 2;
-    this.sprite.depth = 1;
+    // this.sprite.scale = 2;
+    // this.sprite.depth = 1;
 
-    this.moveToPosition(0, position - 1);
+    // this.moveToPosition(0, position);
   }
 
   public use(x: number, y: number) {
