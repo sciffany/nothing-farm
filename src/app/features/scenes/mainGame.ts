@@ -3,9 +3,10 @@ import DayManager from "../managers/DayManager";
 import MoneyManager from "../managers/MoneyManager";
 import TileManager from "../managers/TileManager";
 import ItemManager from "../managers/ItemManager";
-import HouseManager, { HouseType } from "../managers/HouseManager";
+import HouseManager from "../managers/HouseManager";
 import { BackgroundManager } from "../managers/BackgroundManager";
 import DialogueManager from "../managers/DialogueManager";
+import { HouseType } from "../houses";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager: ItemManager;
@@ -64,10 +65,10 @@ export default class MainGame extends Phaser.Scene {
     this.backgroundManager.initialize(HouseType.Farm);
     this.houseManager.initialize(HouseType.Farm);
     this.tileManager.initialize(HouseType.Farm);
+    this.dialogueManager.initialize(HouseType.Farm);
     this.itemManager.initialize();
     this.moneyManager.initialize();
     this.dayManager.initialize();
-    this.dialogueManager.initialize();
     this.addInteraction();
   }
 
@@ -79,6 +80,7 @@ export default class MainGame extends Phaser.Scene {
     this.houseManager.initialize(houseType);
     this.tileManager.destroy();
     this.tileManager.initialize(houseType);
+    this.dialogueManager.initialize(houseType);
   }
 
   private addCamera() {

@@ -1,6 +1,6 @@
 import { Constants } from "../constants";
+import { HouseType } from "../houses";
 import MainGame from "../scenes/mainGame";
-import { HouseType } from "./HouseManager";
 
 export class BackgroundManager {
   private scene: MainGame;
@@ -53,5 +53,7 @@ export class BackgroundManager {
   public destroy() {
     this.sprites.forEach((sprite) => sprite.destroy());
     this.tileMaps.forEach((tileMap) => tileMap.destroyLayer("Grass"));
+    this.sprites = [];
+    this.tileMaps = [];
   }
 }

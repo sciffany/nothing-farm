@@ -8,8 +8,8 @@ export const Constants = {
 };
 
 export enum Layer {
-  Background,
-  TilesAndHouses,
+  BACKGROUND,
+  TILES,
   UI,
-  Dialogue,
+  DIALOGUE,
 }

@@ -2,8 +2,8 @@ import { Constants, Layer } from "../constants";
 import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import { PlantType } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
-import { HouseType } from "./HouseManager";
 import { initialize } from "next/dist/server/lib/render-server";
+import { HouseType } from "../houses";
 
 export enum TileType {
   PLAIN,
@@ -110,7 +110,7 @@ export class Tile {
       );
 
       this.tileSprite.setOrigin(0, 0);
-      this.tileSprite.depth = Layer.TilesAndHouses;
+      this.tileSprite.depth = Layer.TILES;
       // this.tileSprite.scale = 2;
     }
   }
@@ -150,7 +150,7 @@ export class Tile {
         );
 
         this.tilePlantSprite.setOrigin(0, 0);
-        this.tilePlantSprite.depth = Layer.TilesAndHouses;
+        this.tilePlantSprite.depth = Layer.TILES;
       }
     }
   }

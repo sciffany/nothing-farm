@@ -1,4 +1,6 @@
 import { Constants, Layer } from "../constants";
+import { DIALOGUES, DialogueType, OutcomeType } from "../dialogues";
+import { HouseType, LOCATIONS } from "../houses";
 import MainGame from "../scenes/mainGame";
 
 export default class DialogueManager {
@@ -8,11 +10,20 @@ export default class DialogueManager {
     this.scene = scene;
   }
 
-  public initialize() {
-    this.drawDialogue();
+  public initialize(houseType: HouseType) {
+    const dialogueType = LOCATIONS[houseType].dialogue as DialogueType;
+    this.playDialogue(dialogueType);
   }
 
-  private drawDialogue() {
+  public playDialogue(dialogueType: DialogueType) {
+    let dialoguePointer = 0;
+
+    const dialogue = DIALOGUES[dialogueType];
+
+    if (dialogue.dialogue.length === 0) {
+      return;
+    }
+
     const black = this.scene.add.rectangle(
       Constants.WIDTH / 2,
       Constants.HEIGHT / 2,
@@ -22,7 +33,7 @@ export default class DialogueManager {
     );
 
     black.alpha = 0.5;
-    black.depth = Layer.Dialogue;
+    black.depth = Layer.DIALOGUE;
 
     const marker = this.scene.add
       .image(
@@ -33,28 +44,71 @@ export default class DialogueManager {
       )
       .setOrigin(0, 0);
     marker.setScrollFactor(0);
-    marker.depth = Layer.Dialogue;
+    marker.depth = Layer.DIALOGUE;
     marker.scaleX = 3;
     marker.scaleY = 4;
 
-    const dialogue1Text = this.scene.add.text(
+    const dialogueText = this.scene.add.text(
       Constants.TILE_DISPLAY_SIZE * 6,
       Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 3,
-      "Hello, welcome to the farm!",
+      dialogue.dialogue[dialoguePointer],
       {
         fontSize: "12px",
         fontFamily: "DePixelSchmal",
         color: "#000000",
+        wordWrap: {
+          width: Constants.TILE_DISPLAY_SIZE * 10,
+          useAdvancedWrap: true,
+        },
       }
     );
 
-    dialogue1Text.depth = Layer.Dialogue;
+    dialogueText.depth = Layer.DIALOGUE;
 
     black.setInteractive();
     black.on("pointerdown", () => {
-      black.destroy();
-      marker.destroy();
-      dialogue1Text.destroy();
+      if (dialoguePointer < dialogue.dialogue.length - 1) {
+        dialoguePointer++;
+        dialogueText.setText(dialogue.dialogue[dialoguePointer]);
+      } else {
+        black.off("pointerdown");
+        dialogueText.destroy();
+
+        const choiceTexts = [] as Phaser.GameObjects.Text[];
+
+        dialogue.choices.forEach((choice, index) => {
+          const choiceText = this.scene.add.text(
+            Constants.TILE_DISPLAY_SIZE * 6,
+            Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 3 + 20 * index,
+            choice.text,
+            {
+              fontSize: "12px",
+              fontFamily: "DePixelSchmal",
+              color: "#000000",
+              wordWrap: {
+                width: Constants.TILE_DISPLAY_SIZE * 10,
+                useAdvancedWrap: true,
+              },
+            }
+          );
+          choiceTexts.push(choiceText);
+
+          choiceText.depth = Layer.DIALOGUE;
+          choiceText.setInteractive();
+          choiceText.on("pointerdown", () => {
+            if (choice.outcomeType == OutcomeType.Exit) {
+              black.destroy();
+              marker.destroy();
+              choiceTexts.forEach((text) => text.destroy());
+            } else if (choice.outcomeType == OutcomeType.Dialogue) {
+              black.destroy();
+              marker.destroy();
+              choiceTexts.forEach((text) => text.destroy());
+              this.playDialogue(choice.outcome as DialogueType);
+            }
+          });
+        });
+      }
     });
   }
 }

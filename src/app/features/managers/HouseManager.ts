@@ -1,39 +1,7 @@
 import { Constants } from "../constants";
+import { DialogueType, DIALOGUES } from "../dialogues";
+import { HouseType, LOCATIONS as LOCATIONS } from "../houses";
 import MainGame from "../scenes/mainGame";
-
-export enum HouseType {
-  Farm,
-  Home,
-  Barn,
-  Market,
-  Neighbor,
-}
-
-export const Houses = {
-  [HouseType.Farm]: {
-    [HouseType.Home]: {
-      location: { x: 1, y: 3 },
-      spriteFrame: 0,
-    },
-    [HouseType.Barn]: {
-      location: { x: 6, y: 0 },
-      spriteFrame: 1,
-    },
-    [HouseType.Market]: {
-      location: { x: 22, y: 8 },
-      spriteFrame: 2,
-    },
-  },
-  [HouseType.Home]: {
-    [HouseType.Farm]: {
-      location: { x: 8 + 2, y: 4 + 4 },
-      spriteFrame: -1,
-    },
-  },
-  [HouseType.Barn]: {},
-  [HouseType.Market]: {},
-  [HouseType.Neighbor]: {},
-};
 
 export default class HouseManager {
   private scene: MainGame;
@@ -46,7 +14,7 @@ export default class HouseManager {
 
   public initialize(currLoc: HouseType) {
     this.currLoc = currLoc;
-    Object.entries(Houses[this.currLoc]).forEach(([type, house]) => {
+    Object.entries(LOCATIONS[this.currLoc].houses).forEach(([type, house]) => {
       const { location, spriteFrame } = house;
 
       let sprite;
