@@ -172,7 +172,7 @@ export class Tile {
 }
 
 export default class TileManager {
-  private currLoc: HouseType = HouseType.Farm;
+  private currLoc: HouseType = HouseType.FARM;
   private currentTileMap?: Array<Array<Tile>>;
   private tileMap: { [houseType: string]: Array<Array<Tile>> };
   private occupiedTileList: { [houseType: string]: Array<Tile> } = {};
@@ -182,7 +182,7 @@ export default class TileManager {
   constructor(scene: MainGame) {
     this.scene = scene;
     this.tileMap = {
-      [HouseType.Farm]: Array(Constants.MAP_HEIGHT)
+      [HouseType.FARM]: Array(Constants.MAP_HEIGHT)
         .fill(0)
         .map((_, y) =>
           Array(Constants.MAP_WIDTH)

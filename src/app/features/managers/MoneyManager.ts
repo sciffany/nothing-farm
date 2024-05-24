@@ -15,6 +15,11 @@ export default class MoneyManager {
     this.drawDayCounter();
   }
 
+  public addMoney(amount: number) {
+    this.money += amount;
+    this.moneyText?.setText(`$ ${this.money}`);
+  }
+
   private drawDayCounter() {
     const marker = this.scene.add
       .image(

@@ -4,7 +4,7 @@ import MainGame from "../scenes/mainGame";
 
 export class BackgroundManager {
   private scene: MainGame;
-  private houseType: HouseType = HouseType.Farm;
+  private houseType: HouseType = HouseType.FARM;
   private sprites: Phaser.GameObjects.GameObject[] = [];
   private tileMaps: Phaser.Tilemaps.Tilemap[] = [];
 
@@ -14,7 +14,7 @@ export class BackgroundManager {
 
   public initialize(houseType: HouseType) {
     this.houseType = houseType;
-    if (this.houseType == HouseType.Farm) {
+    if (this.houseType == HouseType.FARM) {
       const map = this.scene.make.tilemap({
         key: "tilemap",
       });
@@ -34,7 +34,7 @@ export class BackgroundManager {
       grassLayer.scale = 2;
 
       this.tileMaps.push(map);
-    } else if (this.houseType == HouseType.Home) {
+    } else if (this.houseType == HouseType.HOME) {
       const house = this.scene.add.image(
         Constants.TILE_DISPLAY_SIZE * 8,
         Constants.TILE_DISPLAY_SIZE * 4,
@@ -43,7 +43,7 @@ export class BackgroundManager {
       house.setOrigin(0, 0);
       house.scale = 2;
       this.sprites.push(house);
-    } else if (this.houseType == HouseType.Market) {
+    } else if (this.houseType == HouseType.MARKET) {
       const market = this.scene.add.image(0, 0, "market");
       market.setOrigin(0, 0);
       this.sprites.push(market);

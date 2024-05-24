@@ -2,6 +2,7 @@ import { Constants, Layer } from "../constants";
 import { DIALOGUES, DialogueType, OutcomeType } from "../dialogues";
 import { HouseType, LOCATIONS } from "../houses";
 import MainGame from "../scenes/mainGame";
+import { TransactionGroup } from "../transactionGroups";
 
 export default class DialogueManager {
   private scene: MainGame;
@@ -80,7 +81,7 @@ export default class DialogueManager {
           const choiceText = this.scene.add.text(
             Constants.TILE_DISPLAY_SIZE * 6,
             Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 3 + 20 * index,
-            choice.text,
+            "> " + choice.text,
             {
               fontSize: "12px",
               fontFamily: "DePixelSchmal",
@@ -96,15 +97,16 @@ export default class DialogueManager {
           choiceText.depth = Layer.DIALOGUE;
           choiceText.setInteractive();
           choiceText.on("pointerdown", () => {
+            black.destroy();
+            marker.destroy();
+            choiceTexts.forEach((text) => text.destroy());
             if (choice.outcomeType == OutcomeType.Exit) {
-              black.destroy();
-              marker.destroy();
-              choiceTexts.forEach((text) => text.destroy());
             } else if (choice.outcomeType == OutcomeType.Dialogue) {
-              black.destroy();
-              marker.destroy();
-              choiceTexts.forEach((text) => text.destroy());
               this.playDialogue(choice.outcome as DialogueType);
+            } else if (choice.outcomeType == OutcomeType.Transaction) {
+              this.scene.transactionManager.playTransactionGroup(
+                choice.outcome as TransactionGroup
+              );
             }
           });
         });

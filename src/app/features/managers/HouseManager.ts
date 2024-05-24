@@ -5,7 +5,7 @@ import MainGame from "../scenes/mainGame";
 
 export default class HouseManager {
   private scene: MainGame;
-  private currLoc: HouseType = HouseType.Farm;
+  private currLoc: HouseType = HouseType.FARM;
   private sprites: Phaser.GameObjects.Sprite[] = [];
 
   constructor(scene: MainGame) {

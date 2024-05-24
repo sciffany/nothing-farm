@@ -1,26 +1,28 @@
-import { ItemType } from "./managers/ItemManager";
+import { ItemType } from "./items";
 
 export enum TransactionGroup {
-  Seeds,
+  NONE,
+  SEEDS,
 }
 
-export const transactions = {
-  [TransactionGroup.Seeds]: [
+export const TRANSACTIONS = {
+  [TransactionGroup.SEEDS]: [
     {
       item: ItemType.TurnipSeeds,
-      amount: 40,
+      price: 40,
     },
     {
       item: ItemType.TomatoSeeds,
-      amount: 80,
+      price: 80,
     },
     {
       item: ItemType.CornSeeds,
-      amount: 200,
+      price: 200,
     },
     {
       item: ItemType.CarrotSeeds,
-      amount: 120,
+      price: 120,
     },
   ],
+  [TransactionGroup.NONE]: [],
 };

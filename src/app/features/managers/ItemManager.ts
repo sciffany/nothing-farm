@@ -7,21 +7,6 @@ import WateringCan from "../items/WateringCan";
 import Hand from "../items/Hand";
 import MainGame from "../scenes/mainGame";
 
-export enum ItemType {
-  Hoe,
-  Travel,
-  WateringCan,
-  Hand,
-  TurnipSeeds,
-  TomatoSeeds,
-  CornSeeds,
-  CarrotSeeds,
-  Turnip,
-  Tomato,
-  Corn,
-  Carrot,
-}
-
 const TOOLBOX_FRAME = 15;
 
 export default class ItemManager {

@@ -1,55 +1,61 @@
 import { DialogueType } from "./dialogues";
+import { TransactionGroup } from "./transactionGroups";
 
 export enum HouseType {
-  Farm,
-  Home,
-  Barn,
-  Market,
-  Neighbor,
+  FARM,
+  HOME,
+  BARN,
+  MARKET,
+  NEIGHBOR,
 }
 
 export const LOCATIONS = {
-  [HouseType.Farm]: {
+  [HouseType.FARM]: {
     dialogue: DialogueType.WELCOME,
+    transaction: TransactionGroup.NONE,
     houses: {
-      [HouseType.Home]: {
+      [HouseType.HOME]: {
         location: { x: 1, y: 3 },
         spriteFrame: 0,
       },
-      [HouseType.Barn]: {
+      [HouseType.BARN]: {
         location: { x: 6, y: 0 },
         spriteFrame: 1,
       },
-      [HouseType.Market]: {
+      [HouseType.MARKET]: {
         location: { x: 22, y: 8 },
         spriteFrame: 2,
       },
     },
   },
-  [HouseType.Home]: {
+  [HouseType.HOME]: {
     dialogue: DialogueType.NONE,
+    transaction: TransactionGroup.NONE,
     houses: {
-      [HouseType.Farm]: {
+      [HouseType.FARM]: {
         location: { x: 8 + 2, y: 4 + 4 },
         spriteFrame: -1,
       },
     },
   },
-  [HouseType.Barn]: {
+  [HouseType.BARN]: {
     dialogue: DialogueType.NONE,
+    transaction: TransactionGroup.NONE,
     houses: {},
   },
-  [HouseType.Market]: {
+  [HouseType.MARKET]: {
     dialogue: DialogueType.MARKET_WELCOME,
+    transaction: TransactionGroup.NONE,
     houses: {
-      [HouseType.Farm]: {
+      [HouseType.FARM]: {
         location: { x: 10, y: 8 },
         spriteFrame: -1,
       },
     },
   },
-  [HouseType.Neighbor]: {
+  [HouseType.NEIGHBOR]: {
     dialogue: DialogueType.NONE,
+    transaction: TransactionGroup.NONE,
     houses: {},
   },
 };

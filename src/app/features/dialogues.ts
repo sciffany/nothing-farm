@@ -23,7 +23,12 @@ export const DIALOGUES = {
     dialogue: ["Hello, welcome to the farm!"],
     choices: [
       {
-        text: "Exit",
+        text: "Thanks for the welcome.",
+        outcomeType: OutcomeType.Exit,
+        outcome: null,
+      },
+      {
+        text: "Ugh, okay.",
         outcomeType: OutcomeType.Exit,
         outcome: null,
       },
@@ -40,7 +45,7 @@ export const DIALOGUES = {
       {
         text: "Buy",
         outcomeType: OutcomeType.Transaction,
-        outcome: TransactionGroup.Seeds,
+        outcome: TransactionGroup.SEEDS,
       },
       {
         text: "Exit",
@@ -58,9 +63,9 @@ export const DIALOGUES = {
     ],
     choices: [
       {
-        text: "Exit",
-        outcomeType: OutcomeType.Exit,
-        outcome: null,
+        text: "Gotcha, dude!",
+        outcomeType: OutcomeType.Dialogue,
+        outcome: DialogueType.MARKET_WELCOME,
       },
     ],
   },
