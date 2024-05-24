@@ -2,6 +2,7 @@ import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
 import Vegetable from "./Vegetable";
+import { Layer } from "../constants";
 
 const HAND_FRAME = 4;
 
@@ -16,7 +17,7 @@ export default class Hand extends Item {
       .setOrigin(0, 0);
 
     // this.sprite.scale = 2;
-    this.sprite.depth = 1;
+    this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);
   }

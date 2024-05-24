@@ -1,4 +1,4 @@
-import { Constants } from "../constants";
+import { Constants, Layer } from "../constants";
 import { NothingFarm } from "../game";
 import MainGame from "../scenes/mainGame";
 
@@ -22,7 +22,7 @@ export default class DayManager {
       .image(Constants.WIDTH - 4 * Constants.TILE_DISPLAY_SIZE, 0, "marker", 0)
       .setOrigin(0, 0);
     marker.setScrollFactor(0);
-    marker.depth = 1;
+    marker.depth = Layer.UI;
 
     this.dayText = this.scene.add.text(
       Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
@@ -30,11 +30,11 @@ export default class DayManager {
       `Day ${this.day}`,
       {
         fontSize: "12px",
-        fontFamily: "joystix",
+        fontFamily: "DePixelSchmal",
         color: "#000000",
       }
     );
-    this.dayText.depth = 1;
+    this.dayText.depth = Layer.UI;
     this.dayText.setOrigin(0.5, 0.5);
     this.dayText.setScrollFactor(0);
   }
@@ -49,7 +49,7 @@ export default class DayManager {
       )
       .setOrigin(0, 0);
 
-    marker.depth = 1;
+    marker.depth = Layer.UI;
 
     marker.setScrollFactor(0);
 
@@ -60,12 +60,12 @@ export default class DayManager {
         "Next Day",
         {
           fontSize: "12px",
-          fontFamily: "joystix",
+          fontFamily: "DePixelSchmal",
           color: "#000000",
         }
       )
       .setOrigin(0.5, 0.5);
-    nextDayText.depth = 1;
+    nextDayText.depth = Layer.UI;
     nextDayText.setScrollFactor(0);
 
     marker.setInteractive();

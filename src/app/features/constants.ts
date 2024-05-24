@@ -6,3 +6,10 @@ export const Constants = {
   MAP_WIDTH: 30,
   MAP_HEIGHT: 20,
 };
+
+export enum Layer {
+  Background,
+  TilesAndHouses,
+  UI,
+  Dialogue,
+}

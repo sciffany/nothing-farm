@@ -1,4 +1,4 @@
-import { Constants } from "../constants";
+import { Constants, Layer } from "../constants";
 import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import { PlantType } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
@@ -110,7 +110,7 @@ export class Tile {
       );
 
       this.tileSprite.setOrigin(0, 0);
-      this.tileSprite.depth = 1;
+      this.tileSprite.depth = Layer.TilesAndHouses;
       // this.tileSprite.scale = 2;
     }
   }
@@ -150,9 +150,7 @@ export class Tile {
         );
 
         this.tilePlantSprite.setOrigin(0, 0);
-        this.tilePlantSprite.depth = 1;
-
-        // this.tilePlantSprite.scale = 2;
+        this.tilePlantSprite.depth = Layer.TilesAndHouses;
       }
     }
   }

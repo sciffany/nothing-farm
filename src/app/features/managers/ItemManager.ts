@@ -1,4 +1,4 @@
-import { Constants } from "../constants";
+import { Constants, Layer } from "../constants";
 import Hoe from "../items/Hoe";
 import Seed, { PlantType } from "../items/Seed";
 import Item from "../items/Item";
@@ -66,7 +66,7 @@ export default class ItemManager {
       const box = this.scene.add
         .sprite(0, 0, "tools", TOOLBOX_FRAME)
         .setOrigin(0, 0);
-      box.depth = 1;
+      box.depth = Layer.UI;
       box.y = Constants.TILE_DISPLAY_SIZE * i;
       // box.scale = 2;
       box.setScrollFactor(0);
@@ -85,7 +85,7 @@ export default class ItemManager {
       )
       .setOrigin(0, 0);
     this.selector.alpha = 0.2;
-    this.selector.depth = 1;
+    this.selector.depth = Layer.UI;
     this.selector.setScrollFactor(0);
   }
 
@@ -115,7 +115,7 @@ export default class ItemManager {
         0
       )
       .setOrigin(0, 0);
-    marker.depth = 1;
+    marker.depth = Layer.UI;
     marker.setScrollFactor(0);
 
     this.itemName = this.scene.add.text(
@@ -126,11 +126,11 @@ export default class ItemManager {
       `${this.selectedItem?.name} (${this.selectedItem?.quantity})` ?? "",
       {
         fontSize: "12px",
-        fontFamily: "joystix",
+        fontFamily: "DePixelSchmal",
         color: "#000000",
       }
     );
-    this.itemName.depth = 1;
+    this.itemName.depth = Layer.UI;
     this.itemName.setOrigin(0.5, 0.5);
     this.itemName.setScrollFactor(0);
   }

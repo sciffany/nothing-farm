@@ -1,6 +1,7 @@
 import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
+import { Layer } from "../constants";
 
 const SEED_FRAME = 5;
 
@@ -42,7 +43,7 @@ export default class Seed extends Item {
       .setOrigin(0, 0);
 
     // this.sprite.scale = 2;
-    this.sprite.depth = 1;
+    this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);
 
@@ -55,7 +56,7 @@ export default class Seed extends Item {
       .sprite(0, 0, "plants", plantFrame)
       .setOrigin(0, 0);
 
-    this.sprite.depth = 1;
+    this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);
   }

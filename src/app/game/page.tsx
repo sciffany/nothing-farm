@@ -14,7 +14,7 @@ export default function App() {
     <>
       <div
         style={{
-          fontFamily: "joystix",
+          fontFamily: "DePixelSchmal",
           visibility: "hidden",
           position: "absolute",
         }}

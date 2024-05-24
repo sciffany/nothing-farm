@@ -1,3 +1,4 @@
+import { Layer } from "../constants";
 import Item from "./Item";
 
 const TRAVEL_FRAME = 6;
@@ -13,7 +14,7 @@ export default class Travel extends Item {
       .setOrigin(0, 0);
 
     // this.sprite.scale = 2;
-    this.sprite.depth = 1;
+    this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);
   }

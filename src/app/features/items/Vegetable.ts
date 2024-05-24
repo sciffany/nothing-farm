@@ -1,6 +1,7 @@
 import Item from "./Item";
 import { TilePlantStage } from "../managers/TileManager";
 import { PlantProps, PlantType } from "./Seed";
+import { Layer } from "../constants";
 
 export default class Vegetable extends Item {
   public plantType: PlantType;
@@ -22,7 +23,7 @@ export default class Vegetable extends Item {
       .setOrigin(0, 0);
 
     // this.sprite.scale = 2;
-    this.sprite.depth = 1;
+    this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);
   }

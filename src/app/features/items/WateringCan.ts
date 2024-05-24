@@ -1,3 +1,4 @@
+import { Layer } from "../constants";
 import { TileType } from "../managers/TileManager";
 import MainGame from "../scenes/mainGame";
 import Item from "./Item";
@@ -15,7 +16,7 @@ export default class WateringCan extends Item {
       .setOrigin(0, 0);
 
     // this.sprite.scale = 2;
-    this.sprite.depth = 1;
+    this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);
   }
