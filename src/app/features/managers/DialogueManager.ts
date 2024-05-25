@@ -3,6 +3,7 @@ import { DIALOGUES, DialogueType, OutcomeType } from "../dialogues";
 import { HouseType, LOCATIONS } from "../locations";
 import MainGame from "../scenes/mainGame";
 import { TransactionGroup } from "../transactionGroups";
+import { createScroll } from "../utils/scroll";
 
 export default class DialogueManager {
   private scene: MainGame;
@@ -75,41 +76,26 @@ export default class DialogueManager {
         black.off("pointerdown");
         dialogueText.destroy();
 
-        const choiceTexts = [] as Phaser.GameObjects.Text[];
-
-        dialogue.choices.forEach((choice, index) => {
-          const choiceText = this.scene.add.text(
-            Constants.TILE_DISPLAY_SIZE * 6,
-            Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 3 + 20 * index,
-            "> " + choice.text,
-            {
-              fontSize: "12px",
-              fontFamily: "DePixelSchmal",
-              color: "#000000",
-              wordWrap: {
-                width: Constants.TILE_DISPLAY_SIZE * 10,
-                useAdvancedWrap: true,
-              },
-            }
-          );
-          choiceTexts.push(choiceText);
-
-          choiceText.depth = Layer.DIALOGUE;
-          choiceText.setInteractive();
-          choiceText.on("pointerdown", () => {
-            black.destroy();
-            marker.destroy();
-            choiceTexts.forEach((text) => text.destroy());
-            if (choice.outcomeType == OutcomeType.Exit) {
-            } else if (choice.outcomeType == OutcomeType.Dialogue) {
-              this.playDialogue(choice.outcome as DialogueType);
-            } else if (choice.outcomeType == OutcomeType.Transaction) {
-              this.scene.transactionManager.playTransactionGroup(
-                choice.outcome as TransactionGroup
-              );
-            }
-          });
-        });
+        const destroy = createScroll(
+          this.scene,
+          dialogue.choices.map((choice) => ({
+            text: choice.text,
+            action: () => {
+              black.destroy();
+              marker.destroy();
+              destroy();
+              if (choice.outcomeType == OutcomeType.Exit) {
+              } else if (choice.outcomeType == OutcomeType.Dialogue) {
+                this.playDialogue(choice.outcome as DialogueType);
+              } else if (choice.outcomeType == OutcomeType.Transaction) {
+                this.scene.transactionManager.playTransactionGroup(
+                  choice.outcome as TransactionGroup
+                );
+              }
+            },
+          })),
+          marker
+        );
       }
     });
   }

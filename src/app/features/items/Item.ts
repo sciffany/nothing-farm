@@ -1,11 +1,14 @@
-import { Constants } from "../constants";
+import { Constants, Layer } from "../constants";
 import { ItemType } from "../items";
 import { ObjectType } from "../objects";
 import MainGame from "../scenes/mainGame";
 
 export default abstract class Item {
   protected scene: MainGame;
-  protected sprite: Phaser.GameObjects.Sprite | null = null;
+  protected sprite:
+    | Phaser.GameObjects.Container
+    | Phaser.GameObjects.Sprite
+    | null = null;
   public name: string;
   public quantity: number;
 
@@ -19,6 +22,7 @@ export default abstract class Item {
   abstract initialize(index: number): void;
   abstract use(x: number, y: number): void;
   public useUp() {
+    if (this.quantity === 0) return;
     this.quantity -= 1;
     this.scene.itemManager.updateItemQuantity(this);
     if (this.quantity === 0) {
@@ -33,6 +37,7 @@ export default abstract class Item {
 
   public moveToPosition(x: number, y: number) {
     if (!this.sprite) return;
+    this.sprite.depth = Layer.UI;
     this.sprite.setScrollFactor(0);
     this.sprite.x = x;
     this.sprite.y = y * Constants.TILE_DISPLAY_SIZE;

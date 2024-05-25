@@ -7,7 +7,7 @@ import { ItemType } from "../items";
 const HOE_FRAME = 0;
 
 export default class Hoe extends Item {
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: MainGame) {
     super(scene, "Hoe");
   }
 
@@ -16,7 +16,6 @@ export default class Hoe extends Item {
       .sprite(0, 0, "tools", HOE_FRAME)
       .setOrigin(0, 0);
 
-    // this.sprite.scale = 2;
     this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);

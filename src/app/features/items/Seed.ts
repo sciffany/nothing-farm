@@ -1,7 +1,7 @@
 import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
-import { Layer } from "../constants";
+import { Constants, Layer } from "../constants";
 import { ItemType } from "../items";
 
 const SEED_FRAME = 5;
@@ -52,27 +52,23 @@ export default class Seed extends Item {
   }
 
   public initialize(position: number) {
-    this.sprite = this.scene.add
+    const seed = this.scene.add
       .sprite(0, 0, "tools", SEED_FRAME)
       .setOrigin(0, 0);
-
-    // this.sprite.scale = 2;
-    this.sprite.depth = Layer.UI;
-
-    this.moveToPosition(0, position);
+    seed.depth = Layer.UI;
 
     const plantFrame =
       TilePlantStage.HARVESTED -
       1 +
       (Object.keys(TilePlantStage).length / 2 - 1) * this.plantType;
 
-    this.sprite = this.scene.add
+    const pic = this.scene.add
       .sprite(0, 0, "plants", plantFrame)
       .setOrigin(0, 0);
+    pic.setScale(2);
+    seed.depth = Layer.UI;
 
-    this.sprite.setScale(2);
-    this.sprite.depth = Layer.UI;
-
+    this.sprite = this.scene.add.container(0, 0, [seed, pic]);
     this.moveToPosition(0, position);
   }
 
@@ -83,6 +79,9 @@ export default class Seed extends Item {
       tile?.getType() === TileType.WATERED
     ) {
       if (tile.plantStage !== TilePlantStage.NONE) {
+        return;
+      }
+      if (this.quantity === 0) {
         return;
       }
       this.useUp();

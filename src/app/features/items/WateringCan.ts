@@ -7,7 +7,7 @@ import Item from "./Item";
 const WATERING_CAN_FRAME = 1;
 
 export default class WateringCan extends Item {
-  constructor(scene: Phaser.Scene, quantity: number) {
+  constructor(scene: MainGame, quantity: number) {
     super(scene, "Watering Can", quantity);
   }
 
@@ -20,7 +20,6 @@ export default class WateringCan extends Item {
       .sprite(0, 0, "tools", WATERING_CAN_FRAME)
       .setOrigin(0, 0);
 
-    // this.sprite.scale = 2;
     this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);

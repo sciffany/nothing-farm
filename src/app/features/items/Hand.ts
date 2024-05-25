@@ -26,6 +26,7 @@ export default class Hand extends Item {
   public getType() {
     return ItemType.HAND;
   }
+
   public use(x: number, y: number) {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (tile?.plantStage === TilePlantStage.GROWN_STAGE_4) {

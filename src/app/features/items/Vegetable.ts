@@ -3,11 +3,12 @@ import { TilePlantStage } from "../managers/TileManager";
 import { PLANTS, PlantType } from "./Seed";
 import { Layer } from "../constants";
 import { ItemType } from "../items";
+import MainGame from "../scenes/mainGame";
 
 export default class Vegetable extends Item {
   public plantType: PlantType;
 
-  constructor(scene: Phaser.Scene, plantType: PlantType, quantity: number) {
+  constructor(scene: MainGame, plantType: PlantType, quantity: number) {
     const plantName = PLANTS[plantType].name;
     super(scene, plantName, quantity);
     this.plantType = plantType;

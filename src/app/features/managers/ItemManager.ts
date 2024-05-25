@@ -68,6 +68,7 @@ export default class ItemManager {
   public deleteItem(item: Item) {
     const index = this.items.indexOf(item);
     this.items.splice(index, 1);
+    this.items.map((item, index) => item.moveToPosition(0, index));
   }
 
   private drawToolbox() {
@@ -99,7 +100,20 @@ export default class ItemManager {
   }
 
   private initializeItemSelector() {
-    this.scene.input.on("pointerdown", (pointer: any) => {
+    const rectangle = this.scene.add.rectangle(
+      0,
+      0,
+      Constants.TILE_DISPLAY_SIZE,
+      Constants.HEIGHT,
+      0x000000
+    );
+    rectangle.setOrigin(0, 0);
+    rectangle.setScrollFactor(0);
+    rectangle.depth = Layer.UI;
+    rectangle.setInteractive();
+    rectangle.setAlpha(0.01);
+
+    rectangle.on("pointerdown", (pointer: any) => {
       if (!this.selector) return;
 
       const x = Math.floor(pointer.x / Constants.TILE_DISPLAY_SIZE);
@@ -146,6 +160,10 @@ export default class ItemManager {
 
   public updateItemQuantity(item: Item) {
     if (!this.itemName) return;
+    if (item.quantity === 0) {
+      this.itemName.text = "";
+      return;
+    }
     this.itemName.text = `${item.name} (${item.quantity})`;
   }
 }

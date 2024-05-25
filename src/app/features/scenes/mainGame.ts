@@ -74,9 +74,9 @@ export default class MainGame extends Phaser.Scene {
     this.input.setDefaultCursor("url(assets/hand.cur), pointer");
     this.addCamera();
     this.backgroundManager.initialize(HouseType.FARM);
-    this.houseManager.initialize(HouseType.FARM);
     this.tileManager.initialize(HouseType.FARM);
     this.addInteraction();
+    this.houseManager.initialize(HouseType.FARM);
     this.dialogueManager.initialize(HouseType.FARM);
     this.dialogueManager.playDialogue(DialogueType.WELCOME);
     this.transactionManager.initialize(HouseType.FARM);
@@ -90,10 +90,10 @@ export default class MainGame extends Phaser.Scene {
     this.currLoc = houseType;
     this.backgroundManager.destroy();
     this.backgroundManager.initialize(houseType);
-    this.houseManager.destroy();
-    this.houseManager.initialize(houseType);
     this.tileManager.destroy();
     this.tileManager.initialize(houseType);
+    this.houseManager.destroy();
+    this.houseManager.initialize(houseType);
     this.dialogueManager.initialize(houseType);
     this.transactionManager.initialize(houseType);
     this.objectManager.destroy();
@@ -130,7 +130,6 @@ export default class MainGame extends Phaser.Scene {
 
   private addInteraction() {
     // Add invisible rectangle for tile interaction
-
     const rectangle = this.add.rectangle(
       0,
       0,
@@ -139,8 +138,9 @@ export default class MainGame extends Phaser.Scene {
       0x0ff00
     );
     rectangle.setOrigin(0, 0);
-    rectangle.setVisible(false);
     rectangle.setInteractive();
+    rectangle.setAlpha(0.01);
+    rectangle.setScrollFactor(0);
     rectangle.on("pointerdown", () => {
       const [tileX, tileY] = this.getTileCoordinates();
       if (tileX === 0) return;
