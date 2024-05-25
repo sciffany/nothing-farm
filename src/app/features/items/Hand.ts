@@ -3,7 +3,7 @@ import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
 import Vegetable from "./Vegetable";
 import { Layer } from "../constants";
-import { ObjectType } from "../objects";
+import { ClickableObjectType } from "../objects";
 import { ItemType } from "../items";
 
 const HAND_FRAME = 4;

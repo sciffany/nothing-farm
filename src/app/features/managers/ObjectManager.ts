@@ -1,6 +1,6 @@
 import { Constants } from "../constants";
 import { HouseType, LOCATIONS } from "../locations";
-import { OBJECTS, ObjectType } from "../objects";
+import { CLICKABLE_OBJECTS, ClickableObjectType } from "../objects";
 import MainGame from "../scenes/mainGame";
 
 export default class ObjectManager {
@@ -29,7 +29,7 @@ export default class ObjectManager {
         houseSprite.setScale(2);
         sprite = houseSprite;
 
-        const objectProperties = OBJECTS[parseInt(type)];
+        const objectProperties = CLICKABLE_OBJECTS[parseInt(type)];
 
         sprite.setInteractive();
         sprite.on("pointerdown", () => {

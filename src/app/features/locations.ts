@@ -1,5 +1,5 @@
 import { DialogueType } from "./dialogues";
-import { ObjectType } from "./objects";
+import { ClickableObjectType } from "./objects";
 import { TransactionGroup } from "./transactionGroups";
 
 export enum HouseType {
@@ -15,7 +15,7 @@ export const LOCATIONS = {
     dialogue: DialogueType.NONE,
     transaction: TransactionGroup.NONE,
     objects: {
-      [ObjectType.SHIP_BOX]: {
+      [ClickableObjectType.SHIP_BOX]: {
         location: { x: 6, y: 6 },
         spriteFrame: 0,
       },

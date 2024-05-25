@@ -68,6 +68,10 @@ export default class MainGame extends Phaser.Scene {
       frameHeight: Constants.TILE_DISPLAY_SIZE,
     });
     this.load.image("barn", "assets/barnInterior.png");
+    this.load.image("log", "assets/objects/log.png");
+    this.load.image("rock", "assets/objects/rock.png");
+    this.load.image("tree", "assets/objects/tree.png");
+    this.load.image("flower", "assets/objects/flower.png");
   }
 
   create() {

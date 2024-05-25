@@ -2,8 +2,10 @@ import { Constants, Layer } from "../constants";
 import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import { PlantType } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
-import { initialize } from "next/dist/server/lib/render-server";
 import { HouseType } from "../locations";
+import { ClickableObjectType, PickupableObjectType } from "../objects";
+import { drawPickupableObject } from "../utils/objects";
+import { weightedRandom } from "../utils/random";
 
 export enum TileType {
   PLAIN,
@@ -30,8 +32,12 @@ export class Tile {
   public y: number;
   public type: TileType;
   public plantStage: TilePlantStage;
+  public objectType: PickupableObjectType = PickupableObjectType.NONE;
+
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
   private tilePlantSprite: Phaser.GameObjects.Sprite | null = null;
+  private objectSprite: Phaser.GameObjects.Sprite | null = null;
+
   private scene: MainGame;
   public plantType: PlantType = PlantType.TURNIP;
 
@@ -57,6 +63,28 @@ export class Tile {
       case 202:
       case 203:
         this.type = TileType.GROUND;
+        this.objectType = weightedRandom([
+          {
+            value: PickupableObjectType.NONE,
+            weight: 1,
+          },
+          {
+            value: PickupableObjectType.LOG,
+            weight: 0.5,
+          },
+          {
+            value: PickupableObjectType.ROCK,
+            weight: 0.5,
+          },
+          {
+            value: PickupableObjectType.YELLOW_FLOWER,
+            weight: 0.2,
+          },
+          {
+            value: PickupableObjectType.TREE,
+            weight: 0.2,
+          },
+        ]);
         break;
       default:
         this.type = TileType.PLAIN;
@@ -210,6 +238,15 @@ export default class TileManager {
       });
     } else {
       this.occupiedTileList[this.currLoc] = [];
+    }
+
+    for (const tile of this.currentTileMap.flat()) {
+      const destroy = drawPickupableObject(
+        this.scene,
+        tile.objectType,
+        tile.x,
+        tile.y
+      );
     }
   }
 

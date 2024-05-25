@@ -1,6 +1,6 @@
 import { Constants, Layer } from "../constants";
 import { ItemType } from "../items";
-import { ObjectType } from "../objects";
+import { ClickableObjectType } from "../objects";
 import MainGame from "../scenes/mainGame";
 
 export default abstract class Item {

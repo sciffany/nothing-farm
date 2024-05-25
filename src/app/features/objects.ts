@@ -1,18 +1,18 @@
 import { ITEMS } from "./items";
 import MainGame from "./scenes/mainGame";
 
-export enum ObjectType {
+export enum ClickableObjectType {
   NONE,
   SHIP_BOX,
 }
 
-export const OBJECTS: {
+export const CLICKABLE_OBJECTS: {
   [objectType: number]: { action: (scene: MainGame) => void };
 } = {
-  [ObjectType.NONE]: {
+  [ClickableObjectType.NONE]: {
     action: (scene: MainGame) => {},
   },
-  [ObjectType.SHIP_BOX]: {
+  [ClickableObjectType.SHIP_BOX]: {
     action: (scene: MainGame) => {
       const itemType = scene.itemManager.selectedItem?.getType();
       if (!itemType) return;
@@ -26,5 +26,38 @@ export const OBJECTS: {
         scene.moneyManager.addMoney(item.price);
       }
     },
+  },
+};
+
+export enum PickupableObjectType {
+  LOG,
+  ROCK,
+  YELLOW_FLOWER,
+  TREE,
+  NONE,
+}
+
+export const PICKUPABLE_OBJECTS: {
+  [objectType: number]: { frame: number; sprite: string };
+} = {
+  [PickupableObjectType.NONE]: {
+    frame: 0,
+    sprite: "none",
+  },
+  [PickupableObjectType.LOG]: {
+    frame: 0,
+    sprite: "log",
+  },
+  [PickupableObjectType.ROCK]: {
+    frame: 0,
+    sprite: "rock",
+  },
+  [PickupableObjectType.YELLOW_FLOWER]: {
+    frame: 0,
+    sprite: "flower",
+  },
+  [PickupableObjectType.TREE]: {
+    frame: 0,
+    sprite: "tree",
   },
 };
