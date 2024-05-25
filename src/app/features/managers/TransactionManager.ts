@@ -5,6 +5,7 @@ import { ITEMS, ItemType } from "../items";
 import Seed, { PlantType } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
 import { TRANSACTIONS, TransactionGroup } from "../transactionGroups";
+import { createScroll } from "../utils/scroll";
 
 export default class TransactionManager {
   private scene: MainGame;
@@ -49,51 +50,47 @@ export default class TransactionManager {
     marker.scaleX = 3;
     marker.scaleY = 4;
 
-    const choiceTexts = [] as Phaser.GameObjects.Text[];
+    const transactions = TRANSACTIONS[transactionGroup];
 
-    TRANSACTIONS[transactionGroup].forEach((transaction, index) => {
-      const item = ITEMS[transaction.item];
-      const choiceText = this.scene.add.text(
-        Constants.TILE_DISPLAY_SIZE * 6,
-        Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 3 + 20 * index,
-        "> " + item.name + " $" + transaction.price,
-        {
-          fontSize: "12px",
-          fontFamily: "DePixelSchmal",
-          color: "#000000",
-          wordWrap: {
-            width: Constants.TILE_DISPLAY_SIZE * 10,
-            useAdvancedWrap: true,
+    const destroy = createScroll(
+      this.scene,
+      [
+        ...transactions.map((transaction) => ({
+          text: ITEMS[transaction.item].name + " $" + transaction.price,
+          action: () => {
+            if (transaction.item == ItemType.CarrotSeeds) {
+              this.scene.itemManager.addItem(
+                new Seed(this.scene, PlantType.CARROT, 1)
+              );
+              this.scene.moneyManager.addMoney(-transaction.price);
+            } else if (transaction.item == ItemType.CornSeeds) {
+              this.scene.itemManager.addItem(
+                new Seed(this.scene, PlantType.CORN, 1)
+              );
+              this.scene.moneyManager.addMoney(-transaction.price);
+            } else if (transaction.item == ItemType.TomatoSeeds) {
+              this.scene.itemManager.addItem(
+                new Seed(this.scene, PlantType.TOMATO, 1)
+              );
+              this.scene.moneyManager.addMoney(-transaction.price);
+            } else if (transaction.item == ItemType.TurnipSeeds) {
+              this.scene.itemManager.addItem(
+                new Seed(this.scene, PlantType.TURNIP, 1)
+              );
+              this.scene.moneyManager.addMoney(-transaction.price);
+            }
           },
-        }
-      );
-      choiceTexts.push(choiceText);
-
-      choiceText.depth = Layer.DIALOGUE;
-      choiceText.setInteractive();
-      choiceText.on("pointerdown", () => {
-        if (transaction.item == ItemType.CarrotSeeds) {
-          this.scene.itemManager.addItem(
-            new Seed(this.scene, PlantType.CARROT, 1)
-          );
-          this.scene.moneyManager.addMoney(-transaction.price);
-        } else if (transaction.item == ItemType.CornSeeds) {
-          this.scene.itemManager.addItem(
-            new Seed(this.scene, PlantType.CORN, 1)
-          );
-          this.scene.moneyManager.addMoney(-transaction.price);
-        } else if (transaction.item == ItemType.TomatoSeeds) {
-          this.scene.itemManager.addItem(
-            new Seed(this.scene, PlantType.TOMATO, 1)
-          );
-          this.scene.moneyManager.addMoney(-transaction.price);
-        } else if (transaction.item == ItemType.TurnipSeeds) {
-          this.scene.itemManager.addItem(
-            new Seed(this.scene, PlantType.TURNIP, 1)
-          );
-          this.scene.moneyManager.addMoney(-transaction.price);
-        }
-      });
-    });
+        })),
+        {
+          text: "Back",
+          action: () => {
+            black.destroy();
+            marker.destroy();
+            destroy();
+          },
+        },
+      ],
+      marker
+    );
   }
 }

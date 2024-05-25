@@ -20,19 +20,21 @@ export const DIALOGUES = {
     choices: [],
   },
   [DialogueType.WELCOME]: {
-    dialogue: ["Hello, welcome to the farm!"],
-    choices: [
-      {
-        text: "Thanks for the welcome.",
-        outcomeType: OutcomeType.Exit,
-        outcome: null,
-      },
-      {
-        text: "Ugh, okay.",
-        outcomeType: OutcomeType.Exit,
-        outcome: null,
-      },
-    ],
+    dialogue: [],
+    choices: [],
+    // dialogue: ["Hello, welcome to the farm!"],
+    // choices: [
+    //   {
+    //     text: "Thanks for the welcome.",
+    //     outcomeType: OutcomeType.Exit,
+    //     outcome: null,
+    //   },
+    //   {
+    //     text: "Ugh, okay.",
+    //     outcomeType: OutcomeType.Exit,
+    //     outcome: null,
+    //   },
+    // ],
   },
   [DialogueType.MARKET_WELCOME]: {
     dialogue: ["Yo, Tyler here! What can I help you with today?"],
