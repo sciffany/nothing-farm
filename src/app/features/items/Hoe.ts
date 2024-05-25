@@ -2,7 +2,7 @@ import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TileType } from "../managers/TileManager";
 import { Layer } from "../constants";
-import { ItemType } from "../objects";
+import { ItemType, PickupableObjectType } from "../objects";
 
 const HOE_FRAME = 0;
 
@@ -29,7 +29,10 @@ export default class Hoe extends Item {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (!tile) return;
     this.scene.tileManager.addTile(tile);
-    if (tile?.getType() === TileType.GROUND) {
+    if (
+      tile?.getType() === TileType.GROUND &&
+      tile.objectType === PickupableObjectType.NONE
+    ) {
       tile?.changeType(TileType.TILLED);
     }
   }

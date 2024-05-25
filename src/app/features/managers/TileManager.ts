@@ -139,6 +139,7 @@ export class Tile {
   }
 
   public changeObjectType(objectType: PickupableObjectType) {
+    this.objectType = objectType;
     if (objectType == PickupableObjectType.NONE) {
       this.objectSprite?.destroy();
       return;
