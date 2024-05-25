@@ -21,9 +21,8 @@ export const DIALOGUES = {
   },
   [DialogueType.WELCOME]: {
     dialogue: [
-      "Hello, welcome to the farm!",
-      "How much money can you make in 30 days?",
-      "Let's find out!",
+      "Hello, welcome!",
+      "Let's clear this farm and make it a beautiful place!",
     ],
     choices: [
       {

@@ -141,25 +141,28 @@ export class Tile {
     if (objectType == PickupableObjectType.NONE) {
       this.objectSprite?.destroy();
       return;
+    } else {
+      this.objectSprite = this.scene.add.sprite(
+        this.x * Constants.TILE_DISPLAY_SIZE,
+        this.y * Constants.TILE_DISPLAY_SIZE,
+        PICKUPABLE_OBJECTS[objectType].sprite,
+        PICKUPABLE_OBJECTS[objectType].frame
+      );
+      this.objectSprite.setOrigin(0, 0);
+      this.objectSprite.setScale(2);
     }
-    this.objectSprite = this.scene.add.sprite(
-      this.x * Constants.TILE_DISPLAY_SIZE,
-      this.y * Constants.TILE_DISPLAY_SIZE,
-      PICKUPABLE_OBJECTS[objectType].sprite,
-      PICKUPABLE_OBJECTS[objectType].frame
-    );
-    this.objectSprite.setOrigin(0, 0);
-    this.objectSprite.setScale(2);
   }
 
   public hide() {
     this.tilePlantSprite?.setAlpha(0);
     this.tileSprite?.setAlpha(0);
+    this.objectSprite?.setAlpha(0);
   }
 
   public show() {
     this.tilePlantSprite?.setAlpha(1);
     this.tileSprite?.setAlpha(1);
+    this.objectSprite?.setAlpha(1);
   }
 
   public changePlantStage(plantStage: TilePlantStage, plantType?: PlantType) {
@@ -213,7 +216,7 @@ export default class TileManager {
   private currLoc: HouseType = HouseType.FARM;
   private currentTileMap?: Array<Array<Tile>>;
   private tileMap: { [houseType: string]: Array<Array<Tile>> };
-  private occupiedTileList: { [houseType: string]: Array<Tile> } = {};
+  private plantedTileList: { [houseType: string]: Array<Tile> } = {};
   private scene: MainGame;
   private sprites: Phaser.GameObjects.GameObject[] = [];
 
@@ -241,12 +244,12 @@ export default class TileManager {
     this.currLoc = currLoc;
     this.currentTileMap = this.tileMap[currLoc];
 
-    if (this.occupiedTileList[this.currLoc]) {
-      this.occupiedTileList[this.currLoc].forEach((tile) => {
+    if (this.plantedTileList[this.currLoc]) {
+      this.plantedTileList[this.currLoc].forEach((tile) => {
         tile.show();
       });
     } else {
-      this.occupiedTileList[this.currLoc] = [];
+      this.plantedTileList[this.currLoc] = [];
     }
 
     this.currentTileMap?.forEach((row) => {
@@ -257,7 +260,7 @@ export default class TileManager {
   }
 
   public destroy() {
-    this.occupiedTileList[this.currLoc].forEach((tile) => {
+    this.currentTileMap?.flat()?.forEach((tile) => {
       tile.hide();
     });
   }
@@ -267,12 +270,12 @@ export default class TileManager {
   }
 
   public nextDay() {
-    this.occupiedTileList[this.currLoc].forEach((tile) => {
+    this.plantedTileList[this.currLoc].forEach((tile) => {
       tile?.nextDay();
     });
   }
 
   public addTile(tile: Tile) {
-    this.occupiedTileList[this.currLoc]?.push(tile);
+    this.plantedTileList[this.currLoc]?.push(tile);
   }
 }
