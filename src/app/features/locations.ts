@@ -8,6 +8,7 @@ export enum HouseType {
   BARN,
   MARKET,
   NEIGHBOR,
+  WEST,
 }
 
 export const LOCATIONS = {
@@ -32,6 +33,10 @@ export const LOCATIONS = {
       [HouseType.MARKET]: {
         location: { x: 22, y: 8 },
         spriteFrame: 2,
+      },
+      [HouseType.WEST]: {
+        location: { x: 2, y: 13 },
+        spriteFrame: -1,
       },
     },
   },
@@ -73,5 +78,16 @@ export const LOCATIONS = {
     dialogue: DialogueType.NONE,
     transaction: TransactionGroup.NONE,
     houses: {},
+  },
+  [HouseType.WEST]: {
+    objects: {},
+    dialogue: DialogueType.NONE,
+    transaction: TransactionGroup.NONE,
+    houses: {
+      [HouseType.FARM]: {
+        location: { x: 30 - 2, y: 13 },
+        spriteFrame: -1,
+      },
+    },
   },
 };

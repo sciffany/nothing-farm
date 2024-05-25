@@ -56,6 +56,22 @@ export class BackgroundManager {
       barn.setOrigin(0, 0);
       barn.scale = 2;
       this.sprites.push(barn);
+    } else if (this.houseType == HouseType.WEST) {
+      const map = this.scene.make.tilemap({
+        key: "west_side",
+      });
+      const tileset = map.addTilesetImage(
+        "all_tiles2",
+        "all_tiles2",
+        Constants.TILESIZE,
+        Constants.TILESIZE
+      );
+      if (!tileset) return;
+      const grassLayer = map.createLayer("Grass", tileset);
+      if (!grassLayer) return;
+      grassLayer.scale = 2;
+
+      this.tileMaps.push(map);
     }
   }
 

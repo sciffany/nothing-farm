@@ -39,6 +39,7 @@ export default class MainGame extends Phaser.Scene {
   preload() {
     // Load tilemap and tileset
     this.load.tilemapTiledJSON("tilemap", "assets/nothing_farm.json");
+    this.load.tilemapTiledJSON("west_side", "assets/west_side.json");
     this.load.spritesheet("houses", "assets/houses2.png", {
       frameWidth: Constants.TILESIZE * 4,
       frameHeight: Constants.TILESIZE * 4,
@@ -48,6 +49,7 @@ export default class MainGame extends Phaser.Scene {
     this.load.image("market", "assets/market4.png");
     this.load.image("home", "assets/home.png");
     this.load.image("all_tiles", "assets/all_tilesx2_2.png");
+    this.load.image("all_tiles2", "assets/all_tiles.png");
     this.load.spritesheet("tools", "assets/tools2.png", {
       frameWidth: Constants.TILESIZE * 2,
       frameHeight: Constants.TILESIZE * 2,

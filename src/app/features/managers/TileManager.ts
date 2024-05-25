@@ -1,5 +1,6 @@
 import { Constants, Layer } from "../constants";
 import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
+import westSideJson from "../../../../public/assets/west_side.json";
 import { PlantType } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
 import { HouseType } from "../locations";
@@ -234,6 +235,20 @@ export default class TileManager {
                 x,
                 y,
                 nothingFarmJson.layers[0].data[Constants.MAP_WIDTH * y + x]
+              );
+            })
+        ),
+      [HouseType.WEST]: Array(Constants.MAP_HEIGHT)
+        .fill(0)
+        .map((_, y) =>
+          Array(Constants.MAP_WIDTH)
+            .fill(0)
+            .map((_, x) => {
+              return new Tile(
+                scene,
+                x,
+                y,
+                westSideJson.layers[0].data[Constants.MAP_WIDTH * y + x]
               );
             })
         ),
