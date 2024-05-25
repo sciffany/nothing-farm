@@ -27,7 +27,7 @@ export const DIALOGUES = {
     ],
     choices: [
       {
-        text: "Click this option start!",
+        text: "Click this option to start!",
         outcomeType: OutcomeType.Exit,
         outcome: null,
       },

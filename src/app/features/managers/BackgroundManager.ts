@@ -47,6 +47,15 @@ export class BackgroundManager {
       const market = this.scene.add.image(0, 0, "market");
       market.setOrigin(0, 0);
       this.sprites.push(market);
+    } else if (this.houseType == HouseType.BARN) {
+      const barn = this.scene.add.image(
+        Constants.TILE_DISPLAY_SIZE * 8,
+        Constants.TILE_DISPLAY_SIZE * 4,
+        "barn"
+      );
+      barn.setOrigin(0, 0);
+      barn.scale = 2;
+      this.sprites.push(barn);
     }
   }
 

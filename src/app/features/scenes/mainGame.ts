@@ -67,6 +67,7 @@ export default class MainGame extends Phaser.Scene {
       frameWidth: Constants.TILE_DISPLAY_SIZE,
       frameHeight: Constants.TILE_DISPLAY_SIZE,
     });
+    this.load.image("barn", "assets/barnInterior.png");
   }
 
   create() {
