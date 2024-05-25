@@ -3,7 +3,8 @@ import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
 import Vegetable from "./Vegetable";
 import { Layer } from "../constants";
-import { ItemType } from "../objects";
+import { ItemType, PickupableObjectType } from "../objects";
+import PickupableObject from "./PickupableObject";
 
 const HAND_FRAME = 4;
 
@@ -34,6 +35,11 @@ export default class Hand extends Item {
       tile?.changePlantStage(TilePlantStage.NONE);
       (this.scene as MainGame).itemManager?.addItem(
         new Vegetable(this.scene, plantType!, 1)
+      );
+    } else if (tile?.objectType === PickupableObjectType.YELLOW_FLOWER) {
+      tile.changeObjectType(PickupableObjectType.NONE);
+      this.scene.itemManager.addItem(
+        new PickupableObject(this.scene, PickupableObjectType.YELLOW_FLOWER, 1)
       );
     }
   }

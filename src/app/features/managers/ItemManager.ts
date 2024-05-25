@@ -7,6 +7,7 @@ import WateringCan from "../items/WateringCan";
 import Hand from "../items/Hand";
 import MainGame from "../scenes/mainGame";
 import Axe from "../items/Axe";
+import Hammer from "../items/Hammer";
 
 const TOOLBOX_FRAME = 15;
 
@@ -22,6 +23,7 @@ export default class ItemManager {
   private wateringCan: WateringCan | null;
   private hand: Hand | null;
   private axe: Axe | null;
+  private hammer: Hammer | null;
 
   constructor(scene: MainGame) {
     this.scene = scene;
@@ -32,6 +34,7 @@ export default class ItemManager {
     const tomatoSeeds = new Seed(this.scene, PlantType.TOMATO, 5);
     this.hand = new Hand(this.scene);
     this.axe = new Axe(this.scene);
+    this.hammer = new Hammer(this.scene);
     this.selectedItem = this.hoe;
     this.selector = null;
     this.itemName = null;
@@ -43,6 +46,7 @@ export default class ItemManager {
       tomatoSeeds,
       this.hand,
       this.axe,
+      this.hammer,
     ];
   }
 

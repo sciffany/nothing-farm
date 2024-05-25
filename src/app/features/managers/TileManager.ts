@@ -249,7 +249,7 @@ export default class TileManager {
       this.occupiedTileList[this.currLoc] = [];
     }
 
-    this.currentTileMap.forEach((row) => {
+    this.currentTileMap?.forEach((row) => {
       row.forEach((tile) => {
         tile.changeObjectType(tile.objectType);
       });
