@@ -149,6 +149,7 @@ export class Tile {
           plantFrame
         );
 
+        this.tilePlantSprite.setScale(2);
         this.tilePlantSprite.setOrigin(0, 0);
         this.tilePlantSprite.depth = Layer.TILES;
       }

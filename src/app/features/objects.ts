@@ -17,9 +17,12 @@ export const OBJECTS: {
       const itemType = scene.itemManager.selectedItem?.getType();
       if (!itemType) return;
       const item = ITEMS[itemType];
-      if (item.sellable) {
+      if (
+        item.sellable &&
+        scene.itemManager.selectedItem?.quantity &&
+        scene.itemManager.selectedItem?.quantity >= 0
+      ) {
         scene.itemManager.removeItem(scene.itemManager.selectedItem!);
-        scene.itemManager.selectedItem = null;
         scene.moneyManager.addMoney(item.price);
       }
     },

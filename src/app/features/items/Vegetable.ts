@@ -1,6 +1,6 @@
 import Item from "./Item";
 import { TilePlantStage } from "../managers/TileManager";
-import { PlantProps, PlantType } from "./Seed";
+import { PLANTS, PlantType } from "./Seed";
 import { Layer } from "../constants";
 import { ItemType } from "../items";
 
@@ -8,7 +8,7 @@ export default class Vegetable extends Item {
   public plantType: PlantType;
 
   constructor(scene: Phaser.Scene, plantType: PlantType, quantity: number) {
-    const plantName = PlantProps[plantType].name;
+    const plantName = PLANTS[plantType].name;
     super(scene, plantName, quantity);
     this.plantType = plantType;
   }
@@ -36,7 +36,7 @@ export default class Vegetable extends Item {
       .sprite(0, 0, "plants", plantFrame)
       .setOrigin(0, 0);
 
-    // this.sprite.scale = 2;
+    this.sprite.scale = 2;
     this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);

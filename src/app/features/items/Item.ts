@@ -19,7 +19,7 @@ export default abstract class Item {
   abstract initialize(index: number): void;
   abstract use(x: number, y: number): void;
   public useUp() {
-    this.quantity--;
+    this.quantity -= 1;
     (this.scene as MainGame).itemManager?.updateItemQuantity(this);
   }
 

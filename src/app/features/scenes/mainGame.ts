@@ -52,8 +52,8 @@ export default class MainGame extends Phaser.Scene {
       frameHeight: Constants.TILESIZE * 2,
     });
     this.load.spritesheet("plants", "assets/plants.png", {
-      frameWidth: Constants.TILESIZE * 2,
-      frameHeight: Constants.TILESIZE * 4,
+      frameWidth: Constants.TILESIZE * 1,
+      frameHeight: Constants.TILESIZE * 2,
     });
     this.load.spritesheet("all_tiles_sprite", "assets/all_tilesx2_2.png", {
       frameWidth: Constants.TILESIZE * 2,

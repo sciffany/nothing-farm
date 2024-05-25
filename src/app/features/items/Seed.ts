@@ -13,7 +13,7 @@ export enum PlantType {
   CARROT,
 }
 
-export const PlantProps = {
+export const PLANTS = {
   [PlantType.TURNIP]: {
     name: "Turnip",
   },
@@ -32,7 +32,7 @@ export default class Seed extends Item {
   public plantType: PlantType;
 
   constructor(scene: Phaser.Scene, plantType: PlantType, quantity: number) {
-    const plantName = PlantProps[plantType].name;
+    const plantName = PLANTS[plantType].name;
     super(scene, plantName + " Seed", quantity);
 
     this.plantType = plantType;
@@ -70,6 +70,7 @@ export default class Seed extends Item {
       .sprite(0, 0, "plants", plantFrame)
       .setOrigin(0, 0);
 
+    this.sprite.setScale(2);
     this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);
