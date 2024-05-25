@@ -28,6 +28,7 @@ export const renderChoice = (
 
   choiceText.depth = Layer.DIALOGUE;
   choiceText.setInteractive();
+  choiceText.setScrollFactor(0);
 
   choiceText.on("pointerdown", () => {
     choice.action();
@@ -56,6 +57,9 @@ export function createScroll(
   marker.setInteractive();
   marker.on("pointerdown", () => {
     startIndex += 3;
+    if (startIndex >= choices.length) {
+      return;
+    }
     destroy();
     choiceTexts = choices
       .slice(startIndex, Math.min(startIndex + NUM_CHOICES, choices.length))
@@ -63,4 +67,35 @@ export function createScroll(
   });
 
   return destroy;
+}
+
+export function addBlackAndMarker(scene: Phaser.Scene) {
+  const black = scene.add.rectangle(
+    Constants.WIDTH / 2,
+    Constants.HEIGHT / 2,
+    Constants.WIDTH,
+    Constants.HEIGHT,
+    0x000000
+  );
+  black.setScrollFactor(0);
+  black.alpha = 0.5;
+  black.depth = Layer.DIALOGUE;
+
+  const marker = scene.add
+    .image(
+      5 * Constants.TILE_DISPLAY_SIZE,
+      Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 4,
+      "marker",
+      0
+    )
+    .setOrigin(0, 0);
+  marker.setScrollFactor(0);
+  marker.depth = Layer.DIALOGUE;
+  marker.scaleX = 3;
+  marker.scaleY = 4;
+
+  return {
+    black,
+    marker,
+  };
 }

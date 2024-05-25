@@ -20,10 +20,14 @@ export const DIALOGUES = {
     choices: [],
   },
   [DialogueType.WELCOME]: {
-    dialogue: ["Hello, welcome to the farm!"],
+    dialogue: [
+      "Hello, welcome to the farm!",
+      "How much money can you make in 30 days?",
+      "Let's find out!",
+    ],
     choices: [
       {
-        text: "Thanks for the welcome.",
+        text: "Click this option start!",
         outcomeType: OutcomeType.Exit,
         outcome: null,
       },

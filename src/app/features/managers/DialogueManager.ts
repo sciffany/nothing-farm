@@ -3,7 +3,7 @@ import { DIALOGUES, DialogueType, OutcomeType } from "../dialogues";
 import { HouseType, LOCATIONS } from "../locations";
 import MainGame from "../scenes/mainGame";
 import { TransactionGroup } from "../transactionGroups";
-import { createScroll } from "../utils/scroll";
+import { addBlackAndMarker, createScroll } from "../utils/scroll";
 
 export default class DialogueManager {
   private scene: MainGame;
@@ -26,29 +26,7 @@ export default class DialogueManager {
       return;
     }
 
-    const black = this.scene.add.rectangle(
-      Constants.WIDTH / 2,
-      Constants.HEIGHT / 2,
-      Constants.WIDTH,
-      Constants.HEIGHT,
-      0x000000
-    );
-
-    black.alpha = 0.5;
-    black.depth = Layer.DIALOGUE;
-
-    const marker = this.scene.add
-      .image(
-        5 * Constants.TILE_DISPLAY_SIZE,
-        Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 4,
-        "marker",
-        0
-      )
-      .setOrigin(0, 0);
-    marker.setScrollFactor(0);
-    marker.depth = Layer.DIALOGUE;
-    marker.scaleX = 3;
-    marker.scaleY = 4;
+    const { black, marker } = addBlackAndMarker(this.scene);
 
     const dialogueText = this.scene.add.text(
       Constants.TILE_DISPLAY_SIZE * 6,
@@ -66,6 +44,7 @@ export default class DialogueManager {
     );
 
     dialogueText.depth = Layer.DIALOGUE;
+    dialogueText.setScrollFactor(0);
 
     black.setInteractive();
     black.on("pointerdown", () => {
