@@ -2,8 +2,8 @@ import Item from "./Item";
 import { TilePlantStage } from "../managers/TileManager";
 import { PLANTS, PlantType } from "./Seed";
 import { Layer } from "../constants";
-import { ItemType } from "../items";
 import MainGame from "../scenes/mainGame";
+import { ItemType } from "../objects";
 
 export default class Vegetable extends Item {
   public plantType: PlantType;

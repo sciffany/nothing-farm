@@ -1,4 +1,4 @@
-import { ItemType } from "./items";
+import { ItemType } from "./objects";
 
 export enum TransactionGroup {
   NONE,

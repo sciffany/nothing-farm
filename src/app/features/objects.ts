@@ -1,10 +1,155 @@
-import { ITEMS } from "./items";
+import Axe from "./items/Axe";
+import PickupableObject from "./items/PickupableObject";
+import { PlantType } from "./items/Seed";
+import Vegetable from "./items/Vegetable";
 import MainGame from "./scenes/mainGame";
+import Hand from "./items/Hand";
+import Hoe from "./items/Hoe";
+import Seed from "./items/Seed";
+import Travel from "./items/Travel";
+import WateringCan from "./items/WateringCan";
+import Item from "./items/Item";
 
 export enum ClickableObjectType {
   NONE,
   SHIP_BOX,
 }
+
+export enum ItemType {
+  NONE,
+  HOE,
+  TRAVEL,
+  WATERING_CAN,
+  HAND,
+  TURNIP_SEEDS,
+  TOMATO_SEEDS,
+  CORN_SEEDS,
+  CARROT_SEEDS,
+  TURNIP,
+  TOMATO,
+  CORN,
+  CARROT,
+  AXE,
+  LOG,
+  ROCK,
+  YELLOW_FLOWER,
+}
+
+export const ITEMS: {
+  [itemType: number]: {
+    name: string;
+    constructor: (scene: MainGame) => Item;
+    sellable: boolean;
+    price: number;
+  };
+} = {
+  [ItemType.HOE]: {
+    name: "Hoe",
+    constructor: (scene: MainGame) => new Hoe(scene),
+    sellable: false,
+    price: 0,
+  },
+  [ItemType.TRAVEL]: {
+    name: "Travel",
+    constructor: (scene: MainGame) => new Travel(scene),
+    sellable: false,
+    price: 0,
+  },
+  [ItemType.WATERING_CAN]: {
+    name: "Watering Can",
+    constructor: (scene: MainGame) => new WateringCan(scene, 45),
+    sellable: false,
+    price: 0,
+  },
+  [ItemType.HAND]: {
+    name: "Hand",
+    constructor: (scene: MainGame) => new Hand(scene),
+    sellable: false,
+    price: 0,
+  },
+  [ItemType.TURNIP_SEEDS]: {
+    name: "Turnip Seeds",
+    constructor: (scene: MainGame) => new Seed(scene, PlantType.TURNIP, 1),
+    sellable: true,
+    price: 20,
+  },
+  [ItemType.TOMATO_SEEDS]: {
+    name: "Tomato Seeds",
+    constructor: (scene: MainGame) => new Seed(scene, PlantType.TOMATO, 1),
+    sellable: true,
+    price: 40,
+  },
+  [ItemType.CORN_SEEDS]: {
+    name: "Corn Seeds",
+    constructor: (scene: MainGame) => new Seed(scene, PlantType.CORN, 1),
+    sellable: true,
+    price: 100,
+  },
+  [ItemType.CARROT_SEEDS]: {
+    name: "Carrot Seeds",
+    constructor: (scene: MainGame) => new Seed(scene, PlantType.CARROT, 1),
+    sellable: true,
+    price: 60,
+  },
+  [ItemType.TURNIP]: {
+    name: "Turnip",
+    constructor: (scene: MainGame) => new Vegetable(scene, PlantType.TURNIP, 1),
+    sellable: true,
+    price: 100,
+  },
+  [ItemType.TOMATO]: {
+    name: "Tomato",
+    constructor: (scene: MainGame) => new Vegetable(scene, PlantType.TOMATO, 1),
+    sellable: true,
+    price: 200,
+  },
+  [ItemType.CORN]: {
+    name: "Corn",
+    constructor: (scene: MainGame) => new Vegetable(scene, PlantType.CORN, 1),
+    sellable: true,
+    price: 800,
+  },
+  [ItemType.CARROT]: {
+    name: "Carrot",
+    constructor: (scene: MainGame) => new Vegetable(scene, PlantType.CARROT, 1),
+    sellable: true,
+    price: 400,
+  },
+  [ItemType.AXE]: {
+    name: "Axe",
+    constructor: (scene: MainGame) => new Axe(scene),
+    sellable: false,
+    price: 0,
+  },
+  [ItemType.LOG]: {
+    name: "Log",
+    constructor: (scene: MainGame) =>
+      new PickupableObject(scene, PickupableObjectType.LOG, 1),
+    sellable: true,
+    price: 10,
+  },
+  [ItemType.ROCK]: {
+    name: "Log",
+    constructor: (scene: MainGame) =>
+      new PickupableObject(scene, PickupableObjectType.ROCK, 1),
+    sellable: true,
+    price: 20,
+  },
+  [ItemType.NONE]: {
+    name: "None",
+    constructor: (scene: MainGame) =>
+      new PickupableObject(scene, PickupableObjectType.NONE, 1),
+    sellable: false,
+    price: 0,
+  },
+  [ItemType.YELLOW_FLOWER]: {
+    name: "Yellow Flower",
+    constructor: (scene: MainGame) =>
+      new PickupableObject(scene, PickupableObjectType.YELLOW_FLOWER, 1),
+    sellable: true,
+    price: 5,
+  },
+};
 
 export const CLICKABLE_OBJECTS: {
   [objectType: number]: { action: (scene: MainGame) => void };
@@ -38,26 +183,41 @@ export enum PickupableObjectType {
 }
 
 export const PICKUPABLE_OBJECTS: {
-  [objectType: number]: { frame: number; sprite: string };
+  [objectType: number]: {
+    frame: number;
+    sprite: string;
+    name: string;
+    itemType: ItemType;
+  };
 } = {
   [PickupableObjectType.NONE]: {
     frame: 0,
     sprite: "none",
+    name: "None",
+    itemType: ItemType.NONE,
   },
   [PickupableObjectType.LOG]: {
     frame: 0,
     sprite: "log",
+    name: "Log",
+    itemType: ItemType.LOG,
   },
   [PickupableObjectType.ROCK]: {
     frame: 0,
     sprite: "rock",
+    name: "Rock",
+    itemType: ItemType.ROCK,
   },
   [PickupableObjectType.YELLOW_FLOWER]: {
     frame: 0,
     sprite: "flower",
+    name: "Yellow Flower",
+    itemType: ItemType.YELLOW_FLOWER,
   },
   [PickupableObjectType.TREE]: {
     frame: 0,
     sprite: "tree",
+    name: "Tree",
+    itemType: ItemType.NONE,
   },
 };

@@ -1,8 +1,8 @@
 import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
-import { Constants, Layer } from "../constants";
-import { ItemType } from "../items";
+import { Layer } from "../constants";
+import { ItemType } from "../objects";
 
 const SEED_FRAME = 5;
 

@@ -2,7 +2,7 @@ import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TileType } from "../managers/TileManager";
 import { Layer } from "../constants";
-import { ItemType } from "../items";
+import { ItemType } from "../objects";
 
 const HOE_FRAME = 0;
 

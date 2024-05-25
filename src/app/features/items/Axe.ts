@@ -3,18 +3,19 @@ import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
 import Vegetable from "./Vegetable";
 import { Layer } from "../constants";
-import { ItemType } from "../objects";
+import { ItemType, PickupableObjectType } from "../objects";
+import PickupableObject from "./PickupableObject";
 
-const HAND_FRAME = 4;
+const AXE_FRAME = 2;
 
-export default class Hand extends Item {
+export default class Axe extends Item {
   constructor(scene: MainGame) {
-    super(scene, "Hand");
+    super(scene, "Axe");
   }
 
   public initialize(position: number) {
     this.sprite = this.scene.add
-      .sprite(0, 0, "tools", HAND_FRAME)
+      .sprite(0, 0, "tools", AXE_FRAME)
       .setOrigin(0, 0);
 
     this.sprite.depth = Layer.UI;
@@ -23,17 +24,15 @@ export default class Hand extends Item {
   }
 
   public getType() {
-    return ItemType.HAND;
+    return ItemType.AXE;
   }
 
   public use(x: number, y: number) {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
-    if (tile?.plantStage === TilePlantStage.GROWN_STAGE_4) {
-      const plantType = tile?.plantType;
-      tile?.changeType(TileType.TILLED);
-      tile?.changePlantStage(TilePlantStage.NONE);
-      (this.scene as MainGame).itemManager?.addItem(
-        new Vegetable(this.scene, plantType!, 1)
+    if (tile?.objectType === PickupableObjectType.LOG) {
+      tile.changeObjectType(PickupableObjectType.NONE);
+      this.scene.itemManager.addItem(
+        new PickupableObject(this.scene, PickupableObjectType.LOG, 1)
       );
     }
   }

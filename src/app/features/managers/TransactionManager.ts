@@ -1,5 +1,5 @@
 import { HouseType, LOCATIONS } from "../locations";
-import { ITEMS } from "../items";
+import { ITEMS } from "../objects";
 import MainGame from "../scenes/mainGame";
 import { TRANSACTIONS, TransactionGroup } from "../transactionGroups";
 import { addBlackAndMarker, createScroll } from "../utils/scroll";

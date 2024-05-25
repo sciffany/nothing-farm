@@ -1,5 +1,5 @@
 import { Layer } from "../constants";
-import { ItemType } from "../items";
+import { ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
 import Item from "./Item";
 

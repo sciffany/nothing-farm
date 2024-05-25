@@ -3,8 +3,7 @@ import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import { PlantType } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
 import { HouseType } from "../locations";
-import { ClickableObjectType, PickupableObjectType } from "../objects";
-import { drawPickupableObject } from "../utils/objects";
+import { PICKUPABLE_OBJECTS, PickupableObjectType } from "../objects";
 import { weightedRandom } from "../utils/random";
 
 export enum TileType {
@@ -80,10 +79,6 @@ export class Tile {
             value: PickupableObjectType.YELLOW_FLOWER,
             weight: 0.2,
           },
-          {
-            value: PickupableObjectType.TREE,
-            weight: 0.2,
-          },
         ]);
         break;
       default:
@@ -139,8 +134,22 @@ export class Tile {
 
       this.tileSprite.setOrigin(0, 0);
       this.tileSprite.depth = Layer.TILES;
-      // this.tileSprite.scale = 2;
     }
+  }
+
+  public changeObjectType(objectType: PickupableObjectType) {
+    if (objectType == PickupableObjectType.NONE) {
+      this.objectSprite?.destroy();
+      return;
+    }
+    this.objectSprite = this.scene.add.sprite(
+      this.x * Constants.TILE_DISPLAY_SIZE,
+      this.y * Constants.TILE_DISPLAY_SIZE,
+      PICKUPABLE_OBJECTS[objectType].sprite,
+      PICKUPABLE_OBJECTS[objectType].frame
+    );
+    this.objectSprite.setOrigin(0, 0);
+    this.objectSprite.setScale(2);
   }
 
   public hide() {
@@ -240,14 +249,11 @@ export default class TileManager {
       this.occupiedTileList[this.currLoc] = [];
     }
 
-    for (const tile of this.currentTileMap.flat()) {
-      const destroy = drawPickupableObject(
-        this.scene,
-        tile.objectType,
-        tile.x,
-        tile.y
-      );
-    }
+    this.currentTileMap.forEach((row) => {
+      row.forEach((tile) => {
+        tile.changeObjectType(tile.objectType);
+      });
+    });
   }
 
   public destroy() {
