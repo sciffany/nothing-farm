@@ -33,7 +33,7 @@ export const LOCATIONS = {
     transaction: TransactionGroup.NONE,
     houses: {
       [HouseType.FARM]: {
-        location: { x: 8 + 2, y: 4 + 4 },
+        location: { x: 8 + 2, y: 4 + 5 },
         spriteFrame: -1,
       },
     },
@@ -41,7 +41,12 @@ export const LOCATIONS = {
   [HouseType.BARN]: {
     dialogue: DialogueType.NONE,
     transaction: TransactionGroup.NONE,
-    houses: {},
+    houses: {
+      [HouseType.FARM]: {
+        location: { x: 8 + 2, y: 4 + 5 },
+        spriteFrame: -1,
+      },
+    },
   },
   [HouseType.MARKET]: {
     dialogue: DialogueType.MARKET_WELCOME,

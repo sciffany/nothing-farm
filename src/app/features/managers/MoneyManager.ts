@@ -15,6 +15,10 @@ export default class MoneyManager {
     this.drawDayCounter();
   }
 
+  public getMoney() {
+    return this.money;
+  }
+
   public addMoney(amount: number) {
     this.money += amount;
     this.moneyText?.setText(`$ ${this.money}`);

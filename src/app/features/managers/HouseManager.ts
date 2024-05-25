@@ -38,8 +38,23 @@ export default class HouseManager {
         );
         marker.setOrigin(0, 0);
         marker.scaleX *= 0.5;
-        marker.setAlpha(0.1);
         sprite = marker;
+
+        // Add text to the marker
+        const text = this.scene.add.text(
+          location.x * Constants.TILE_DISPLAY_SIZE +
+            Constants.TILE_DISPLAY_SIZE,
+          location.y * Constants.TILE_DISPLAY_SIZE +
+            Constants.TILE_DISPLAY_SIZE / 2,
+          "Back",
+          {
+            fontSize: "12px",
+            fontFamily: "DePixelSchmal",
+            color: "#000000",
+          }
+        );
+
+        text.setOrigin(0.5, 0.5);
       }
       sprite.setInteractive();
       sprite.on("pointerdown", () => {

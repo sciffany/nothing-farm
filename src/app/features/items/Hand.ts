@@ -24,7 +24,7 @@ export default class Hand extends Item {
 
   public use(x: number, y: number) {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
-    if (tile?.plantStage === TilePlantStage.GROWN_STAGE_3) {
+    if (tile?.plantStage === TilePlantStage.GROWN_STAGE_4) {
       const plantType = tile?.plantType;
       tile?.changeType(TileType.PLAIN);
       tile?.changePlantStage(TilePlantStage.NONE);

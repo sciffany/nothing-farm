@@ -58,27 +58,13 @@ export default class TransactionManager {
         ...transactions.map((transaction) => ({
           text: ITEMS[transaction.item].name + " $" + transaction.price,
           action: () => {
-            if (transaction.item == ItemType.CarrotSeeds) {
-              this.scene.itemManager.addItem(
-                new Seed(this.scene, PlantType.CARROT, 1)
-              );
-              this.scene.moneyManager.addMoney(-transaction.price);
-            } else if (transaction.item == ItemType.CornSeeds) {
-              this.scene.itemManager.addItem(
-                new Seed(this.scene, PlantType.CORN, 1)
-              );
-              this.scene.moneyManager.addMoney(-transaction.price);
-            } else if (transaction.item == ItemType.TomatoSeeds) {
-              this.scene.itemManager.addItem(
-                new Seed(this.scene, PlantType.TOMATO, 1)
-              );
-              this.scene.moneyManager.addMoney(-transaction.price);
-            } else if (transaction.item == ItemType.TurnipSeeds) {
-              this.scene.itemManager.addItem(
-                new Seed(this.scene, PlantType.TURNIP, 1)
-              );
-              this.scene.moneyManager.addMoney(-transaction.price);
+            if (this.scene.moneyManager.getMoney() < transaction.price) {
+              return;
             }
+            this.scene.itemManager.addItem(
+              ITEMS[transaction.item].constructor(this.scene)
+            );
+            this.scene.moneyManager.addMoney(-transaction.price);
           },
         })),
         {
