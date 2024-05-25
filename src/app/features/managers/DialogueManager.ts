@@ -1,6 +1,6 @@
 import { Constants, Layer } from "../constants";
 import { DIALOGUES, DialogueType, OutcomeType } from "../dialogues";
-import { HouseType, LOCATIONS } from "../houses";
+import { HouseType, LOCATIONS } from "../locations";
 import MainGame from "../scenes/mainGame";
 import { TransactionGroup } from "../transactionGroups";
 

@@ -6,71 +6,95 @@ import Vegetable from "./items/Vegetable";
 import WateringCan from "./items/WateringCan";
 
 export enum ItemType {
-  Hoe,
-  Travel,
-  WateringCan,
-  Hand,
-  TurnipSeeds,
-  TomatoSeeds,
-  CornSeeds,
-  CarrotSeeds,
-  Turnip,
-  Tomato,
-  Corn,
-  Carrot,
+  HOE,
+  TRAVEL,
+  WATERING_CAN,
+  HAND,
+  TURNIP_SEEDS,
+  TOMATO_SEEDS,
+  CORN_SEEDS,
+  CARROT_SEEDS,
+  TURNIP,
+  TOMATO,
+  CORN,
+  CARROT,
 }
 
 export const ITEMS = {
-  [ItemType.Hoe]: {
+  [ItemType.HOE]: {
     name: "Hoe",
     constructor: (scene: Phaser.Scene) => new Hoe(scene),
+    sellable: false,
+    price: 0,
   },
-  [ItemType.Travel]: {
+  [ItemType.TRAVEL]: {
     name: "Travel",
     constructor: (scene: Phaser.Scene) => new Travel(scene),
+    sellable: false,
+    price: 0,
   },
-  [ItemType.WateringCan]: {
+  [ItemType.WATERING_CAN]: {
     name: "Watering Can",
     constructor: (scene: Phaser.Scene) => new WateringCan(scene, 45),
+    sellable: false,
+    price: 0,
   },
-  [ItemType.Hand]: {
+  [ItemType.HAND]: {
     name: "Hand",
     constructor: (scene: Phaser.Scene) => new Hand(scene),
+    sellable: false,
+    price: 0,
   },
-  [ItemType.TurnipSeeds]: {
+  [ItemType.TURNIP_SEEDS]: {
     name: "Turnip Seeds",
-    consturctor: (scene: Phaser.Scene) => new Seed(scene, PlantType.TURNIP, 1),
+    constructor: (scene: Phaser.Scene) => new Seed(scene, PlantType.TURNIP, 1),
+    sellable: true,
+    price: 20,
   },
-  [ItemType.TomatoSeeds]: {
+  [ItemType.TOMATO_SEEDS]: {
     name: "Tomato Seeds",
     constructor: (scene: Phaser.Scene) => new Seed(scene, PlantType.TOMATO, 1),
+    sellable: true,
+    price: 40,
   },
-  [ItemType.CornSeeds]: {
+  [ItemType.CORN_SEEDS]: {
     name: "Corn Seeds",
     constructor: (scene: Phaser.Scene) => new Seed(scene, PlantType.CORN, 1),
+    sellable: true,
+    price: 100,
   },
-  [ItemType.CarrotSeeds]: {
+  [ItemType.CARROT_SEEDS]: {
     name: "Carrot Seeds",
     constructor: (scene: Phaser.Scene) => new Seed(scene, PlantType.CARROT, 1),
+    sellable: true,
+    price: 60,
   },
-  [ItemType.Turnip]: {
+  [ItemType.TURNIP]: {
     name: "Turnip",
     constructor: (scene: Phaser.Scene) =>
       new Vegetable(scene, PlantType.TURNIP, 1),
+    sellable: true,
+    price: 100,
   },
-  [ItemType.Tomato]: {
+  [ItemType.TOMATO]: {
     name: "Tomato",
     constructor: (scene: Phaser.Scene) =>
       new Vegetable(scene, PlantType.TOMATO, 1),
+    sellable: true,
+    price: 200,
   },
-  [ItemType.Corn]: {
+  [ItemType.CORN]: {
     name: "Corn",
     constructor: (scene: Phaser.Scene) =>
       new Vegetable(scene, PlantType.CORN, 1),
+    sellable: true,
+    price: 800,
   },
-  [ItemType.Carrot]: {
+  [ItemType.CARROT]: {
     name: "Carrot",
     constructor: (scene: Phaser.Scene) =>
       new Vegetable(scene, PlantType.CARROT, 1),
+    sellable: true,
+    price: 400,
   },
 };

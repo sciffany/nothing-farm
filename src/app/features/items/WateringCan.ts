@@ -1,4 +1,5 @@
 import { Layer } from "../constants";
+import { ItemType } from "../items";
 import { TileType } from "../managers/TileManager";
 import MainGame from "../scenes/mainGame";
 import Item from "./Item";
@@ -8,6 +9,10 @@ const WATERING_CAN_FRAME = 1;
 export default class WateringCan extends Item {
   constructor(scene: Phaser.Scene, quantity: number) {
     super(scene, "Watering Can", quantity);
+  }
+
+  public getType() {
+    return ItemType.WATERING_CAN;
   }
 
   public initialize(position: number) {

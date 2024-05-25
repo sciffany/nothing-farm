@@ -2,6 +2,7 @@ import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
 import { Layer } from "../constants";
+import { ItemType } from "../items";
 
 const SEED_FRAME = 5;
 
@@ -35,6 +36,19 @@ export default class Seed extends Item {
     super(scene, plantName + " Seed", quantity);
 
     this.plantType = plantType;
+  }
+
+  public getType() {
+    switch (this.plantType) {
+      case PlantType.TURNIP:
+        return ItemType.TURNIP_SEEDS;
+      case PlantType.CORN:
+        return ItemType.CORN_SEEDS;
+      case PlantType.TOMATO:
+        return ItemType.TOMATO_SEEDS;
+      case PlantType.CARROT:
+        return ItemType.CARROT_SEEDS;
+    }
   }
 
   public initialize(position: number) {

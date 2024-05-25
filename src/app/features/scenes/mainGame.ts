@@ -6,8 +6,9 @@ import ItemManager from "../managers/ItemManager";
 import HouseManager from "../managers/HouseManager";
 import { BackgroundManager } from "../managers/BackgroundManager";
 import DialogueManager from "../managers/DialogueManager";
-import { HouseType } from "../houses";
+import { HouseType } from "../locations";
 import TransactionManager from "../managers/TransactionManager";
+import ObjectManager from "../managers/ObjectManager";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager: ItemManager;
@@ -18,6 +19,7 @@ export default class MainGame extends Phaser.Scene {
   public backgroundManager: BackgroundManager;
   public dialogueManager: DialogueManager;
   public transactionManager: TransactionManager;
+  public objectManager: ObjectManager;
   public currLoc: HouseType = HouseType.FARM;
 
   constructor() {
@@ -30,6 +32,7 @@ export default class MainGame extends Phaser.Scene {
     this.tileManager = new TileManager(this);
     this.dialogueManager = new DialogueManager(this);
     this.transactionManager = new TransactionManager(this);
+    this.objectManager = new ObjectManager(this);
   }
 
   preload() {
@@ -59,6 +62,10 @@ export default class MainGame extends Phaser.Scene {
       spacing: 2,
     });
     this.load.image("marker", "assets/marker.png");
+    this.load.spritesheet("objects", "assets/objects/sellbox.png", {
+      frameWidth: Constants.TILE_DISPLAY_SIZE,
+      frameHeight: Constants.TILE_DISPLAY_SIZE,
+    });
   }
 
   create() {
@@ -70,6 +77,7 @@ export default class MainGame extends Phaser.Scene {
     this.tileManager.initialize(HouseType.FARM);
     this.dialogueManager.initialize(HouseType.FARM);
     this.transactionManager.initialize(HouseType.FARM);
+    this.objectManager.initialize(HouseType.FARM);
     this.itemManager.initialize();
     this.moneyManager.initialize();
     this.dayManager.initialize();
@@ -86,6 +94,7 @@ export default class MainGame extends Phaser.Scene {
     this.tileManager.initialize(houseType);
     this.dialogueManager.initialize(houseType);
     this.transactionManager.initialize(houseType);
+    this.objectManager.initialize(houseType);
   }
 
   private addCamera() {

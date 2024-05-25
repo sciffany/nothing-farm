@@ -3,6 +3,8 @@ import MainGame from "../scenes/mainGame";
 import { TilePlantStage, TileType } from "../managers/TileManager";
 import Vegetable from "./Vegetable";
 import { Layer } from "../constants";
+import { ObjectType } from "../objects";
+import { ItemType } from "../items";
 
 const HAND_FRAME = 4;
 
@@ -22,6 +24,9 @@ export default class Hand extends Item {
     this.moveToPosition(0, position);
   }
 
+  public getType() {
+    return ItemType.HAND;
+  }
   public use(x: number, y: number) {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (tile?.plantStage === TilePlantStage.GROWN_STAGE_4) {

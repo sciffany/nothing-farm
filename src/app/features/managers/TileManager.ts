@@ -3,7 +3,7 @@ import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import { PlantType } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
 import { initialize } from "next/dist/server/lib/render-server";
-import { HouseType } from "../houses";
+import { HouseType } from "../locations";
 
 export enum TileType {
   PLAIN,

@@ -1,5 +1,5 @@
 import { Constants } from "../constants";
-import { HouseType } from "../houses";
+import { HouseType } from "../locations";
 import MainGame from "../scenes/mainGame";
 
 export class BackgroundManager {

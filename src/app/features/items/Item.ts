@@ -1,4 +1,6 @@
 import { Constants } from "../constants";
+import { ItemType } from "../items";
+import { ObjectType } from "../objects";
 import MainGame from "../scenes/mainGame";
 
 export default abstract class Item {
@@ -13,6 +15,7 @@ export default abstract class Item {
     this.quantity = quantity;
   }
 
+  abstract getType(): ItemType;
   abstract initialize(index: number): void;
   abstract use(x: number, y: number): void;
   public useUp() {

@@ -61,6 +61,10 @@ export default class ItemManager {
     item.initialize(this.items.length - 1);
   }
 
+  public removeItem(item: Item) {
+    item.useUp();
+  }
+
   private drawToolbox() {
     Array.from({ length: 16 }, (_, i) => i).map((i) => {
       const box = this.scene.add

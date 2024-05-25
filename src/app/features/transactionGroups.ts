@@ -8,19 +8,19 @@ export enum TransactionGroup {
 export const TRANSACTIONS = {
   [TransactionGroup.SEEDS]: [
     {
-      item: ItemType.TurnipSeeds,
+      item: ItemType.TURNIP_SEEDS,
       price: 40,
     },
     {
-      item: ItemType.TomatoSeeds,
+      item: ItemType.TOMATO_SEEDS,
       price: 80,
     },
     {
-      item: ItemType.CornSeeds,
+      item: ItemType.CORN_SEEDS,
       price: 200,
     },
     {
-      item: ItemType.CarrotSeeds,
+      item: ItemType.CARROT_SEEDS,
       price: 120,
     },
   ],

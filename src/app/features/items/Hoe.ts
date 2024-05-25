@@ -2,6 +2,7 @@ import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TileType } from "../managers/TileManager";
 import { Layer } from "../constants";
+import { ItemType } from "../items";
 
 const HOE_FRAME = 0;
 
@@ -19,6 +20,10 @@ export default class Hoe extends Item {
     this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);
+  }
+
+  public getType() {
+    return ItemType.HOE;
   }
 
   public use(x: number, y: number) {

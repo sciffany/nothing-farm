@@ -1,6 +1,6 @@
 import { Constants } from "../constants";
 import { DialogueType, DIALOGUES } from "../dialogues";
-import { HouseType, LOCATIONS as LOCATIONS } from "../houses";
+import { HouseType, LOCATIONS as LOCATIONS } from "../locations";
 import MainGame from "../scenes/mainGame";
 
 export default class HouseManager {

@@ -2,6 +2,7 @@ import Item from "./Item";
 import { TilePlantStage } from "../managers/TileManager";
 import { PlantProps, PlantType } from "./Seed";
 import { Layer } from "../constants";
+import { ItemType } from "../items";
 
 export default class Vegetable extends Item {
   public plantType: PlantType;
@@ -10,6 +11,19 @@ export default class Vegetable extends Item {
     const plantName = PlantProps[plantType].name;
     super(scene, plantName, quantity);
     this.plantType = plantType;
+  }
+
+  public getType() {
+    switch (this.plantType) {
+      case PlantType.TURNIP:
+        return ItemType.TURNIP;
+      case PlantType.CORN:
+        return ItemType.CORN;
+      case PlantType.TOMATO:
+        return ItemType.TOMATO;
+      case PlantType.CARROT:
+        return ItemType.CARROT;
+    }
   }
 
   public initialize(position: number) {

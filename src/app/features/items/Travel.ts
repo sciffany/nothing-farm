@@ -1,4 +1,5 @@
 import { Layer } from "../constants";
+import { ItemType } from "../items";
 import Item from "./Item";
 
 const TRAVEL_FRAME = 6;
@@ -6,6 +7,10 @@ const TRAVEL_FRAME = 6;
 export default class Travel extends Item {
   constructor(scene: Phaser.Scene) {
     super(scene, "Travel");
+  }
+
+  public getType() {
+    return ItemType.TRAVEL;
   }
 
   public initialize(position: number) {
