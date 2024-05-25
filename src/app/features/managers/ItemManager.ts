@@ -65,6 +65,11 @@ export default class ItemManager {
     item.useUp();
   }
 
+  public deleteItem(item: Item) {
+    const index = this.items.indexOf(item);
+    this.items.splice(index, 1);
+  }
+
   private drawToolbox() {
     Array.from({ length: 16 }, (_, i) => i).map((i) => {
       const box = this.scene.add

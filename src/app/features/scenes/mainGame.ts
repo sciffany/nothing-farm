@@ -9,6 +9,7 @@ import DialogueManager from "../managers/DialogueManager";
 import { HouseType } from "../locations";
 import TransactionManager from "../managers/TransactionManager";
 import ObjectManager from "../managers/ObjectManager";
+import { DialogueType } from "../dialogues";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager: ItemManager;
@@ -75,13 +76,14 @@ export default class MainGame extends Phaser.Scene {
     this.backgroundManager.initialize(HouseType.FARM);
     this.houseManager.initialize(HouseType.FARM);
     this.tileManager.initialize(HouseType.FARM);
+    this.addInteraction();
     this.dialogueManager.initialize(HouseType.FARM);
+    this.dialogueManager.playDialogue(DialogueType.WELCOME);
     this.transactionManager.initialize(HouseType.FARM);
     this.objectManager.initialize(HouseType.FARM);
     this.itemManager.initialize();
     this.moneyManager.initialize();
     this.dayManager.initialize();
-    this.addInteraction();
   }
 
   public changeLocation(houseType: HouseType) {
@@ -94,6 +96,7 @@ export default class MainGame extends Phaser.Scene {
     this.tileManager.initialize(houseType);
     this.dialogueManager.initialize(houseType);
     this.transactionManager.initialize(houseType);
+    this.objectManager.destroy();
     this.objectManager.initialize(houseType);
   }
 
@@ -126,11 +129,21 @@ export default class MainGame extends Phaser.Scene {
   }
 
   private addInteraction() {
-    // Add interaction
-    this.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
+    // Add invisible rectangle for tile interaction
+
+    const rectangle = this.add.rectangle(
+      0,
+      0,
+      Constants.WIDTH,
+      Constants.HEIGHT,
+      0x0ff00
+    );
+    rectangle.setOrigin(0, 0);
+    rectangle.setVisible(false);
+    rectangle.setInteractive();
+    rectangle.on("pointerdown", () => {
       const [tileX, tileY] = this.getTileCoordinates();
       if (tileX === 0) return;
-
       this.itemManager?.selectedItem?.use(tileX, tileY);
     });
   }

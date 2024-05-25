@@ -21,7 +21,6 @@ export default class TransactionManager {
   }
 
   public playTransactionGroup(transactionGroup: TransactionGroup) {
-    console.log("transactionGroup", transactionGroup);
     if (transactionGroup == TransactionGroup.NONE) {
       return;
     }

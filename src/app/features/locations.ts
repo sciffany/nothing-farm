@@ -12,7 +12,7 @@ export enum HouseType {
 
 export const LOCATIONS = {
   [HouseType.FARM]: {
-    dialogue: DialogueType.WELCOME,
+    dialogue: DialogueType.NONE,
     transaction: TransactionGroup.NONE,
     objects: {
       [ObjectType.SHIP_BOX]: {

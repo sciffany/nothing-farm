@@ -4,12 +4,12 @@ import { ObjectType } from "../objects";
 import MainGame from "../scenes/mainGame";
 
 export default abstract class Item {
-  protected scene: Phaser.Scene;
+  protected scene: MainGame;
   protected sprite: Phaser.GameObjects.Sprite | null = null;
   public name: string;
   public quantity: number;
 
-  constructor(scene: Phaser.Scene, name: string, quantity: number = 1) {
+  constructor(scene: MainGame, name: string, quantity: number = 1) {
     this.scene = scene;
     this.name = name;
     this.quantity = quantity;
@@ -20,7 +20,11 @@ export default abstract class Item {
   abstract use(x: number, y: number): void;
   public useUp() {
     this.quantity -= 1;
-    (this.scene as MainGame).itemManager?.updateItemQuantity(this);
+    this.scene.itemManager.updateItemQuantity(this);
+    if (this.quantity === 0) {
+      this.sprite?.destroy();
+      this.scene.itemManager.deleteItem(this);
+    }
   }
 
   public addQuantity(quantity: number) {

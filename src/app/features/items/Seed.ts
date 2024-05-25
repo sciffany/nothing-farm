@@ -31,7 +31,7 @@ export const PLANTS = {
 export default class Seed extends Item {
   public plantType: PlantType;
 
-  constructor(scene: Phaser.Scene, plantType: PlantType, quantity: number) {
+  constructor(scene: MainGame, plantType: PlantType, quantity: number) {
     const plantName = PLANTS[plantType].name;
     super(scene, plantName + " Seed", quantity);
 
@@ -82,6 +82,9 @@ export default class Seed extends Item {
       tile?.getType() === TileType.TILLED ||
       tile?.getType() === TileType.WATERED
     ) {
+      if (tile.plantStage !== TilePlantStage.NONE) {
+        return;
+      }
       this.useUp();
       tile.changePlantStage(TilePlantStage.SEEDED, this.plantType);
     }

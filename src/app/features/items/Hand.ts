@@ -9,7 +9,7 @@ import { ItemType } from "../items";
 const HAND_FRAME = 4;
 
 export default class Hand extends Item {
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: MainGame) {
     super(scene, "Hand");
   }
 
@@ -18,7 +18,6 @@ export default class Hand extends Item {
       .sprite(0, 0, "tools", HAND_FRAME)
       .setOrigin(0, 0);
 
-    // this.sprite.scale = 2;
     this.sprite.depth = Layer.UI;
 
     this.moveToPosition(0, position);
@@ -31,7 +30,7 @@ export default class Hand extends Item {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (tile?.plantStage === TilePlantStage.GROWN_STAGE_4) {
       const plantType = tile?.plantType;
-      tile?.changeType(TileType.PLAIN);
+      tile?.changeType(TileType.TILLED);
       tile?.changePlantStage(TilePlantStage.NONE);
       (this.scene as MainGame).itemManager?.addItem(
         new Vegetable(this.scene, plantType!, 1)
