@@ -1,12 +1,13 @@
 "use client";
 
-import Phaser from "phaser";
 import { useEffect } from "react";
 import { NothingFarmSingleton } from "../features/game";
 import "./page.css";
+import NoSsr from "./noSsr";
 
-export default function App() {
+function App() {
   useEffect(() => {
+    if (!window) return;
     NothingFarmSingleton.getInstance();
   }, []);
 
@@ -24,6 +25,16 @@ export default function App() {
       <div className='flex justify-center items-center'>
         <div className='game-display'></div>
       </div>
+    </>
+  );
+}
+
+export default function () {
+  return (
+    <>
+      <NoSsr>
+        <App />
+      </NoSsr>
     </>
   );
 }

@@ -34,6 +34,6 @@ export default class EnergyManager {
       .setOrigin(0, 0);
     this.marker.setScrollFactor(0);
     this.marker.depth = Layer.UI;
-    this.marker.blendMode = Phaser.BlendModes.HARD_LIGHT;
+    this.marker.blendMode = Phaser.BlendModes.ADD;
   }
 }
