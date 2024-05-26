@@ -20,12 +20,10 @@ export class BackgroundManager {
       });
       // https://github.com/sporadic-labs/tile-extruder
       const tileset = map.addTilesetImage(
-        "all_tiles",
-        "all_tiles",
-        Constants.TILESIZE * 2,
-        Constants.TILESIZE * 2,
-        1,
-        2
+        "all_tiles2",
+        "all_tiles2",
+        Constants.TILESIZE,
+        Constants.TILESIZE
       );
       if (!tileset) return;
 

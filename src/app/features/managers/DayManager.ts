@@ -1,5 +1,4 @@
 import { Constants, Layer } from "../constants";
-import { NothingFarm } from "../game";
 import MainGame from "../scenes/mainGame";
 
 export default class DayManager {
@@ -80,6 +79,7 @@ export default class DayManager {
     if (!this.dayText?.text) return;
     this.dayText.text = `Day ${this.day}`;
 
-    (this.scene as MainGame).tileManager?.nextDay();
+    this.scene.tileManager.nextDay();
+    this.scene.energyManager.addEnergy(300);
   }
 }

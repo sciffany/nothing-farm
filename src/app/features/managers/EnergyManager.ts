@@ -36,4 +36,9 @@ export default class EnergyManager {
     this.marker.depth = Layer.UI;
     this.marker.blendMode = Phaser.BlendModes.ADD;
   }
+
+  public refill() {
+    this.energy = 300;
+    this.marker?.setScale(1, 1);
+  }
 }
