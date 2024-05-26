@@ -10,6 +10,7 @@ export const Constants = {
   NUM_TILES_Y: isMobile ? 8 : 12,
   NUM_TILES_X: isMobile ? 20 : 24,
   MAX_ITEMS: 16,
+  INITIAL_MONEY: 1000,
 };
 
 export enum Layer {

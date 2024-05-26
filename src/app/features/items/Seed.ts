@@ -73,7 +73,7 @@ export default class Seed extends Item {
   }
 
   public use(x: number, y: number) {
-    const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
+    const tile = this.scene.tileManager.getTile(x, y);
     if (
       tile?.getType() === TileType.TILLED ||
       tile?.getType() === TileType.WATERED

@@ -189,8 +189,9 @@ export class Tile {
     }
     this.plantStage = plantStage;
 
-    if (this.plantStage === TilePlantStage.NONE) {
+    if (this.plantStage == TilePlantStage.NONE) {
       this.tilePlantSprite?.destroy();
+      this.tilePlantSprite = null;
     } else {
       const plantFrame =
         plantStage -

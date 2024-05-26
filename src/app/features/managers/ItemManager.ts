@@ -28,10 +28,10 @@ export default class ItemManager {
   constructor(scene: MainGame) {
     this.scene = scene;
     this.hoe = new Hoe(this.scene);
-    const turnipSeeds = new Seed(this.scene, PlantType.TURNIP, 10);
+    const turnipSeeds = new Seed(this.scene, PlantType.TURNIP, 2);
     this.travel = new Travel(this.scene);
     this.wateringCan = new WateringCan(this.scene, 45);
-    const tomatoSeeds = new Seed(this.scene, PlantType.TOMATO, 5);
+    const tomatoSeeds = new Seed(this.scene, PlantType.TOMATO, 2);
     this.hand = new Hand(this.scene);
     this.axe = new Axe(this.scene);
     this.hammer = new Hammer(this.scene);
