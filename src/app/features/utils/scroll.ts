@@ -14,7 +14,7 @@ export const renderChoice = (
   const choiceText = scene.add.text(
     Constants.TILE_DISPLAY_SIZE * 6,
     Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 3 + 20 * index,
-    "> " + choice.text,
+    "🌱 " + choice.text,
     {
       fontSize: "12px",
       fontFamily: "DePixelSchmal",
@@ -45,22 +45,64 @@ export function createScroll(
   const NUM_CHOICES = 3;
   let startIndex = 0;
   let choiceTexts: Phaser.GameObjects.Text[] = [];
+  let nextButton: Phaser.GameObjects.Image;
+  let nextText: Phaser.GameObjects.Text;
+
+  const destroyChoices = () => {
+    choiceTexts.forEach((choiceText) => choiceText.destroy());
+  };
 
   const destroy = () => {
     choiceTexts.forEach((choiceText) => choiceText.destroy());
+    nextButton?.destroy();
+    nextText?.destroy();
   };
 
   choiceTexts = choices
     .slice(startIndex, Math.min(startIndex + NUM_CHOICES, choices.length))
     .map((choice, index) => renderChoice(scene, choice, index));
 
-  marker.setInteractive();
-  marker.on("pointerdown", () => {
+  if (choices.length <= NUM_CHOICES) {
+    return destroy;
+  }
+
+  // nextButton = scene.add.image(
+  //   marker.x + marker.displayWidth - Constants.TILE_DISPLAY_SIZE,
+  //   marker.y + marker.displayHeight - Constants.TILE_DISPLAY_SIZE,
+  //   "marker"
+  // );
+  // nextButton.setScale(0.5, 1);
+  // nextButton.setScrollFactor(0);
+  // nextButton.depth = Layer.DIALOGUE;
+  // nextButton.setOrigin(1, 1);
+
+  nextText = scene.add.text(
+    marker.x +
+      marker.displayWidth -
+      Constants.TILE_DISPLAY_SIZE -
+      Constants.TILE_DISPLAY_SIZE / 2,
+    marker.y +
+      marker.displayHeight -
+      Constants.TILE_DISPLAY_SIZE -
+      Constants.TILE_DISPLAY_SIZE / 2,
+    "⬇️",
+    {
+      fontSize: "12px",
+      fontFamily: "DePixelSchmal",
+      color: "#000000",
+    }
+  );
+  nextText.setScrollFactor(0);
+  nextText.depth = Layer.DIALOGUE;
+  nextText.setOrigin(0.5, 0.5);
+
+  nextText.setInteractive();
+  nextText.on("pointerdown", () => {
     startIndex += 3;
     if (startIndex >= choices.length) {
       return;
     }
-    destroy();
+    destroyChoices();
     choiceTexts = choices
       .slice(startIndex, Math.min(startIndex + NUM_CHOICES, choices.length))
       .map((choice, index) => renderChoice(scene, choice, index));

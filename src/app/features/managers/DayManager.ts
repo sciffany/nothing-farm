@@ -73,7 +73,7 @@ export default class DayManager {
       .text(
         Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
         Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE / 2,
-        "Sleep",
+        "Sleep and Save",
         {
           fontSize: "12px",
           fontFamily: "DePixelSchmal",

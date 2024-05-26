@@ -9,9 +9,9 @@ import DialogueManager from "../managers/DialogueManager";
 import { HouseType } from "../locations";
 import TransactionManager from "../managers/TransactionManager";
 import ObjectManager from "../managers/ObjectManager";
-import { DialogueType } from "../dialogues";
 import EnergyManager from "../managers/EnergyManager";
 import CameraManager from "../managers/CameraManager";
+import { DialogueType } from "../dialogues";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager: ItemManager;
@@ -85,20 +85,20 @@ export default class MainGame extends Phaser.Scene {
   create() {
     // Draw game elements
     this.input.setDefaultCursor("url(assets/hand.cur), pointer");
-    this.cameraManager.initialize(HouseType.FARM);
-    this.backgroundManager.initialize(HouseType.FARM);
-    this.tileManager.initialize(HouseType.FARM);
+    this.cameraManager.initialize(HouseType.HOME);
+    this.backgroundManager.initialize(HouseType.HOME);
+    this.tileManager.initialize(HouseType.HOME);
     this.addInteraction();
-    this.houseManager.initialize(HouseType.FARM);
-    this.dialogueManager.initialize(HouseType.FARM);
-    this.cameraManager.initialize(HouseType.FARM);
-    // this.dialogueManager.playDialogue(DialogueType.WELCOME);
-    this.transactionManager.initialize(HouseType.FARM);
-    this.objectManager.initialize(HouseType.FARM);
+    this.houseManager.initialize(HouseType.HOME);
+    this.dialogueManager.initialize(HouseType.HOME);
+    this.cameraManager.initialize(HouseType.HOME);
+    this.dialogueManager.playDialogue(DialogueType.WELCOME);
+    this.transactionManager.initialize(HouseType.HOME);
+    this.objectManager.initialize(HouseType.HOME);
     this.itemManager.initialize();
     this.energyManager.initialize();
     this.moneyManager.initialize();
-    this.dayManager.initialize(HouseType.FARM);
+    this.dayManager.initialize(HouseType.HOME);
   }
 
   public changeLocation(houseType: HouseType) {

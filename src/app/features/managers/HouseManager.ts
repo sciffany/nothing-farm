@@ -45,7 +45,7 @@ export default class HouseManager {
             Constants.TILE_DISPLAY_SIZE,
           location.y * Constants.TILE_DISPLAY_SIZE +
             Constants.TILE_DISPLAY_SIZE / 2,
-          "Back",
+          house?.label ?? "Back",
           {
             fontSize: "12px",
             fontFamily: "DePixelSchmal",

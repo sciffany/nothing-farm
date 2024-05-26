@@ -11,7 +11,25 @@ export enum HouseType {
   WEST,
 }
 
-export const LOCATIONS = {
+export const LOCATIONS: {
+  [key in HouseType]: {
+    dialogue: DialogueType;
+    transaction: TransactionGroup;
+    objects: {
+      [key in ClickableObjectType]?: {
+        location: { x: number; y: number };
+        spriteFrame: number;
+      };
+    };
+    houses: {
+      [key in HouseType]?: {
+        location: { x: number; y: number };
+        spriteFrame: number;
+        label?: string;
+      };
+    };
+  };
+} = {
   [HouseType.FARM]: {
     dialogue: DialogueType.NONE,
     transaction: TransactionGroup.NONE,
@@ -33,10 +51,12 @@ export const LOCATIONS = {
       [HouseType.MARKET]: {
         location: { x: 22, y: 8 },
         spriteFrame: 2,
+        label: "",
       },
       [HouseType.WEST]: {
         location: { x: 2, y: 13 },
         spriteFrame: -1,
+        label: "To West",
       },
     },
   },
@@ -48,6 +68,7 @@ export const LOCATIONS = {
       [HouseType.FARM]: {
         location: { x: 8 + 2, y: 4 + 5 },
         spriteFrame: -1,
+        label: "To Farm",
       },
     },
   },
@@ -59,6 +80,7 @@ export const LOCATIONS = {
       [HouseType.FARM]: {
         location: { x: 8 + 2, y: 4 + 5 },
         spriteFrame: -1,
+        label: "To Farm",
       },
     },
   },
@@ -70,6 +92,7 @@ export const LOCATIONS = {
       [HouseType.FARM]: {
         location: { x: 10, y: 8 },
         spriteFrame: -1,
+        label: "To Farm",
       },
     },
   },
@@ -87,6 +110,7 @@ export const LOCATIONS = {
       [HouseType.FARM]: {
         location: { x: 30 - 2, y: 13 },
         spriteFrame: -1,
+        label: "To Farm",
       },
     },
   },
