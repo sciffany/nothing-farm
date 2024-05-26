@@ -1,5 +1,5 @@
 export const Constants = {
-  WIDTH: 32 * 24, // 768
+  WIDTH: 32 * 18, // 768
   HEIGHT: 32 * 12, // 512
   TILESIZE: 16,
   TILE_DISPLAY_SIZE: 32,

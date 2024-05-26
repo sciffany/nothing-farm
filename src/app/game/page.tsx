@@ -13,7 +13,7 @@ const config = {
   type: Phaser.AUTO,
   scene: [MainGame],
   scale: {
-    mode: Phaser.Scale.NONE,
+    mode: Phaser.Scale.FIT,
     parent: "game-display",
   },
   pixelArt: true,
