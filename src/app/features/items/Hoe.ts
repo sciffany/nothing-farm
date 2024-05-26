@@ -26,13 +26,15 @@ export default class Hoe extends Item {
   }
 
   public use(x: number, y: number) {
-    const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
+    const tile = this.scene.tileManager.getTile(x, y);
     if (!tile) return;
     this.scene.tileManager.addTile(tile);
     if (
       tile?.getType() === TileType.GROUND &&
       tile.objectType === PickupableObjectType.NONE
     ) {
+      if (this.scene.energyManager.getEnergy() < 10) return;
+      this.scene.energyManager.addEnergy(-10);
       tile?.changeType(TileType.TILLED);
     }
   }

@@ -10,6 +10,7 @@ import { HouseType } from "../locations";
 import TransactionManager from "../managers/TransactionManager";
 import ObjectManager from "../managers/ObjectManager";
 import { DialogueType } from "../dialogues";
+import EnergyManager from "../managers/EnergyManager";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager: ItemManager;
@@ -21,6 +22,7 @@ export default class MainGame extends Phaser.Scene {
   public dialogueManager: DialogueManager;
   public transactionManager: TransactionManager;
   public objectManager: ObjectManager;
+  public energyManager: EnergyManager;
   public currLoc: HouseType = HouseType.FARM;
 
   constructor() {
@@ -34,6 +36,7 @@ export default class MainGame extends Phaser.Scene {
     this.dialogueManager = new DialogueManager(this);
     this.transactionManager = new TransactionManager(this);
     this.objectManager = new ObjectManager(this);
+    this.energyManager = new EnergyManager(this);
   }
 
   preload() {
@@ -89,6 +92,7 @@ export default class MainGame extends Phaser.Scene {
     this.transactionManager.initialize(HouseType.FARM);
     this.objectManager.initialize(HouseType.FARM);
     this.itemManager.initialize();
+    this.energyManager.initialize();
     this.moneyManager.initialize();
     this.dayManager.initialize();
   }
