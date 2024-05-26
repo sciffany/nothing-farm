@@ -35,10 +35,13 @@ export default abstract class Item {
   }
 
   public moveToPosition(x: number, y: number) {
+    x = Math.floor(y / Constants.NUM_TILES_Y);
+    y = y % Constants.NUM_TILES_Y;
+
     if (!this.sprite) return;
     this.sprite.depth = Layer.UI;
     this.sprite.setScrollFactor(0);
-    this.sprite.x = x;
+    this.sprite.x = x * Constants.TILE_DISPLAY_SIZE;
     this.sprite.y = y * Constants.TILE_DISPLAY_SIZE;
   }
 }

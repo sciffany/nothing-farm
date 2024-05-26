@@ -81,11 +81,14 @@ export default class ItemManager {
 
   private drawToolbox() {
     Array.from({ length: 16 }, (_, i) => i).map((i) => {
+      const y = i % Constants.NUM_TILES_Y;
+      const x = Math.floor(i / Constants.NUM_TILES_Y);
       const box = this.scene.add
         .sprite(0, 0, "tools", TOOLBOX_FRAME)
         .setOrigin(0, 0);
       box.depth = Layer.UI;
-      box.y = Constants.TILE_DISPLAY_SIZE * i;
+      box.x = Constants.TILE_DISPLAY_SIZE * x;
+      box.y = Constants.TILE_DISPLAY_SIZE * y;
       // box.scale = 2;
       box.setScrollFactor(0);
       return box;
@@ -111,7 +114,7 @@ export default class ItemManager {
     const rectangle = this.scene.add.rectangle(
       0,
       0,
-      Constants.TILE_DISPLAY_SIZE,
+      Constants.TILE_DISPLAY_SIZE * 2,
       Constants.HEIGHT,
       0x000000
     );
@@ -127,9 +130,13 @@ export default class ItemManager {
       const x = Math.floor(pointer.x / Constants.TILE_DISPLAY_SIZE);
       const y = Math.floor(pointer.y / Constants.TILE_DISPLAY_SIZE);
 
-      if (x !== 0) return;
+      const index = y + x * Constants.NUM_TILES_Y;
+      if (index >= Constants.MAX_ITEMS) return;
+
+      this.selector.x = x * Constants.TILE_DISPLAY_SIZE;
       this.selector.y = y * Constants.TILE_DISPLAY_SIZE;
-      this.selectedItem = this.items?.[y];
+
+      this.selectedItem = this.items?.[index];
 
       if (!this.itemName || !this.selectedItem) return;
       this.itemName.text =
@@ -140,7 +147,7 @@ export default class ItemManager {
   private drawItemName() {
     const marker = this.scene.add
       .image(
-        Constants.TILE_DISPLAY_SIZE,
+        Constants.TILE_DISPLAY_SIZE * 2,
         Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE,
         "marker",
         0
@@ -150,7 +157,7 @@ export default class ItemManager {
     marker.setScrollFactor(0);
 
     this.itemName = this.scene.add.text(
-      Constants.TILE_DISPLAY_SIZE * 3,
+      Constants.TILE_DISPLAY_SIZE * 4,
       Constants.HEIGHT -
         Constants.TILE_DISPLAY_SIZE +
         Constants.TILE_DISPLAY_SIZE / 2,

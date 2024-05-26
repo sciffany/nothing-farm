@@ -80,6 +80,6 @@ export default class DayManager {
     this.dayText.text = `Day ${this.day}`;
 
     this.scene.tileManager.nextDay();
-    this.scene.energyManager.addEnergy(300);
+    this.scene.energyManager.refill();
   }
 }
