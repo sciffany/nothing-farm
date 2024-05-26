@@ -302,8 +302,10 @@ export default class TileManager {
   }
 
   public nextDay() {
-    this.plantedTileList[this.currLoc].forEach((tile) => {
-      tile?.nextDay();
+    Object.values(this.plantedTileList).forEach((tileList) => {
+      tileList.forEach((tile) => {
+        tile?.nextDay();
+      });
     });
   }
 
