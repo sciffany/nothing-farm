@@ -88,7 +88,7 @@ export default class MainGame extends Phaser.Scene {
     this.addInteraction();
     this.houseManager.initialize(HouseType.FARM);
     this.dialogueManager.initialize(HouseType.FARM);
-    this.dialogueManager.playDialogue(DialogueType.WELCOME);
+    // this.dialogueManager.playDialogue(DialogueType.WELCOME);
     this.transactionManager.initialize(HouseType.FARM);
     this.objectManager.initialize(HouseType.FARM);
     this.itemManager.initialize();

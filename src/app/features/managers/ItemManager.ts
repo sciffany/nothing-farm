@@ -175,7 +175,7 @@ export default class ItemManager {
 
   public updateItemQuantity(item: Item) {
     if (!this.itemName) return;
-    if (item.quantity === 0) {
+    if (item.quantity === 0 && item.deleteOnEmpty) {
       this.itemName.text = "";
       return;
     }

@@ -6,14 +6,15 @@ import MainGame from "../scenes/mainGame";
 import { HouseType } from "../locations";
 import { PICKUPABLE_OBJECTS, PickupableObjectType } from "../objects";
 import { weightedRandom } from "../utils/random";
+import { fadeOut } from "../utils/animation";
 
 export enum TileType {
   PLAIN,
   GROUND,
   TILLED,
   WATERED,
-  DOOR,
   ITEM,
+  WATER,
 }
 
 export enum TilePlantStage {
@@ -82,6 +83,21 @@ export class Tile {
           },
         ]);
         break;
+      case 221:
+      case 222:
+      case 223:
+      case 224:
+      case 225:
+      case 241:
+      case 242:
+      case 243:
+      case 244:
+      case 245:
+      case 261:
+      case 262:
+      case 263:
+        this.type = TileType.WATER;
+        break;
       default:
         this.type = TileType.PLAIN;
         break;
@@ -141,7 +157,7 @@ export class Tile {
   public changeObjectType(objectType: PickupableObjectType) {
     this.objectType = objectType;
     if (objectType == PickupableObjectType.NONE) {
-      this.objectSprite?.destroy();
+      this.scene.tweens.add(fadeOut([this.objectSprite], 200));
       return;
     } else {
       this.objectSprite = this.scene.add.sprite(

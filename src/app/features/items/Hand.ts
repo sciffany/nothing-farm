@@ -31,7 +31,7 @@ export default class Hand extends Item {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (tile?.plantStage === TilePlantStage.GROWN_STAGE_4) {
       const plantType = tile?.plantType;
-      tile?.changeType(TileType.PLAIN);
+      tile?.changeType(TileType.GROUND);
       tile?.changePlantStage(TilePlantStage.NONE);
       (this.scene as MainGame).itemManager?.addItem(
         new Vegetable(this.scene, plantType!, 1)

@@ -10,6 +10,7 @@ export default abstract class Item {
     | null = null;
   public name: string;
   public quantity: number;
+  public deleteOnEmpty: boolean = true;
 
   constructor(scene: MainGame, name: string, quantity: number = 1) {
     this.scene = scene;
@@ -24,7 +25,7 @@ export default abstract class Item {
     if (this.quantity === 0) return;
     this.quantity -= 1;
     this.scene.itemManager.updateItemQuantity(this);
-    if (this.quantity === 0) {
+    if (this.quantity === 0 && this.deleteOnEmpty) {
       this.sprite?.destroy();
       this.scene.itemManager.deleteItem(this);
     }
@@ -32,6 +33,33 @@ export default abstract class Item {
 
   public addQuantity(quantity: number) {
     this.quantity += quantity;
+    const qtyText = this.scene.add.text(0, 0, `+${quantity} ${this.name}`, {
+      fontSize: "12px",
+      color: "#b55945",
+      fontFamily: "DePixelSchmal",
+    });
+    qtyText.depth = Layer.UI;
+
+    this.scene.tweens.add({
+      targets: qtyText,
+      y: -Constants.TILE_DISPLAY_SIZE,
+      ease: "Power1",
+      duration: 2000,
+    });
+
+    this.scene.tweens.add({
+      targets: qtyText,
+      alpha: 0,
+      ease: "Power1",
+      duration: 2000,
+      onComplete: () => {
+        qtyText.destroy();
+      },
+    });
+  }
+
+  public changeQuantity(quantity: number) {
+    this.quantity = quantity;
   }
 
   public moveToPosition(x: number, y: number) {

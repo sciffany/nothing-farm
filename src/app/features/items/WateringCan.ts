@@ -9,6 +9,7 @@ const WATERING_CAN_FRAME = 1;
 export default class WateringCan extends Item {
   constructor(scene: MainGame, quantity: number) {
     super(scene, "Watering Can", quantity);
+    this.deleteOnEmpty = false;
   }
 
   public getType() {
@@ -27,9 +28,15 @@ export default class WateringCan extends Item {
 
   public use(x: number, y: number) {
     this.useUp();
-    const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
+    const tile = this.scene.tileManager.getTile(x, y);
     if (tile?.getType() === TileType.TILLED) {
       tile?.changeType(TileType.WATERED);
+    }
+
+    if (tile?.getType() === TileType.WATER) {
+      this.changeQuantity(45);
+      this.scene.itemManager.updateItemQuantity(this);
+      tile?.changeType(TileType.PLAIN);
     }
   }
 }

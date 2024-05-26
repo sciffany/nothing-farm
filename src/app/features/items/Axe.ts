@@ -1,8 +1,9 @@
 import Item from "./Item";
 import MainGame from "../scenes/mainGame";
-import { Layer } from "../constants";
+import { Constants, Layer } from "../constants";
 import { ItemType, PickupableObjectType } from "../objects";
 import PickupableObject from "./PickupableObject";
+import { animation } from "../utils/animation";
 
 const AXE_FRAME = 2;
 

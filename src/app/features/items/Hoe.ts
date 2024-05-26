@@ -1,8 +1,9 @@
 import Item from "./Item";
 import MainGame from "../scenes/mainGame";
 import { TileType } from "../managers/TileManager";
-import { Layer } from "../constants";
+import { Constants, Layer } from "../constants";
 import { ItemType, PickupableObjectType } from "../objects";
+import { animation } from "../utils/animation";
 
 const HOE_FRAME = 0;
 

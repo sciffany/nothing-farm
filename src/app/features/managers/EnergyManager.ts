@@ -1,9 +1,11 @@
 import { Constants, Layer } from "../constants";
 import MainGame from "../scenes/mainGame";
 
+const START_ENERGY = 400;
+
 export default class EnergyManager {
   private scene: MainGame;
-  private energy: number = 300;
+  private energy: number = START_ENERGY;
   private marker: Phaser.GameObjects.Image | null = null;
 
   constructor(scene: MainGame) {
@@ -20,7 +22,7 @@ export default class EnergyManager {
 
   public addEnergy(amount: number) {
     this.energy += amount;
-    this.marker?.setScale(this.energy / 300, 1);
+    this.marker?.setScale(this.energy / START_ENERGY, 1);
   }
 
   private drawEnergyBar() {
@@ -38,7 +40,7 @@ export default class EnergyManager {
   }
 
   public refill() {
-    this.energy = 300;
+    this.energy = START_ENERGY;
     this.marker?.setScale(1, 1);
   }
 }
