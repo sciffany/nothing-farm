@@ -1,4 +1,5 @@
 import { Constants, Layer } from "../constants";
+import { HouseType } from "../locations";
 import MainGame from "../scenes/mainGame";
 
 export default class DayManager {
@@ -7,13 +8,30 @@ export default class DayManager {
 
   private dayText: Phaser.GameObjects.Text | null = null;
 
+  private nextDayButton: Phaser.GameObjects.Image | null = null;
+  private nextDayText: Phaser.GameObjects.Text | null = null;
+
   constructor(scene: MainGame) {
     this.scene = scene;
   }
 
-  public initialize() {
+  public initialize(houseType: HouseType) {
     this.drawDayCounter();
     this.drawNextButton();
+    this.destroy();
+    this.changeLocation(houseType);
+  }
+
+  public changeLocation(houseType: HouseType) {
+    if (houseType == HouseType.HOME) {
+      this.nextDayButton?.setAlpha(1);
+      this.nextDayText?.setAlpha(1);
+    }
+  }
+
+  public destroy() {
+    this.nextDayButton?.setAlpha(0);
+    this.nextDayText?.setAlpha(0);
   }
 
   private drawDayCounter() {
@@ -39,7 +57,7 @@ export default class DayManager {
   }
 
   private drawNextButton() {
-    const marker = this.scene.add
+    this.nextDayButton = this.scene.add
       .image(
         Constants.WIDTH - 4 * Constants.TILE_DISPLAY_SIZE,
         Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE,
@@ -48,15 +66,14 @@ export default class DayManager {
       )
       .setOrigin(0, 0);
 
-    marker.depth = Layer.UI;
+    this.nextDayButton.depth = Layer.UI;
+    this.nextDayButton.setScrollFactor(0);
 
-    marker.setScrollFactor(0);
-
-    const nextDayText = this.scene.add
+    this.nextDayText = this.scene.add
       .text(
         Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
         Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE / 2,
-        "Next Day",
+        "Sleep",
         {
           fontSize: "12px",
           fontFamily: "DePixelSchmal",
@@ -64,11 +81,11 @@ export default class DayManager {
         }
       )
       .setOrigin(0.5, 0.5);
-    nextDayText.depth = Layer.UI;
-    nextDayText.setScrollFactor(0);
+    this.nextDayText.depth = Layer.UI;
+    this.nextDayText.setScrollFactor(0);
 
-    marker.setInteractive();
-    marker.on("pointerdown", () => {
+    this.nextDayButton.setInteractive();
+    this.nextDayButton.on("pointerdown", () => {
       this.nextDay();
     });
   }

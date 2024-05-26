@@ -11,6 +11,7 @@ import TransactionManager from "../managers/TransactionManager";
 import ObjectManager from "../managers/ObjectManager";
 import { DialogueType } from "../dialogues";
 import EnergyManager from "../managers/EnergyManager";
+import CameraManager from "../managers/CameraManager";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager: ItemManager;
@@ -21,6 +22,7 @@ export default class MainGame extends Phaser.Scene {
   public backgroundManager: BackgroundManager;
   public dialogueManager: DialogueManager;
   public transactionManager: TransactionManager;
+  public cameraManager: CameraManager;
   public objectManager: ObjectManager;
   public energyManager: EnergyManager;
   public currLoc: HouseType = HouseType.FARM;
@@ -33,6 +35,7 @@ export default class MainGame extends Phaser.Scene {
     this.dayManager = new DayManager(this);
     this.moneyManager = new MoneyManager(this);
     this.tileManager = new TileManager(this);
+    this.cameraManager = new CameraManager(this);
     this.dialogueManager = new DialogueManager(this);
     this.transactionManager = new TransactionManager(this);
     this.objectManager = new ObjectManager(this);
@@ -82,19 +85,20 @@ export default class MainGame extends Phaser.Scene {
   create() {
     // Draw game elements
     this.input.setDefaultCursor("url(assets/hand.cur), pointer");
-    this.addCamera();
+    this.cameraManager.initialize(HouseType.FARM);
     this.backgroundManager.initialize(HouseType.FARM);
     this.tileManager.initialize(HouseType.FARM);
     this.addInteraction();
     this.houseManager.initialize(HouseType.FARM);
     this.dialogueManager.initialize(HouseType.FARM);
+    this.cameraManager.initialize(HouseType.FARM);
     // this.dialogueManager.playDialogue(DialogueType.WELCOME);
     this.transactionManager.initialize(HouseType.FARM);
     this.objectManager.initialize(HouseType.FARM);
     this.itemManager.initialize();
     this.energyManager.initialize();
     this.moneyManager.initialize();
-    this.dayManager.initialize();
+    this.dayManager.initialize(HouseType.FARM);
   }
 
   public changeLocation(houseType: HouseType) {
@@ -107,36 +111,12 @@ export default class MainGame extends Phaser.Scene {
     this.houseManager.initialize(houseType);
     this.dialogueManager.initialize(houseType);
     this.transactionManager.initialize(houseType);
+    this.cameraManager.destroy();
+    this.cameraManager.initialize(houseType);
     this.objectManager.destroy();
     this.objectManager.initialize(houseType);
-  }
-
-  private addCamera() {
-    // Set camera bounds
-    this.cameras.main.setBounds(
-      0,
-      0,
-      Constants.WIDTH * Constants.TILESIZE,
-      Constants.HEIGHT * Constants.TILESIZE
-    );
-
-    // Make camera draggable
-    this.input.on("pointerdown", (pointer: any) => {
-      if (
-        pointer.middleButtonDown() ||
-        (pointer.leftButtonDown() &&
-          this.itemManager?.selectedItem?.name === "Travel")
-      ) {
-        this.input.on("pointermove", (pointer: any) => {
-          this.cameras.main.scrollX -= pointer.x - pointer.prevPosition.x;
-          this.cameras.main.scrollY -= pointer.y - pointer.prevPosition.y;
-        });
-      }
-
-      this.input.on("pointerup", () => {
-        this.input.off("pointermove");
-      });
-    });
+    this.dayManager.destroy();
+    this.dayManager.changeLocation(houseType);
   }
 
   private addInteraction() {
