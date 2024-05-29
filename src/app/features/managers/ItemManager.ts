@@ -15,39 +15,25 @@ export default class ItemManager {
   private scene: MainGame;
   private selector: Phaser.GameObjects.Rectangle | null;
   private itemName: Phaser.GameObjects.Text | null;
+  public items: Item[];
 
   public selectedItem: Item | null;
-  private items: Item[] = [];
-  private hoe: Hoe | null;
-  private travel: Travel | null;
-  private wateringCan: WateringCan | null;
-  private hand: Hand | null;
-  private axe: Axe | null;
-  private hammer: Hammer | null;
 
   constructor(scene: MainGame) {
     this.scene = scene;
-    this.hoe = new Hoe(this.scene);
-    const turnipSeeds = new Seed(this.scene, PlantType.TURNIP, 2);
-    this.travel = new Travel(this.scene);
-    this.wateringCan = new WateringCan(this.scene, 45);
-    const tomatoSeeds = new Seed(this.scene, PlantType.TOMATO, 2);
-    this.hand = new Hand(this.scene);
-    this.axe = new Axe(this.scene);
-    this.hammer = new Hammer(this.scene);
-    this.selectedItem = this.hoe;
+    this.items = [
+      new Hoe(this.scene),
+      new Seed(this.scene, PlantType.TURNIP, 2),
+      new Travel(this.scene),
+      new WateringCan(this.scene, 45),
+      new Seed(this.scene, PlantType.TOMATO, 2),
+      new Hand(this.scene),
+      new Axe(this.scene),
+      new Hammer(this.scene),
+    ];
+    this.selectedItem = this.items[0];
     this.selector = null;
     this.itemName = null;
-    this.items = [
-      this.hoe,
-      turnipSeeds,
-      this.travel,
-      this.wateringCan,
-      tomatoSeeds,
-      this.hand,
-      this.axe,
-      this.hammer,
-    ];
   }
 
   public initialize() {

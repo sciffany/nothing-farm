@@ -1,5 +1,5 @@
 import { Constants, Layer } from "../constants";
-import { HouseType } from "../locations";
+import { PropertyType } from "../locations";
 import MainGame from "../scenes/mainGame";
 
 export default class DayManager {
@@ -15,15 +15,15 @@ export default class DayManager {
     this.scene = scene;
   }
 
-  public initialize(houseType: HouseType) {
+  public initialize(propertyType: PropertyType) {
     this.drawDayCounter();
     this.drawNextButton();
     this.destroy();
-    this.changeLocation(houseType);
+    this.changeLocation(propertyType);
   }
 
-  public changeLocation(houseType: HouseType) {
-    if (houseType == HouseType.HOME) {
+  public changeLocation(propertyType: PropertyType) {
+    if (propertyType == PropertyType.HOME) {
       this.nextDayButton?.setAlpha(1);
       this.nextDayText?.setAlpha(1);
     }
@@ -45,11 +45,7 @@ export default class DayManager {
       Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
       Constants.TILE_DISPLAY_SIZE / 2,
       `Day ${this.day}`,
-      {
-        fontSize: "12px",
-        fontFamily: "DePixelSchmal",
-        color: "#000000",
-      }
+      Constants.TEXT_PROPS
     );
     this.dayText.depth = Layer.UI;
     this.dayText.setOrigin(0.5, 0.5);
@@ -74,11 +70,7 @@ export default class DayManager {
         Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
         Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE / 2,
         "Sleep and Save",
-        {
-          fontSize: "12px",
-          fontFamily: "DePixelSchmal",
-          color: "#000000",
-        }
+        Constants.TEXT_PROPS
       )
       .setOrigin(0.5, 0.5);
     this.nextDayText.depth = Layer.UI;

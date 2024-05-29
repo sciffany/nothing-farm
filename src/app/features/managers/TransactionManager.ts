@@ -1,4 +1,4 @@
-import { HouseType, LOCATIONS } from "../locations";
+import { LocationType } from "../locations";
 import { ITEMS } from "../objects";
 import MainGame from "../scenes/mainGame";
 import { TRANSACTIONS, TransactionGroup } from "../transactionGroups";
@@ -11,10 +11,10 @@ export default class TransactionManager {
     this.scene = scene;
   }
 
-  public initialize(houseType: HouseType) {
-    const transactionType = LOCATIONS[houseType]
-      .transaction as TransactionGroup;
-    this.playTransactionGroup(transactionType);
+  public initialize(locationType: LocationType) {
+    // const transactionType = LOCATIONS[houseType]
+    //   .transaction as TransactionGroup;
+    // this.playTransactionGroup(transactionType);
   }
 
   public playTransactionGroup(transactionGroup: TransactionGroup) {

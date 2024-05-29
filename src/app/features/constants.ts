@@ -11,6 +11,11 @@ export const Constants = {
   NUM_TILES_X: isMobile ? 20 : 24,
   MAX_ITEMS: 16,
   INITIAL_MONEY: 1000,
+  TEXT_PROPS: {
+    fontSize: "12px",
+    fontFamily: "DePixelSchmal",
+    color: "#000000",
+  },
 };
 
 export enum Layer {

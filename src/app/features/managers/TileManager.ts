@@ -3,10 +3,10 @@ import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import westSideJson from "../../../../public/assets/west_side.json";
 import { PlantType } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
-import { HouseType } from "../locations";
 import { PICKUPABLE_OBJECTS, PickupableObjectType } from "../objects";
 import { weightedRandom } from "../utils/random";
 import { fadeOut } from "../utils/animation";
+import { LocationType } from "../locations";
 
 export enum TileType {
   PLAIN,
@@ -232,7 +232,7 @@ export class Tile {
 }
 
 export default class TileManager {
-  private currLoc: HouseType = HouseType.FARM;
+  private location: LocationType = LocationType.FARM;
   private currentTileMap?: Array<Array<Tile>>;
   private tileMap: { [houseType: string]: Array<Array<Tile>> };
   private plantedTileList: { [houseType: string]: Array<Tile> } = {};
@@ -242,7 +242,7 @@ export default class TileManager {
   constructor(scene: MainGame) {
     this.scene = scene;
     this.tileMap = {
-      [HouseType.FARM]: Array(Constants.MAP_HEIGHT)
+      [LocationType.FARM]: Array(Constants.MAP_HEIGHT)
         .fill(0)
         .map((_, y) =>
           Array(Constants.MAP_WIDTH)
@@ -256,7 +256,7 @@ export default class TileManager {
               );
             })
         ),
-      [HouseType.WEST]: Array(Constants.MAP_HEIGHT)
+      [LocationType.WEST]: Array(Constants.MAP_HEIGHT)
         .fill(0)
         .map((_, y) =>
           Array(Constants.MAP_WIDTH)
@@ -273,16 +273,16 @@ export default class TileManager {
     };
   }
 
-  public initialize(currLoc: HouseType) {
-    this.currLoc = currLoc;
-    this.currentTileMap = this.tileMap[currLoc];
+  public initialize(location: LocationType) {
+    this.location = location;
+    this.currentTileMap = this.tileMap[location];
 
-    if (this.plantedTileList[this.currLoc]) {
-      this.plantedTileList[this.currLoc].forEach((tile) => {
+    if (this.plantedTileList[this.location]) {
+      this.plantedTileList[this.location].forEach((tile) => {
         tile.show();
       });
     } else {
-      this.plantedTileList[this.currLoc] = [];
+      this.plantedTileList[this.location] = [];
     }
 
     this.currentTileMap?.forEach((row) => {
@@ -311,6 +311,6 @@ export default class TileManager {
   }
 
   public addTile(tile: Tile) {
-    this.plantedTileList[this.currLoc]?.push(tile);
+    this.plantedTileList[this.location]?.push(tile);
   }
 }

@@ -1,5 +1,5 @@
 import { Constants } from "../constants";
-import { HouseType } from "../locations";
+import { LocationType } from "../locations";
 import { ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
 
@@ -7,29 +7,25 @@ export default class CameraManager {
   private startingCoords: { [houseType: number]: { x: number; y: number } } =
     {};
   private scene: MainGame;
-  private currLoc: HouseType = HouseType.FARM;
+  private locationType: LocationType = LocationType.FARM;
 
   constructor(scene: MainGame) {
     this.scene = scene;
     this.startingCoords = {
-      [HouseType.BARN]: { x: 0, y: 0 },
-      [HouseType.FARM]: { x: 0, y: 0 },
-      [HouseType.MARKET]: { x: 0, y: 0 },
-      [HouseType.HOME]: { x: 0, y: 0 },
-      [HouseType.WEST]: { x: 0, y: 0 },
-      [HouseType.NEIGHBOR]: { x: 0, y: 0 },
+      [LocationType.FARM]: { x: 0, y: 0 },
+      [LocationType.WEST]: { x: 0, y: 0 },
     };
   }
 
-  public initialize(houseType: HouseType) {
-    this.currLoc = houseType;
-    this.addCamera(houseType);
+  public initialize(locationType: LocationType) {
+    this.locationType = locationType;
+    this.addCamera(locationType);
   }
 
-  private addCamera(houseType: HouseType) {
+  private addCamera(locationType: LocationType) {
     // Set camera position
-    this.scene.cameras.main.scrollX = this.startingCoords[houseType].x;
-    this.scene.cameras.main.scrollY = this.startingCoords[houseType].y;
+    this.scene.cameras.main.scrollX = this.startingCoords[locationType].x;
+    this.scene.cameras.main.scrollY = this.startingCoords[locationType].y;
 
     // Set camera bounds
     this.scene.cameras.main.setBounds(
@@ -63,7 +59,7 @@ export default class CameraManager {
   }
 
   private saveScrollXandY() {
-    this.startingCoords[this.currLoc].x = this.scene.cameras.main.scrollX;
-    this.startingCoords[this.currLoc].y = this.scene.cameras.main.scrollY;
+    this.startingCoords[this.locationType].x = this.scene.cameras.main.scrollX;
+    this.startingCoords[this.locationType].y = this.scene.cameras.main.scrollY;
   }
 }

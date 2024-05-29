@@ -4,6 +4,8 @@ import { ItemType, PickupableObjectType } from "../objects";
 import { TilePlantStage, TileType } from "./TileManager";
 
 export type SaveType = {
+  currentLocation: string;
+  currentPropertyId: string;
   money: number;
   day: number;
   items: {

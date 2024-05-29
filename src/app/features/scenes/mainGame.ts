@@ -3,34 +3,31 @@ import DayManager from "../managers/DayManager";
 import MoneyManager from "../managers/MoneyManager";
 import TileManager from "../managers/TileManager";
 import ItemManager from "../managers/ItemManager";
-import HouseManager from "../managers/HouseManager";
 import { BackgroundManager } from "../managers/BackgroundManager";
 import DialogueManager from "../managers/DialogueManager";
-import { HouseType } from "../locations";
 import TransactionManager from "../managers/TransactionManager";
 import ObjectManager from "../managers/ObjectManager";
 import EnergyManager from "../managers/EnergyManager";
 import CameraManager from "../managers/CameraManager";
 import { DialogueType } from "../dialogues";
+import { LocationType, PropertyType } from "../locations";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager: ItemManager;
   public dayManager: DayManager;
   public moneyManager: MoneyManager;
   public tileManager: TileManager;
-  public houseManager: HouseManager;
   public backgroundManager: BackgroundManager;
   public dialogueManager: DialogueManager;
   public transactionManager: TransactionManager;
   public cameraManager: CameraManager;
   public objectManager: ObjectManager;
   public energyManager: EnergyManager;
-  public currLoc: HouseType = HouseType.FARM;
+  public location: LocationType = LocationType.FARM;
 
   constructor() {
     super({ key: "MainGame" });
     this.backgroundManager = new BackgroundManager(this);
-    this.houseManager = new HouseManager(this);
     this.itemManager = new ItemManager(this);
     this.dayManager = new DayManager(this);
     this.moneyManager = new MoneyManager(this);
@@ -85,39 +82,38 @@ export default class MainGame extends Phaser.Scene {
   create() {
     // Draw game elements
     this.input.setDefaultCursor("url(assets/hand.cur), pointer");
-    this.cameraManager.initialize(HouseType.HOME);
-    this.backgroundManager.initialize(HouseType.HOME);
-    this.tileManager.initialize(HouseType.HOME);
+    this.cameraManager.initialize(LocationType.FARM);
+    this.backgroundManager.initialize(LocationType.FARM);
+    this.tileManager.initialize(LocationType.FARM);
     this.addInteraction();
-    this.houseManager.initialize(HouseType.HOME);
-    this.dialogueManager.initialize(HouseType.HOME);
-    this.cameraManager.initialize(HouseType.HOME);
+    this.dialogueManager.initialize(LocationType.FARM);
+    this.cameraManager.initialize(LocationType.FARM);
     this.dialogueManager.playDialogue(DialogueType.WELCOME);
-    this.transactionManager.initialize(HouseType.HOME);
-    this.objectManager.initialize(HouseType.HOME);
+    this.transactionManager.initialize(LocationType.FARM);
+    this.objectManager.initialize(LocationType.FARM);
     this.itemManager.initialize();
     this.energyManager.initialize();
     this.moneyManager.initialize();
-    this.dayManager.initialize(HouseType.HOME);
+    this.dayManager.initialize(PropertyType.OUTSIDE);
   }
 
-  public changeLocation(houseType: HouseType) {
-    this.currLoc = houseType;
-    this.backgroundManager.destroy();
-    this.backgroundManager.initialize(houseType);
-    this.tileManager.destroy();
-    this.tileManager.initialize(houseType);
-    this.houseManager.destroy();
-    this.houseManager.initialize(houseType);
-    this.dialogueManager.initialize(houseType);
-    this.transactionManager.initialize(houseType);
-    this.cameraManager.destroy();
-    this.cameraManager.initialize(houseType);
-    this.objectManager.destroy();
-    this.objectManager.initialize(houseType);
-    this.dayManager.destroy();
-    this.dayManager.changeLocation(houseType);
-  }
+  // public changeLocation(houseType: HouseType) {
+  //   this.currLoc = houseType;
+  //   this.backgroundManager.destroy();
+  //   this.backgroundManager.initialize(houseType);
+  //   this.tileManager.destroy();
+  //   this.tileManager.initialize(houseType);
+  //   this.houseManager.destroy();
+  //   this.houseManager.initialize(houseType);
+  //   this.dialogueManager.initialize(houseType);
+  //   this.transactionManager.initialize(houseType);
+  //   this.cameraManager.destroy();
+  //   this.cameraManager.initialize(houseType);
+  //   this.objectManager.destroy();
+  //   this.objectManager.initialize(houseType);
+  //   this.dayManager.destroy();
+  //   this.dayManager.changeLocation(houseType);
+  // }
 
   private addInteraction() {
     // Add invisible rectangle for tile interaction

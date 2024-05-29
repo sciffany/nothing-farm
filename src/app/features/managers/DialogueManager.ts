@@ -1,6 +1,6 @@
 import { Constants, Layer } from "../constants";
 import { DIALOGUES, DialogueType, OutcomeType } from "../dialogues";
-import { HouseType, LOCATIONS } from "../locations";
+import { LocationType } from "../locations";
 import MainGame from "../scenes/mainGame";
 import { TransactionGroup } from "../transactionGroups";
 import { addBlackAndMarker, createScroll } from "../utils/scroll";
@@ -12,9 +12,9 @@ export default class DialogueManager {
     this.scene = scene;
   }
 
-  public initialize(houseType: HouseType) {
-    const dialogueType = LOCATIONS[houseType].dialogue as DialogueType;
-    this.playDialogue(dialogueType);
+  public initialize(propertyType: LocationType) {
+    // const dialogueType = LOCATIONS[houseType].dialogue as DialogueType;
+    // this.playDialogue(dialogueType);
   }
 
   public playDialogue(dialogueType: DialogueType) {
