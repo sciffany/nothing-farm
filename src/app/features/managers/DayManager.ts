@@ -4,7 +4,7 @@ import MainGame from "../scenes/mainGame";
 
 export default class DayManager {
   private scene: MainGame;
-  private day: number = 1;
+  public day: number = 1;
 
   private dayText: Phaser.GameObjects.Text | null = null;
 
@@ -90,5 +90,6 @@ export default class DayManager {
 
     this.scene.tileManager.nextDay();
     this.scene.energyManager.refill();
+    this.scene.mailManager.nextDay();
   }
 }

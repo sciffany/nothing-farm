@@ -12,6 +12,7 @@ export type SaveType = {
     itemType: ItemType;
     quantity: number;
   }[];
+  mailContents: PropertyType[];
   tiles: {
     [locationType: string]: {
       [x: number]: {

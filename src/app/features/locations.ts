@@ -43,6 +43,7 @@ export const MAILBOX: { [day: string]: PropertyType[] } = {
 
 export const PROPERTIES: {
   [key in PropertyType]: {
+    color: number;
     name: string;
     subType: PropertySubType;
     sprite: string;
@@ -61,6 +62,7 @@ export const PROPERTIES: {
   };
 } = {
   [PropertyType.OUTSIDE]: {
+    color: 0x000000,
     name: "Outside",
     subType: PropertySubType.RESIDENTIAL,
     sprite: "houses",
@@ -75,6 +77,7 @@ export const PROPERTIES: {
     people: 0,
   },
   [PropertyType.HOME]: {
+    color: 0x00ff00,
     name: "Home",
     subType: PropertySubType.RESIDENTIAL,
     sprite: "houses",
@@ -94,6 +97,7 @@ export const PROPERTIES: {
     people: 0,
   },
   [PropertyType.BARN]: {
+    color: 0xff0000,
     name: "Barn",
     subType: PropertySubType.RESIDENTIAL,
     sprite: "houses",
@@ -113,6 +117,7 @@ export const PROPERTIES: {
     people: 0,
   },
   [PropertyType.SMALL_HOUSE]: {
+    color: 0x0000ff,
     name: "Small House",
     subType: PropertySubType.RESIDENTIAL,
     sprite: "houses",
@@ -132,6 +137,7 @@ export const PROPERTIES: {
     people: 4,
   },
   [PropertyType.SEED_MARKET]: {
+    color: 0xffff00,
     name: "Seed Market",
     subType: PropertySubType.COMMERCIAL,
     sprite: "houses",
@@ -151,6 +157,7 @@ export const PROPERTIES: {
     people: 2,
   },
   [PropertyType.RANCH]: {
+    color: 0xff00ff,
     name: "Ranch",
     subType: PropertySubType.COMMERCIAL,
     sprite: "houses",

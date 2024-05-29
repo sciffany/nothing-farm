@@ -165,6 +165,10 @@ export default class ItemManager {
       this.itemName.text = "";
       return;
     }
+    if (item.quantity === 1) {
+      this.itemName.text = item.name;
+      return;
+    }
     this.itemName.text = `${item.name} (${item.quantity})`;
   }
 }

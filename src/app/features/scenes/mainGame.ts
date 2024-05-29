@@ -11,6 +11,7 @@ import EnergyManager from "../managers/EnergyManager";
 import CameraManager from "../managers/CameraManager";
 import { DialogueType } from "../dialogues";
 import { LocationType, PropertyType } from "../locations";
+import MailManager from "../managers/MailManager";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager: ItemManager;
@@ -24,6 +25,7 @@ export default class MainGame extends Phaser.Scene {
   public objectManager: ObjectManager;
   public energyManager: EnergyManager;
   public location: LocationType = LocationType.FARM;
+  public mailManager: MailManager;
 
   constructor() {
     super({ key: "MainGame" });
@@ -37,6 +39,7 @@ export default class MainGame extends Phaser.Scene {
     this.transactionManager = new TransactionManager(this);
     this.objectManager = new ObjectManager(this);
     this.energyManager = new EnergyManager(this);
+    this.mailManager = new MailManager(this);
   }
 
   preload() {
@@ -95,6 +98,7 @@ export default class MainGame extends Phaser.Scene {
     this.energyManager.initialize();
     this.moneyManager.initialize();
     this.dayManager.initialize(PropertyType.OUTSIDE);
+    this.mailManager.initialize();
   }
 
   // public changeLocation(houseType: HouseType) {
