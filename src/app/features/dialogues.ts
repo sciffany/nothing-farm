@@ -8,10 +8,10 @@ export enum DialogueType {
 }
 
 export enum OutcomeType {
-  Dialogue,
-  Transaction,
-  Exit,
-  Survey,
+  DIALOGUE,
+  TRANSACTION,
+  EXIT,
+  SURVEY,
 }
 
 export const DIALOGUES = {
@@ -21,13 +21,15 @@ export const DIALOGUES = {
   },
   [DialogueType.WELCOME]: {
     dialogue: [
-      "Hello, welcome!",
-      "Let's clear this farm and make it a beautiful place!",
+      "Good morning, new mayor!",
+      "You're in charge of this town.",
+      "People are going to start moving in.",
+      "Good luck!",
     ],
     choices: [
       {
         text: "Click this option to start!",
-        outcomeType: OutcomeType.Exit,
+        outcomeType: OutcomeType.EXIT,
         outcome: null,
       },
     ],
@@ -37,17 +39,17 @@ export const DIALOGUES = {
     choices: [
       {
         text: "Chat",
-        outcomeType: OutcomeType.Dialogue,
+        outcomeType: OutcomeType.DIALOGUE,
         outcome: DialogueType.MARKET_CHAT,
       },
       {
         text: "Buy",
-        outcomeType: OutcomeType.Transaction,
+        outcomeType: OutcomeType.TRANSACTION,
         outcome: TransactionGroup.SEEDS,
       },
       {
         text: "Exit",
-        outcomeType: OutcomeType.Exit,
+        outcomeType: OutcomeType.EXIT,
         outcome: null,
       },
     ],
@@ -62,7 +64,7 @@ export const DIALOGUES = {
     choices: [
       {
         text: "Gotcha, dude!",
-        outcomeType: OutcomeType.Dialogue,
+        outcomeType: OutcomeType.DIALOGUE,
         outcome: DialogueType.MARKET_WELCOME,
       },
     ],

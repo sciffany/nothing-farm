@@ -63,10 +63,10 @@ export default class DialogueManager {
               black.destroy();
               marker.destroy();
               destroy();
-              if (choice.outcomeType == OutcomeType.Exit) {
-              } else if (choice.outcomeType == OutcomeType.Dialogue) {
+              if (choice.outcomeType == OutcomeType.EXIT) {
+              } else if (choice.outcomeType == OutcomeType.DIALOGUE) {
                 this.playDialogue(choice.outcome as DialogueType);
-              } else if (choice.outcomeType == OutcomeType.Transaction) {
+              } else if (choice.outcomeType == OutcomeType.TRANSACTION) {
                 this.scene.transactionManager.playTransactionGroup(
                   choice.outcome as TransactionGroup
                 );

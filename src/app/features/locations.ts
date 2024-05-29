@@ -1,6 +1,161 @@
 import { DialogueType } from "./dialogues";
 import { ClickableObjectType } from "./objects";
 import { TransactionGroup } from "./transactionGroups";
+import nothingFarmJson from "../../../public/assets/nothing_farm.json";
+import westSideJson from "../../../public/assets/west_side.json";
+
+export enum LocationType {
+  FARM,
+  WEST,
+}
+
+export const LOCATIONS2 = {
+  [LocationType.FARM]: {
+    json: nothingFarmJson,
+  },
+  [LocationType.WEST]: {
+    json: westSideJson,
+  },
+};
+
+export enum PropertyType {
+  HOME,
+  BARN,
+  SEED_MARKET,
+  RANCH,
+  SMALL_HOUSE,
+}
+
+export enum PropertySubType {
+  RESIDENTIAL,
+  COMMERCIAL,
+  SCHOOL,
+}
+
+export const MAILBOX: { [day: string]: PropertyType[] } = {
+  1: [PropertyType.HOME, PropertyType.SEED_MARKET],
+  2: [PropertyType.BARN, PropertyType.SMALL_HOUSE],
+  3: [PropertyType.SMALL_HOUSE],
+  4: [PropertyType.RANCH],
+  5: [PropertyType.SMALL_HOUSE],
+  10: [PropertyType.SMALL_HOUSE],
+};
+
+export const PROPERTIES: {
+  [key in PropertyType]: {
+    name: string;
+    subType: PropertySubType;
+    sprite: string;
+    frame: number;
+    interiorChoices?: {
+      sprite: string;
+      frame: number;
+    }[];
+    cost: {
+      money: number;
+      log: number;
+      rock: number;
+      days: number;
+    };
+    people: number;
+  };
+} = {
+  [PropertyType.HOME]: {
+    name: "Home",
+    subType: PropertySubType.RESIDENTIAL,
+    sprite: "houses",
+    frame: 0,
+    interiorChoices: [
+      {
+        sprite: "homeInterior",
+        frame: 0,
+      },
+    ],
+    cost: {
+      money: 0,
+      log: 5,
+      rock: 5,
+      days: 1,
+    },
+    people: 0,
+  },
+  [PropertyType.BARN]: {
+    name: "Barn",
+    subType: PropertySubType.RESIDENTIAL,
+    sprite: "houses",
+    frame: 1,
+    interiorChoices: [
+      {
+        sprite: "barnInterior",
+        frame: 0,
+      },
+    ],
+    cost: {
+      money: 300,
+      log: 10,
+      rock: 5,
+      days: 2,
+    },
+    people: 0,
+  },
+  [PropertyType.SMALL_HOUSE]: {
+    name: "Small House",
+    subType: PropertySubType.RESIDENTIAL,
+    sprite: "houses",
+    frame: 2,
+    interiorChoices: [
+      {
+        sprite: "houseInterior",
+        frame: 0,
+      },
+    ],
+    cost: {
+      money: 100,
+      log: 5,
+      rock: 5,
+      days: 2,
+    },
+    people: 4,
+  },
+  [PropertyType.SEED_MARKET]: {
+    name: "Seed Market",
+    subType: PropertySubType.COMMERCIAL,
+    sprite: "houses",
+    frame: 3,
+    interiorChoices: [
+      {
+        sprite: "marketInterior",
+        frame: 0,
+      },
+    ],
+    cost: {
+      money: 200,
+      log: 5,
+      rock: 5,
+      days: 1,
+    },
+    people: 2,
+  },
+  [PropertyType.RANCH]: {
+    name: "Ranch",
+    subType: PropertySubType.COMMERCIAL,
+    sprite: "houses",
+    frame: 1,
+    interiorChoices: [
+      {
+        sprite: "marketInterior",
+        frame: 0,
+      },
+    ],
+    cost: {
+      money: 500,
+      log: 20,
+      rock: 20,
+      days: 4,
+    },
+    people: 2,
+  },
+};
 
 export enum HouseType {
   FARM,
