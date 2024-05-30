@@ -20,7 +20,9 @@ export const Constants = {
 
 export enum Layer {
   BACKGROUND,
-  TILES,
+  TILES_PRESS,
+  PROPERTIES,
+  BUILD_PRESS,
   UI,
   DIALOGUE,
 }

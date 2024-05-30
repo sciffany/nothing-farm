@@ -116,7 +116,15 @@ export default class MailManager {
       buildText.setScrollFactor(0);
       buildText.depth = Layer.UI;
 
-      buildButton.on("pointerdown", () => {});
+      buildButton.on("pointerdown", () => {
+        black.destroy();
+        mailContents.forEach((item) => item.destroy());
+        this.scene.buildManager.build(propertyType);
+
+        this.mailContents = this.mailContents.filter(
+          (item, index) => index !== i - 2
+        );
+      });
 
       mailContents.push(rectangle);
       mailContents.push(propertyText);

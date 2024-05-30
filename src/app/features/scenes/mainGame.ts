@@ -12,6 +12,8 @@ import CameraManager from "../managers/CameraManager";
 import { DialogueType } from "../dialogues";
 import { LocationType, PropertyType } from "../locations";
 import MailManager from "../managers/MailManager";
+import BuildManager from "../managers/BuildManager";
+import PropertyManager from "../managers/PropertyManager";
 
 export default class MainGame extends Phaser.Scene {
   public itemManager: ItemManager;
@@ -26,6 +28,8 @@ export default class MainGame extends Phaser.Scene {
   public energyManager: EnergyManager;
   public location: LocationType = LocationType.FARM;
   public mailManager: MailManager;
+  public buildManager: BuildManager;
+  public propertyManager: PropertyManager;
 
   constructor() {
     super({ key: "MainGame" });
@@ -40,6 +44,8 @@ export default class MainGame extends Phaser.Scene {
     this.objectManager = new ObjectManager(this);
     this.energyManager = new EnergyManager(this);
     this.mailManager = new MailManager(this);
+    this.buildManager = new BuildManager(this);
+    this.propertyManager = new PropertyManager(this);
   }
 
   preload() {
@@ -139,7 +145,7 @@ export default class MainGame extends Phaser.Scene {
     });
   }
 
-  private getTileCoordinates() {
+  public getTileCoordinates() {
     // Get mouse position and camera position
     const mouse = this.input.activePointer.position;
     const camera = this.cameras.main;

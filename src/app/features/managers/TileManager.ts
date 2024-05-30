@@ -6,7 +6,7 @@ import MainGame from "../scenes/mainGame";
 import { PICKUPABLE_OBJECTS, PickupableObjectType } from "../objects";
 import { weightedRandom } from "../utils/random";
 import { fadeOut } from "../utils/animation";
-import { LocationType } from "../locations";
+import { LocationType, PROPERTIES, PropertyType } from "../locations";
 
 export enum TileType {
   PLAIN,
@@ -34,13 +34,15 @@ export class Tile {
   public type: TileType;
   public plantStage: TilePlantStage;
   public objectType: PickupableObjectType = PickupableObjectType.NONE;
+  public plantType: PlantType = PlantType.TURNIP;
+  public propertyId?: string;
 
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
   private tilePlantSprite: Phaser.GameObjects.Sprite | null = null;
   private objectSprite: Phaser.GameObjects.Sprite | null = null;
+  private propertySprite: Phaser.GameObjects.Sprite | null = null;
 
   private scene: MainGame;
-  public plantType: PlantType = PlantType.TURNIP;
 
   constructor(scene: MainGame, x: number, y: number, design: number) {
     this.x = x;
@@ -150,8 +152,23 @@ export class Tile {
       );
 
       this.tileSprite.setOrigin(0, 0);
-      this.tileSprite.depth = Layer.TILES;
+      this.tileSprite.depth = Layer.TILES_PRESS;
     }
+  }
+
+  public addProperty(propertyId: string, propertyType: PropertyType) {
+    this.propertyId = propertyId;
+    const property = PROPERTIES[propertyType];
+    this.propertySprite = this.scene.add.sprite(
+      this.x * Constants.TILE_DISPLAY_SIZE,
+      this.y * Constants.TILE_DISPLAY_SIZE,
+      property.sprite,
+      property.frame
+    );
+
+    this.propertySprite.setScale(2);
+    this.propertySprite.setOrigin(0, 0);
+    this.propertySprite.depth = Layer.PROPERTIES;
   }
 
   public changeObjectType(objectType: PickupableObjectType) {
@@ -210,7 +227,7 @@ export class Tile {
 
         this.tilePlantSprite.setScale(2);
         this.tilePlantSprite.setOrigin(0, 0);
-        this.tilePlantSprite.depth = Layer.TILES;
+        this.tilePlantSprite.depth = Layer.TILES_PRESS;
       }
     }
   }
