@@ -15,23 +15,19 @@ export default class DayManager {
     this.scene = scene;
   }
 
-  public initialize(propertyType: PropertyType) {
+  public initialize() {
     this.drawDayCounter();
     this.drawNextButton();
-    this.destroy();
-    this.changeLocation(propertyType);
   }
 
-  public changeLocation(propertyType: PropertyType) {
+  public init(propertyType: PropertyType) {
     if (propertyType == PropertyType.HOME) {
       this.nextDayButton?.setAlpha(1);
       this.nextDayText?.setAlpha(1);
+    } else {
+      this.nextDayButton?.setAlpha(0);
+      this.nextDayText?.setAlpha(0);
     }
-  }
-
-  public destroy() {
-    this.nextDayButton?.setAlpha(0);
-    this.nextDayText?.setAlpha(0);
   }
 
   private drawDayCounter() {
@@ -56,7 +52,7 @@ export default class DayManager {
     this.nextDayButton = this.scene.add
       .image(
         Constants.WIDTH - 4 * Constants.TILE_DISPLAY_SIZE,
-        Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE,
+        Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 2,
         "marker",
         0
       )
@@ -68,7 +64,9 @@ export default class DayManager {
     this.nextDayText = this.scene.add
       .text(
         Constants.WIDTH - 2 * Constants.TILE_DISPLAY_SIZE,
-        Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE / 2,
+        Constants.HEIGHT -
+          Constants.TILE_DISPLAY_SIZE / 2 -
+          Constants.TILE_DISPLAY_SIZE,
         "Sleep and Save",
         Constants.TEXT_PROPS
       )

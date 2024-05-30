@@ -104,7 +104,8 @@ export default class MainGame extends Phaser.Scene {
     this.itemManager.initialize();
     this.energyManager.initialize();
     this.moneyManager.initialize();
-    this.dayManager.initialize(PropertyType.OUTSIDE);
+    this.dayManager.initialize();
+    this.dayManager.init(PropertyType.OUTSIDE);
     this.mailManager.initialize();
   }
 
@@ -114,11 +115,16 @@ export default class MainGame extends Phaser.Scene {
     this.tileManager.destroy();
     this.cameraManager.destroy();
     this.mailManager.destroy();
-
     this.propertyManager.open(propertyId);
   }
 
-  public exitProperty() {}
+  public exitProperty() {
+    this.backgroundManager.initialize(this.location);
+    this.tileManager.initialize(this.location);
+    this.cameraManager.initialize(this.location);
+    this.mailManager.initialize();
+    this.propertyManager.close(this.propertyId);
+  }
 
   // public changeLocation(houseType: HouseType) {
   //   this.currLoc = houseType;
