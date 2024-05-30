@@ -25,6 +25,10 @@ export default class MailManager {
     this.addMailContents(MAILBOX[1] || []);
   }
 
+  public init() {
+    this.drawMailBox();
+  }
+
   private drawMailBox() {
     const marker = this.scene.add
       .image(Constants.WIDTH - 8 * Constants.TILE_DISPLAY_SIZE, 0, "marker", 0)

@@ -191,6 +191,7 @@ export class Tile {
     propertySprite.setOrigin(0, 0);
     propertySprite.depth = Layer.PROPERTIES;
     this.propertySprite = propertySprite;
+    this.scene.tileManager.addTile(this);
   }
 
   public changeObjectType(objectType: PickupableObjectType) {

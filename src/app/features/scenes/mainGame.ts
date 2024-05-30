@@ -122,7 +122,7 @@ export default class MainGame extends Phaser.Scene {
     this.backgroundManager.initialize(this.location);
     this.tileManager.initialize(this.location);
     this.cameraManager.initialize(this.location);
-    this.mailManager.initialize();
+    this.mailManager.init();
     this.propertyManager.close(this.propertyId);
   }
 
