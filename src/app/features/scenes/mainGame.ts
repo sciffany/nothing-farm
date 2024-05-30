@@ -16,6 +16,8 @@ import BuildManager from "../managers/BuildManager";
 import PropertyManager from "../managers/PropertyManager";
 
 export default class MainGame extends Phaser.Scene {
+  public location: LocationType = LocationType.FARM;
+  public propertyId: string = "";
   public itemManager: ItemManager;
   public dayManager: DayManager;
   public moneyManager: MoneyManager;
@@ -26,7 +28,6 @@ export default class MainGame extends Phaser.Scene {
   public cameraManager: CameraManager;
   public objectManager: ObjectManager;
   public energyManager: EnergyManager;
-  public location: LocationType = LocationType.FARM;
   public mailManager: MailManager;
   public buildManager: BuildManager;
   public propertyManager: PropertyManager;
@@ -106,6 +107,18 @@ export default class MainGame extends Phaser.Scene {
     this.dayManager.initialize(PropertyType.OUTSIDE);
     this.mailManager.initialize();
   }
+
+  public enterProperty(propertyId: string) {
+    this.propertyId = propertyId;
+    this.backgroundManager.destroy();
+    this.tileManager.destroy();
+    this.cameraManager.destroy();
+    this.mailManager.destroy();
+
+    this.propertyManager.open(propertyId);
+  }
+
+  public exitProperty() {}
 
   // public changeLocation(houseType: HouseType) {
   //   this.currLoc = houseType;

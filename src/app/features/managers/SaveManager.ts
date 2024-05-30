@@ -22,6 +22,8 @@ export type SaveType = {
           plantStage: TilePlantStage;
           objectType: PickupableObjectType;
           propertyId: string;
+          propertyType: PropertyType;
+          propertyStage: number;
           tileStart?: {
             x: number;
             y: number;
@@ -34,19 +36,14 @@ export type SaveType = {
   };
   properties: {
     [propertyId: string]: {
-      propertyType: PropertyType;
-      propertyStage: number;
-      occupantIds: string[];
-    };
-  };
-  occupants: {
-    [occupantId: string]: {
-      propertyId: string;
-      firstName: string;
-      lastName: string;
-      age: number;
-      mbti: string;
-      favoriteItems: ItemType[];
+      occupants: {
+        propertyId: string;
+        firstName: string;
+        lastName: string;
+        age: number;
+        mbti: string;
+        favoriteItems: ItemType[];
+      }[];
     };
   };
 };

@@ -5,6 +5,7 @@ import MainGame from "../scenes/mainGame";
 export default class MailManager {
   private scene: MainGame;
   private mailContents: PropertyType[];
+  private sprites: (Phaser.GameObjects.Image | Phaser.GameObjects.Text)[] = [];
 
   constructor(scene: MainGame) {
     this.scene = scene;
@@ -45,6 +46,12 @@ export default class MailManager {
     marker.on("pointerdown", () => {
       this.openMailBox();
     });
+
+    this.sprites = [marker, mailText];
+  }
+
+  public destroy() {
+    this.sprites.forEach((sprite) => sprite.setAlpha(0));
   }
 
   private openMailBox() {

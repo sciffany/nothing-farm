@@ -36,11 +36,15 @@ export class Tile {
   public objectType: PickupableObjectType = PickupableObjectType.NONE;
   public plantType: PlantType = PlantType.TURNIP;
   public propertyId?: string;
+  public propertyStage: number = 0;
 
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
   private tilePlantSprite: Phaser.GameObjects.Sprite | null = null;
   private objectSprite: Phaser.GameObjects.Sprite | null = null;
-  private propertySprite: Phaser.GameObjects.Sprite | null = null;
+  private propertySprite:
+    | Phaser.GameObjects.Sprite
+    | Phaser.GameObjects.Rectangle
+    | null = null;
 
   private scene: MainGame;
 
@@ -158,17 +162,35 @@ export class Tile {
 
   public addProperty(propertyId: string, propertyType: PropertyType) {
     this.propertyId = propertyId;
-    const property = PROPERTIES[propertyType];
-    this.propertySprite = this.scene.add.sprite(
-      this.x * Constants.TILE_DISPLAY_SIZE,
-      this.y * Constants.TILE_DISPLAY_SIZE,
-      property.sprite,
-      property.frame
-    );
+    this.propertyStage = 0;
 
-    this.propertySprite.setScale(2);
-    this.propertySprite.setOrigin(0, 0);
-    this.propertySprite.depth = Layer.PROPERTIES;
+    const property = PROPERTIES[propertyType];
+
+    let propertySprite;
+    if (property.cost.days === 0) {
+      propertySprite = this.scene.add.sprite(
+        this.x * Constants.TILE_DISPLAY_SIZE,
+        this.y * Constants.TILE_DISPLAY_SIZE,
+        property.sprite,
+        property.frame
+      );
+      propertySprite.setScale(2);
+      propertySprite.setInteractive();
+      propertySprite.on("pointerdown", () => {
+        this.scene.enterProperty(propertyId);
+      });
+    } else {
+      propertySprite = this.scene.add.rectangle(
+        this.x * Constants.TILE_DISPLAY_SIZE,
+        this.y * Constants.TILE_DISPLAY_SIZE,
+        Constants.TILE_DISPLAY_SIZE * 4,
+        Constants.TILE_DISPLAY_SIZE * 4,
+        0xfffff00
+      );
+    }
+    propertySprite.setOrigin(0, 0);
+    propertySprite.depth = Layer.PROPERTIES;
+    this.propertySprite = propertySprite;
   }
 
   public changeObjectType(objectType: PickupableObjectType) {
@@ -192,12 +214,14 @@ export class Tile {
     this.tilePlantSprite?.setAlpha(0);
     this.tileSprite?.setAlpha(0);
     this.objectSprite?.setAlpha(0);
+    this.propertySprite?.setAlpha(0);
   }
 
   public show() {
     this.tilePlantSprite?.setAlpha(1);
     this.tileSprite?.setAlpha(1);
     this.objectSprite?.setAlpha(1);
+    this.propertySprite?.setAlpha(1);
   }
 
   public changePlantStage(plantStage: TilePlantStage, plantType?: PlantType) {

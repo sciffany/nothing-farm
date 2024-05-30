@@ -33,11 +33,16 @@ export enum PropertySubType {
 }
 
 export const MAILBOX: { [day: string]: PropertyType[] } = {
-  1: [PropertyType.HOME, PropertyType.SEED_MARKET],
-  2: [PropertyType.BARN, PropertyType.SMALL_HOUSE],
-  3: [PropertyType.SMALL_HOUSE],
-  4: [PropertyType.RANCH],
-  5: [PropertyType.SMALL_HOUSE],
+  1: [PropertyType.HOME, PropertyType.SEED_MARKET, PropertyType.SMALL_HOUSE],
+  2: [PropertyType.BARN, PropertyType.SMALL_HOUSE, PropertyType.SMALL_HOUSE],
+  3: [
+    PropertyType.SMALL_HOUSE,
+    PropertyType.SMALL_HOUSE,
+    PropertyType.SMALL_HOUSE,
+  ],
+  4: [PropertyType.RANCH, PropertyType.SMALL_HOUSE],
+  5: [PropertyType.SMALL_HOUSE, PropertyType.SMALL_HOUSE],
+  6: [PropertyType.SMALL_HOUSE, PropertyType.SMALL_HOUSE],
   10: [PropertyType.SMALL_HOUSE],
 };
 
@@ -84,7 +89,7 @@ export const PROPERTIES: {
     frame: 0,
     interiorChoices: [
       {
-        sprite: "homeInterior",
+        sprite: "home",
         frame: 0,
       },
     ],
@@ -92,7 +97,7 @@ export const PROPERTIES: {
       money: 0,
       log: 1,
       rock: 1,
-      days: 1,
+      days: 0,
     },
     people: 0,
   },
