@@ -62,4 +62,9 @@ export default class CameraManager {
     this.startingCoords[this.locationType].x = this.scene.cameras.main.scrollX;
     this.startingCoords[this.locationType].y = this.scene.cameras.main.scrollY;
   }
+
+  public resetCamera() {
+    this.scene.cameras.main.scrollX = 0;
+    this.scene.cameras.main.scrollY = 0;
+  }
 }

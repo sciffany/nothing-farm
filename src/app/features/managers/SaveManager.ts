@@ -40,7 +40,6 @@ export type SaveType = {
         propertyId: string;
         firstName: string;
         lastName: string;
-        age: number;
         mbti: string;
         favoriteItems: ItemType[];
       }[];

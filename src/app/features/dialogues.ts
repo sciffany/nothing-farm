@@ -5,6 +5,10 @@ export enum DialogueType {
   MARKET_WELCOME,
   MARKET_CHAT,
   NONE,
+  CHIT_CHAT,
+  CHIT_CHAT_2,
+  CHIT_CHAT_3,
+  CHIT_CHAT_4,
 }
 
 export enum OutcomeType {
@@ -13,6 +17,14 @@ export enum OutcomeType {
   EXIT,
   SURVEY,
 }
+
+const OKAY = [
+  {
+    text: "Okay!",
+    outcomeType: OutcomeType.EXIT,
+    outcome: DialogueType.CHIT_CHAT,
+  },
+];
 
 export const DIALOGUES = {
   [DialogueType.NONE]: {
@@ -68,5 +80,29 @@ export const DIALOGUES = {
         outcome: DialogueType.MARKET_WELCOME,
       },
     ],
+  },
+  [DialogueType.CHIT_CHAT]: {
+    dialogue: [
+      "Hey there! Just finished organizing the toolshed. Everything's in its place now.",
+    ],
+    choices: OKAY,
+  },
+  [DialogueType.CHIT_CHAT_2]: {
+    dialogue: [
+      "Good morning! I just love taking care of the garden. It's so peaceful.",
+    ],
+    choices: OKAY,
+  },
+  [DialogueType.CHIT_CHAT_3]: {
+    dialogue: [
+      "Hello! I've been thinking about some new ideas for crop rotation. Efficiency is key!",
+    ],
+    choices: OKAY,
+  },
+  [DialogueType.CHIT_CHAT_4]: {
+    dialogue: [
+      "Hi! I've been studying some new techniques for better crop yield. It's fascinating stuff!",
+    ],
+    choices: OKAY,
   },
 };

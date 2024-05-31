@@ -36,6 +36,7 @@ export class Tile {
   public objectType: PickupableObjectType = PickupableObjectType.NONE;
   public plantType: PlantType = PlantType.TURNIP;
   public propertyId?: string;
+  public propertyType?: PropertyType;
   public propertyStage: number = 0;
 
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
@@ -43,7 +44,7 @@ export class Tile {
   private objectSprite: Phaser.GameObjects.Sprite | null = null;
   private propertySprite:
     | Phaser.GameObjects.Sprite
-    | Phaser.GameObjects.Rectangle
+    | Phaser.GameObjects.Image
     | null = null;
 
   private scene: MainGame;
@@ -138,6 +139,19 @@ export class Tile {
     if (this.type === TileType.WATERED) {
       this.changeType(TileType.TILLED);
     }
+
+    if (this.propertyType && this.propertySprite) {
+      this.propertyStage += 1;
+      const property = PROPERTIES[this.propertyType];
+      if (this.propertyStage >= property.cost.days) {
+        this.propertySprite?.setTexture(property.sprite, property.frame);
+        this.propertySprite.setScale(2);
+        this.propertySprite.setInteractive();
+        this.propertySprite.on("pointerdown", () => {
+          this.scene.enterProperty(this.propertyId!);
+        });
+      }
+    }
   }
 
   public changeType(type: TileType) {
@@ -162,6 +176,7 @@ export class Tile {
 
   public addProperty(propertyId: string, propertyType: PropertyType) {
     this.propertyId = propertyId;
+    this.propertyType = propertyType;
     this.propertyStage = 0;
 
     const property = PROPERTIES[propertyType];
@@ -180,14 +195,14 @@ export class Tile {
         this.scene.enterProperty(propertyId);
       });
     } else {
-      propertySprite = this.scene.add.rectangle(
+      propertySprite = this.scene.add.image(
         this.x * Constants.TILE_DISPLAY_SIZE,
         this.y * Constants.TILE_DISPLAY_SIZE,
-        Constants.TILE_DISPLAY_SIZE * 4,
-        Constants.TILE_DISPLAY_SIZE * 4,
-        0xfffff00
+        "construction"
       );
     }
+    propertySprite.displayHeight = Constants.TILE_DISPLAY_SIZE * 4;
+    propertySprite.displayWidth = Constants.TILE_DISPLAY_SIZE * 4;
     propertySprite.setOrigin(0, 0);
     propertySprite.depth = Layer.PROPERTIES;
     this.propertySprite = propertySprite;

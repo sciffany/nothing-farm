@@ -10,7 +10,7 @@ import ObjectManager from "../managers/ObjectManager";
 import EnergyManager from "../managers/EnergyManager";
 import CameraManager from "../managers/CameraManager";
 import { DialogueType } from "../dialogues";
-import { LocationType, PropertyType } from "../locations";
+import { FIRST_NAMES, LocationType, PropertyType } from "../locations";
 import MailManager from "../managers/MailManager";
 import BuildManager from "../managers/BuildManager";
 import PropertyManager from "../managers/PropertyManager";
@@ -87,6 +87,13 @@ export default class MainGame extends Phaser.Scene {
     this.load.image("rock", "assets/objects/rock.png");
     this.load.image("tree", "assets/objects/tree.png");
     this.load.image("flower", "assets/objects/flower.png");
+    this.load.image("construction", "assets/construction.png");
+    FIRST_NAMES.forEach((name) => {
+      this.load.image(
+        name,
+        "https://api.dicebear.com/8.x/adventurer/svg?seed=" + name
+      );
+    });
   }
 
   create() {
@@ -114,6 +121,7 @@ export default class MainGame extends Phaser.Scene {
     this.backgroundManager.destroy();
     this.tileManager.destroy();
     this.cameraManager.destroy();
+    this.cameraManager.resetCamera();
     this.mailManager.destroy();
     this.propertyManager.open(propertyId);
   }

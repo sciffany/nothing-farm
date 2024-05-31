@@ -1,18 +1,38 @@
 import { Constants, Layer } from "../constants";
-import { PROPERTIES, PropertyType } from "../locations";
+import { DialogueType } from "../dialogues";
+import {
+  FIRST_NAMES,
+  LAST_NAMES,
+  MBTI,
+  PROPERTIES,
+  PropertyType,
+} from "../locations";
+import { ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
 
 export default class PropertyManager {
   public properties: {
     [propertyId: string]: {
       propertyType: PropertyType;
-      occupantIds: string[];
+      occupants: {
+        propertyId: string;
+        firstName: string;
+        lastName: string;
+        mbti: string;
+        relationship: number;
+        favoriteItems: ItemType[];
+      }[];
     };
   } = {};
   private scene: MainGame;
   private exitButton: Phaser.GameObjects.Image | null = null;
   private exitText: Phaser.GameObjects.Text | null = null;
   private interiorSprite: Phaser.GameObjects.Sprite | null = null;
+  private occupantSprites: (
+    | Phaser.GameObjects.Image
+    | Phaser.GameObjects.Text
+  )[] = [];
+
   constructor(scene: MainGame) {
     this.scene = scene;
   }
@@ -24,9 +44,20 @@ export default class PropertyManager {
     propertyId: string;
     propertyType: PropertyType;
   }) {
+    const property = PROPERTIES[propertyType];
+    const lastName = LAST_NAMES[Math.floor(Math.random() * LAST_NAMES.length)];
     this.properties[propertyId] = {
       propertyType,
-      occupantIds: [],
+      occupants: Array(property.people)
+        .fill(0)
+        .map(() => ({
+          propertyId: propertyId,
+          firstName:
+            FIRST_NAMES[Math.floor(Math.random() * FIRST_NAMES.length)],
+          lastName,
+          mbti: MBTI[Math.floor(Math.random() * MBTI.length)],
+          favoriteItems: [],
+        })),
     };
   }
 
@@ -48,6 +79,35 @@ export default class PropertyManager {
     this.interiorSprite.setInteractive();
 
     this.drawExitButton();
+
+    this.properties[propertyId].occupants.forEach((occupant, index) => {
+      const image = this.scene.add.image(
+        Constants.TILE_DISPLAY_SIZE * 6 +
+          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
+        Constants.TILE_DISPLAY_SIZE * 2,
+        occupant.firstName,
+        0xffff00
+      );
+
+      const text = this.scene.add.text(
+        Constants.TILE_DISPLAY_SIZE * 6 +
+          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
+        Constants.TILE_DISPLAY_SIZE * 2 + Constants.TILE_DISPLAY_SIZE * 3,
+        `${occupant.firstName}\n${occupant.lastName}`,
+        { ...Constants.TEXT_PROPS, color: "#ffffff" }
+      );
+      text.setOrigin(0.5, 0.5);
+
+      image.setInteractive();
+      image.on("pointerdown", () => {
+        this.scene.dialogueManager.playDialogue(
+          DialogueType.CHIT_CHAT + Math.floor(Math.random() * 4)
+        );
+      });
+
+      this.occupantSprites.push(image);
+      this.occupantSprites.push(text);
+    });
   }
 
   public close(propertyId: string) {
@@ -58,6 +118,7 @@ export default class PropertyManager {
     this.interiorSprite?.destroy();
     this.exitButton?.destroy();
     this.exitText?.destroy();
+    this.occupantSprites.forEach((sprite) => sprite.destroy());
   }
 
   private drawExitButton() {
