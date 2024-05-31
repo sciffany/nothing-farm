@@ -8,7 +8,6 @@ export enum DialogueType {
   CHIT_CHAT,
   CHIT_CHAT_2,
   CHIT_CHAT_3,
-  CHIT_CHAT_4,
 }
 
 export enum OutcomeType {
@@ -83,25 +82,32 @@ export const DIALOGUES = {
   },
   [DialogueType.CHIT_CHAT]: {
     dialogue: [
-      "Hey there! Just finished organizing the toolshed. Everything's in its place now.",
+      "Hey there! Just finished organizing the toolshed.",
+      "Everything's in its place now.",
+      "Do you normally clean your workspace?",
     ],
-    choices: OKAY,
+    choices: [
+      {
+        text: "Yes",
+        outcomeType: OutcomeType.DIALOGUE,
+        outcome: DialogueType.CHIT_CHAT_2,
+      },
+      {
+        text: "No",
+        outcomeType: OutcomeType.DIALOGUE,
+        outcome: DialogueType.CHIT_CHAT_3,
+      },
+    ],
   },
   [DialogueType.CHIT_CHAT_2]: {
     dialogue: [
-      "Good morning! I just love taking care of the garden. It's so peaceful.",
+      "Really? That's great to hear! It's so much easier to find things when they're organized.",
     ],
     choices: OKAY,
   },
   [DialogueType.CHIT_CHAT_3]: {
     dialogue: [
-      "Hello! I've been thinking about some new ideas for crop rotation. Efficiency is key!",
-    ],
-    choices: OKAY,
-  },
-  [DialogueType.CHIT_CHAT_4]: {
-    dialogue: [
-      "Hi! I've been studying some new techniques for better crop yield. It's fascinating stuff!",
+      "I see. Well too bad, I think it's important to keep things tidy.",
     ],
     choices: OKAY,
   },

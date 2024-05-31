@@ -100,9 +100,7 @@ export default class PropertyManager {
 
       image.setInteractive();
       image.on("pointerdown", () => {
-        this.scene.dialogueManager.playDialogue(
-          DialogueType.CHIT_CHAT + Math.floor(Math.random() * 4)
-        );
+        this.scene.dialogueManager.playDialogue(DialogueType.CHIT_CHAT);
       });
 
       this.occupantSprites.push(image);
