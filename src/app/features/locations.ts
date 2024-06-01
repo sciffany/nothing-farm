@@ -273,7 +273,7 @@ export const PROPERTIES: {
     people: 2,
   },
   [PropertyType.PLAYGROUND]: {
-    color: 0xcbc7d8,
+    color: 0xe4aeb4,
     name: "Playground",
     subType: PropertySubType.PLAYGROUND,
     sprite: "playground",

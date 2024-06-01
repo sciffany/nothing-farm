@@ -1,5 +1,5 @@
 import { Constants, Layer } from "../constants";
-import { MAILBOX, PROPERTIES, PropertyType } from "../locations";
+import { PROPERTIES, PropertyType } from "../locations";
 import MainGame from "../scenes/mainGame";
 
 export default class MailManager {
@@ -147,11 +147,11 @@ export default class MailManager {
       buildButton.on("pointerdown", () => {
         black.destroy();
         mailContents.forEach((item) => item.destroy());
-        this.scene.buildManager.build(propertyType);
-
-        this.mailContents = this.mailContents.filter(
-          (item, index) => index !== i - 2
-        );
+        if (this.scene.buildManager.build(propertyType)) {
+          this.mailContents = this.mailContents.filter(
+            (item, index) => index !== i - 2
+          );
+        }
       });
 
       mailContents.push(rectangle);

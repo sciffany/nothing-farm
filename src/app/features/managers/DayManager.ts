@@ -86,9 +86,39 @@ export default class DayManager {
     if (!this.dayText?.text) return;
     this.dayText.text = `Day ${this.day}`;
 
-    this.scene.tileManager.nextDay();
-    this.scene.energyManager.refill();
-    this.scene.mailManager.nextDay();
-    this.scene.propertyManager.nextDay();
+    // fade rectangle in
+    const rect = this.scene.add.rectangle(
+      0,
+      0,
+      Constants.WIDTH,
+      Constants.HEIGHT,
+      0x212020
+    );
+
+    rect.setOrigin(0, 0);
+    rect.setDepth(Layer.UI);
+    rect.setScrollFactor(0);
+    rect.setAlpha(0);
+
+    this.scene.tweens.add({
+      targets: rect,
+      alpha: 1,
+      duration: 1000,
+      onComplete: () => {
+        this.scene.tileManager.nextDay();
+        this.scene.energyManager.refill();
+        this.scene.mailManager.nextDay();
+        this.scene.propertyManager.nextDay();
+
+        this.scene.tweens.add({
+          targets: rect,
+          alpha: 0,
+          duration: 1000,
+          onComplete: () => {
+            rect.destroy();
+          },
+        });
+      },
+    });
   }
 }

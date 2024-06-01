@@ -17,6 +17,35 @@ export default class DialogueManager {
     // this.playDialogue(dialogueType);
   }
 
+  public showText(text: string) {
+    const { black, marker } = addBlackAndMarker(this.scene);
+
+    const dialogueText = this.scene.add.text(
+      Constants.TILE_DISPLAY_SIZE * 6,
+      Constants.HEIGHT - Constants.TILE_DISPLAY_SIZE * 3,
+      text,
+      {
+        fontSize: "12px",
+        fontFamily: "DePixelSchmal",
+        color: "#000000",
+        wordWrap: {
+          width: Constants.TILE_DISPLAY_SIZE * 10,
+          useAdvancedWrap: true,
+        },
+      }
+    );
+
+    dialogueText.depth = Layer.DIALOGUE;
+    dialogueText.setScrollFactor(0);
+
+    black.setInteractive();
+    black.on("pointerdown", () => {
+      black.destroy();
+      marker.destroy();
+      dialogueText.destroy();
+    });
+  }
+
   public playDialogue(dialogueType: DialogueType) {
     let dialoguePointer = 0;
 

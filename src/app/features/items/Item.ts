@@ -21,9 +21,9 @@ export default abstract class Item {
   abstract getType(): ItemType;
   abstract initialize(index: number): void;
   abstract use(x: number, y: number): void;
-  public useUp() {
+  public useUp(quantity: number = 1) {
     if (this.quantity === 0) return;
-    this.quantity -= 1;
+    this.quantity -= quantity;
     this.scene.itemManager.updateItemQuantity(this);
     if (this.quantity === 0 && this.deleteOnEmpty) {
       this.sprite?.destroy();

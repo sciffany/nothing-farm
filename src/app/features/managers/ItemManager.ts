@@ -8,6 +8,7 @@ import Hand from "../items/Hand";
 import MainGame from "../scenes/mainGame";
 import Axe from "../items/Axe";
 import Hammer from "../items/Hammer";
+import { ItemType } from "../objects";
 
 const TOOLBOX_FRAME = 15;
 
@@ -23,10 +24,10 @@ export default class ItemManager {
     this.scene = scene;
     this.items = [
       new Hoe(this.scene),
-      new Seed(this.scene, PlantType.TURNIP, 2),
+      new Seed(this.scene, PlantType.TURNIP, 10),
       new Travel(this.scene),
       new WateringCan(this.scene, 45),
-      new Seed(this.scene, PlantType.TOMATO, 2),
+      new Seed(this.scene, PlantType.TOMATO, 5),
       new Hand(this.scene),
       new Axe(this.scene),
       new Hammer(this.scene),
@@ -170,5 +171,9 @@ export default class ItemManager {
       return;
     }
     this.itemName.text = `${item.name} (${item.quantity})`;
+  }
+
+  public findItemWithType(type: ItemType) {
+    return this.items.find((item) => item.getType() == type);
   }
 }
