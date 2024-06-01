@@ -7,7 +7,7 @@ import {
   PROPERTIES,
   PropertyType,
 } from "../locations";
-import { ItemType } from "../objects";
+import { ITEMS, ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
 import { weightedRandom } from "../utils/random";
 
@@ -23,7 +23,8 @@ export default class PropertyManager {
         firstName: string;
         lastName: string;
         mbti: string;
-        favoriteItems: ItemType[];
+        favoriteItem: ItemType;
+        relationship: number;
       }[];
     };
   } = {};
@@ -67,7 +68,10 @@ export default class PropertyManager {
             FIRST_NAMES[Math.floor(Math.random() * FIRST_NAMES.length)],
           lastName,
           mbti: MBTI[Math.floor(Math.random() * MBTI.length)],
-          favoriteItems: [],
+          favoriteItem: (Object.keys(ITEMS) as unknown[] as ItemType[])[
+            Math.floor(Math.random() * Object.keys(ITEMS).length)
+          ],
+          relationship: 2,
         })),
     };
   }
@@ -122,20 +126,56 @@ export default class PropertyManager {
 
       image.setInteractive();
       image.on("pointerdown", () => {
+        occupant.relationship += 5;
+        relationshipBar.displayWidth =
+          (occupant.relationship / 20) * Constants.TILE_DISPLAY_SIZE * 2;
         this.scene.dialogueManager.playDialogue(DialogueType.CHIT_CHAT);
       });
 
+      const relationship = this.scene.add.rectangle(
+        Constants.TILE_DISPLAY_SIZE * 6 +
+          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
+        Constants.TILE_DISPLAY_SIZE * 6,
+        Constants.TILE_DISPLAY_SIZE * 4,
+        Constants.TILE_DISPLAY_SIZE,
+        0x000000
+      );
+      relationship.setOrigin(0.5, 0.5);
+
+      const relationshipBar = this.scene.add.rectangle(
+        Constants.TILE_DISPLAY_SIZE * 6 +
+          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1) -
+          Constants.TILE_DISPLAY_SIZE * 2,
+        Constants.TILE_DISPLAY_SIZE * 6,
+        Constants.TILE_DISPLAY_SIZE * 4,
+        Constants.TILE_DISPLAY_SIZE,
+        0xffc0cb
+      );
+      relationshipBar.setOrigin(0, 0.5);
+
+      relationshipBar.displayWidth =
+        (occupant.relationship / 20) * Constants.TILE_DISPLAY_SIZE * 2;
+
+      const favoriteItem = this.scene.add.text(
+        Constants.TILE_DISPLAY_SIZE * 6 +
+          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
+        Constants.TILE_DISPLAY_SIZE * 6 + Constants.TILE_DISPLAY_SIZE,
+        `Favorite Item: ${ITEMS[occupant.favoriteItem].name}`,
+        Constants.TEXT_PROPS
+      );
+
+      favoriteItem.setOrigin(0.5, 0.5);
+
+      this.occupantSprites.push(favoriteItem);
+      this.occupantSprites.push(relationshipBar);
+      this.occupantSprites.push(relationship);
       this.occupantSprites.push(rectangle);
       this.occupantSprites.push(image);
       this.occupantSprites.push(text);
     });
   }
 
-  public close(propertyId: string) {
-    const propertyType = this.properties[propertyId].propertyType;
-    const property = PROPERTIES[propertyType];
-    this.scene.dayManager.init(PropertyType.OUTSIDE);
-
+  public close() {
     this.interiorSprite?.destroy();
     this.exitButton?.destroy();
     this.exitText?.destroy();
@@ -177,10 +217,17 @@ export default class PropertyManager {
       if (property.request) {
         return;
       }
+      const growthStage =
+        this.scene.tileManager.getTile(property.x, property.y)?.propertyStage ||
+        0;
+      if (growthStage < PROPERTIES[property.propertyType].cost.days) {
+        return;
+      }
+
       const hasRequest = weightedRandom([
         {
           value: true,
-          weight: 0.05,
+          weight: 0.1,
         },
         {
           value: false,

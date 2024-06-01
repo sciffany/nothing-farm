@@ -64,8 +64,9 @@ export default class BuildManager {
     buildArea.depth = Layer.BUILD_PRESS;
 
     buildArea.on("pointermove", (pointer: Phaser.Input.Pointer) => {
-      propertyShadow.x = pointer.x;
-      propertyShadow.y = pointer.y;
+      const [tileX, tileY] = this.scene.getTileCoordinates();
+      propertyShadow.x = tileX * Constants.TILE_DISPLAY_SIZE;
+      propertyShadow.y = tileY * Constants.TILE_DISPLAY_SIZE;
     });
     buildArea.on("pointerdown", () => {
       const [tileX, tileY] = this.scene.getTileCoordinates();

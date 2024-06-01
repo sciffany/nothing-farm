@@ -1,5 +1,4 @@
 import { Constants, Layer } from "../constants";
-import { LocationType } from "../locations";
 import MainGame from "../scenes/mainGame";
 
 export class PopulationManager {

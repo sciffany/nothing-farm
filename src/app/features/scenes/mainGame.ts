@@ -140,26 +140,9 @@ export default class MainGame extends Phaser.Scene {
     this.tileManager.init();
     this.cameraManager.initialize(this.location);
     this.mailManager.init();
-    this.propertyManager.close(this.propertyId);
+    this.dayManager.init(PropertyType.OUTSIDE);
+    this.propertyManager.close();
   }
-
-  // public changeLocation(houseType: HouseType) {
-  //   this.currLoc = houseType;
-  //   this.backgroundManager.destroy();
-  //   this.backgroundManager.initialize(houseType);
-  //   this.tileManager.destroy();
-  //   this.tileManager.initialize(houseType);
-  //   this.houseManager.destroy();
-  //   this.houseManager.initialize(houseType);
-  //   this.dialogueManager.initialize(houseType);
-  //   this.transactionManager.initialize(houseType);
-  //   this.cameraManager.destroy();
-  //   this.cameraManager.initialize(houseType);
-  //   this.objectManager.destroy();
-  //   this.objectManager.initialize(houseType);
-  //   this.dayManager.destroy();
-  //   this.dayManager.changeLocation(houseType);
-  // }
 
   private addInteraction() {
     // Add invisible rectangle for tile interaction

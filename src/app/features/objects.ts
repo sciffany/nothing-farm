@@ -36,7 +36,7 @@ export enum ItemType {
 }
 
 export const ITEMS: {
-  [itemType: number]: {
+  [key in ItemType]: {
     name: string;
     constructor: (scene: MainGame) => Item;
     sellable: boolean;
