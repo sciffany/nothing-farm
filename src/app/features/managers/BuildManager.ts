@@ -27,6 +27,7 @@ export default class BuildManager {
       this.scene.dialogueManager.showText("Not enough resources");
       return false;
     }
+
     this.scene.moneyManager.addMoney(-property.cost.money);
     this.scene.itemManager
       .findItemWithType(ItemType.LOG)
