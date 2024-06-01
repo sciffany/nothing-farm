@@ -6,7 +6,7 @@ export const Constants = {
   TILESIZE: 16,
   TILE_DISPLAY_SIZE: 32,
   MAP_WIDTH: 30,
-  MAP_HEIGHT: 20,
+  MAP_HEIGHT: 60,
   NUM_TILES_Y: isMobile ? 8 : 12,
   NUM_TILES_X: isMobile ? 20 : 24,
   MAX_ITEMS: 16,

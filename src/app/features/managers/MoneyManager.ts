@@ -3,7 +3,7 @@ import MainGame from "../scenes/mainGame";
 
 export default class MoneyManager {
   private scene: MainGame;
-  public money: number = 500;
+  public money: number = Constants.INITIAL_MONEY;
 
   private moneyText: Phaser.GameObjects.Text | null = null;
 

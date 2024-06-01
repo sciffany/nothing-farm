@@ -212,7 +212,7 @@ export class Tile {
   public changeObjectType(objectType: PickupableObjectType) {
     this.objectType = objectType;
     if (objectType == PickupableObjectType.NONE) {
-      this.scene.tweens.add(fadeOut([this.objectSprite], 200));
+      this.objectSprite?.destroy();
       return;
     } else {
       this.objectSprite = this.scene.add.sprite(
@@ -223,6 +223,9 @@ export class Tile {
       );
       this.objectSprite.setOrigin(0, 0);
       this.objectSprite.setScale(2);
+      this.objectSprite.depth = Layer.TILES_PRESS;
+
+      this.scene.tileManager.addTile(this);
     }
   }
 
@@ -293,11 +296,8 @@ export default class TileManager {
   private currentTileMap?: Array<Array<Tile>>;
   private tileMap: { [houseType: string]: Array<Array<Tile>> };
   private plantedTileList: { [houseType: string]: Array<Tile> } = {};
-  private scene: MainGame;
-  private sprites: Phaser.GameObjects.GameObject[] = [];
 
   constructor(scene: MainGame) {
-    this.scene = scene;
     this.tileMap = {
       [LocationType.FARM]: Array(Constants.MAP_HEIGHT)
         .fill(0)
@@ -350,8 +350,14 @@ export default class TileManager {
   }
 
   public destroy() {
-    this.currentTileMap?.flat()?.forEach((tile) => {
+    this.plantedTileList[this.location].forEach((tile) => {
       tile.hide();
+    });
+  }
+
+  public init() {
+    this.plantedTileList[this.location].forEach((tile) => {
+      tile.show();
     });
   }
 

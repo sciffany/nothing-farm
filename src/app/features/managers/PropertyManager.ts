@@ -19,7 +19,6 @@ export default class PropertyManager {
         firstName: string;
         lastName: string;
         mbti: string;
-        relationship: number;
         favoriteItems: ItemType[];
       }[];
     };
@@ -70,11 +69,12 @@ export default class PropertyManager {
     this.interiorSprite = this.scene.add.sprite(
       Constants.TILE_DISPLAY_SIZE * 6,
       Constants.TILE_DISPLAY_SIZE * 2,
-      property.interiorChoices[0].sprite,
-      property.interiorChoices[0].frame
+      property.sprite,
+      property.frame
     );
 
-    this.interiorSprite.setScale(2);
+    this.interiorSprite.displayHeight = Constants.TILE_DISPLAY_SIZE * 8;
+    this.interiorSprite.displayWidth = Constants.TILE_DISPLAY_SIZE * 8;
     this.interiorSprite.setOrigin(0, 0);
     this.interiorSprite.setInteractive();
 
@@ -86,7 +86,7 @@ export default class PropertyManager {
           Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
         Constants.TILE_DISPLAY_SIZE * 2,
         occupant.firstName,
-        0xffff00
+        0
       );
 
       const text = this.scene.add.text(

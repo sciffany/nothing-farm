@@ -42,16 +42,6 @@ export enum PropertySubType {
   BOOKSTORE,
 }
 
-export const MAILBOX: { [day: string]: PropertyType[] } = {
-  1: [PropertyType.HOME, PropertyType.SEED_MARKET, PropertyType.PLAYGROUND],
-  2: [PropertyType.BARN, PropertyType.SMALL_HOUSE, PropertyType.PLAYGROUND],
-  3: [PropertyType.SMALL_HOUSE, PropertyType.SMALL_HOUSE, PropertyType.MALL],
-  4: [PropertyType.RANCH, PropertyType.BOOKSTORE, PropertyType.RESTAURANT],
-  5: [PropertyType.SMALL_HOUSE, PropertyType.MALL],
-  6: [PropertyType.SMALL_HOUSE, PropertyType.SMALL_HOUSE],
-  10: [PropertyType.SMALL_HOUSE],
-};
-
 export const FIRST_NAMES = [
   "Ariel",
   "Benjamin",
@@ -255,7 +245,7 @@ export const PROPERTIES: {
       },
     ],
     cost: {
-      money: 500,
+      money: 300,
       log: 20,
       rock: 20,
       days: 4,
@@ -275,7 +265,7 @@ export const PROPERTIES: {
       },
     ],
     cost: {
-      money: 500,
+      money: 200,
       log: 20,
       rock: 20,
       days: 0,
@@ -295,7 +285,7 @@ export const PROPERTIES: {
       },
     ],
     cost: {
-      money: 500,
+      money: 200,
       log: 20,
       rock: 20,
       days: 0,
@@ -315,7 +305,7 @@ export const PROPERTIES: {
       },
     ],
     cost: {
-      money: 500,
+      money: 200,
       log: 20,
       rock: 20,
       days: 0,
@@ -335,7 +325,7 @@ export const PROPERTIES: {
       },
     ],
     cost: {
-      money: 500,
+      money: 400,
       log: 20,
       rock: 20,
       days: 0,
@@ -343,7 +333,7 @@ export const PROPERTIES: {
     people: 2,
   },
   [PropertyType.BOOKSTORE]: {
-    color: 0x00ffff,
+    color: 0xffffff,
     name: "Bookstore",
     subType: PropertySubType.BOOKSTORE,
     sprite: "bookstore",
@@ -355,7 +345,7 @@ export const PROPERTIES: {
       },
     ],
     cost: {
-      money: 500,
+      money: 100,
       log: 20,
       rock: 20,
       days: 0,

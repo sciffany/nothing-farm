@@ -18,9 +18,8 @@ export default class MailManager {
         .fill(0)
         .map(
           () =>
-            (Math.floor(
-              Math.random() * (Object.keys(PROPERTIES).length / 2 - 1)
-            ) + 1) as PropertyType
+            (Math.floor(Math.random() * (Object.keys(PROPERTIES).length - 2)) +
+              2) as PropertyType
         )
     );
   }
@@ -37,9 +36,8 @@ export default class MailManager {
         .fill(0)
         .map(
           () =>
-            (Math.floor(
-              Math.random() * (Object.keys(PROPERTIES).length / 2 - 1)
-            ) + 1) as PropertyType
+            (Math.floor(Math.random() * (Object.keys(PROPERTIES).length - 2)) +
+              2) as PropertyType
         ),
     ]);
   }
