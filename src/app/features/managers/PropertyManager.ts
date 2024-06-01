@@ -119,7 +119,9 @@ export default class PropertyManager {
         Constants.TILE_DISPLAY_SIZE * 6 +
           Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
         Constants.TILE_DISPLAY_SIZE * 2 + Constants.TILE_DISPLAY_SIZE * 3,
-        `${occupant.firstName}\n${occupant.lastName}`,
+        `${occupant.firstName} ${occupant.lastName}\ninto ${
+          ITEMS[occupant.favoriteItem].name
+        }`,
         Constants.TEXT_PROPS
       );
       text.setOrigin(0.5, 0.5);
@@ -156,17 +158,6 @@ export default class PropertyManager {
       relationshipBar.displayWidth =
         (occupant.relationship / 20) * Constants.TILE_DISPLAY_SIZE * 2;
 
-      const favoriteItem = this.scene.add.text(
-        Constants.TILE_DISPLAY_SIZE * 6 +
-          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
-        Constants.TILE_DISPLAY_SIZE * 6 + Constants.TILE_DISPLAY_SIZE,
-        `Favorite Item: ${ITEMS[occupant.favoriteItem].name}`,
-        Constants.TEXT_PROPS
-      );
-
-      favoriteItem.setOrigin(0.5, 0.5);
-
-      this.occupantSprites.push(favoriteItem);
       this.occupantSprites.push(relationshipBar);
       this.occupantSprites.push(relationship);
       this.occupantSprites.push(rectangle);
