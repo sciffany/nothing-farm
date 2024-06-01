@@ -24,7 +24,8 @@ export default class BuildManager {
       property.frame
     );
     propertyShadow.setOrigin(0, 0);
-    propertyShadow.setScale(2);
+    propertyShadow.displayWidth = Constants.TILE_DISPLAY_SIZE * 4;
+    propertyShadow.displayHeight = Constants.TILE_DISPLAY_SIZE * 4;
     propertyShadow.setAlpha(0.5);
     propertyShadow.setScrollFactor(0);
     propertyShadow.depth = Layer.PROPERTIES;
@@ -44,8 +45,8 @@ export default class BuildManager {
     buildArea.depth = Layer.BUILD_PRESS;
 
     buildArea.on("pointermove", (pointer: Phaser.Input.Pointer) => {
-      propertyShadow.x = pointer.x - propertyShadow.width / 2;
-      propertyShadow.y = pointer.y - propertyShadow.height / 2;
+      propertyShadow.x = pointer.x;
+      propertyShadow.y = pointer.y;
     });
     buildArea.on("pointerdown", () => {
       const [tileX, tileY] = this.scene.getTileCoordinates();

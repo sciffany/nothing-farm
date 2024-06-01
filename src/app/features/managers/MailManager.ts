@@ -13,7 +13,16 @@ export default class MailManager {
   }
 
   public nextDay() {
-    this.addMailContents(MAILBOX[this.scene.dayManager.day] || []);
+    this.addMailContents(
+      Array(3)
+        .fill(0)
+        .map(
+          () =>
+            (Math.floor(
+              Math.random() * (Object.keys(PROPERTIES).length / 2 - 1)
+            ) + 1) as PropertyType
+        )
+    );
   }
 
   private addMailContents(mailContents: PropertyType[]) {
@@ -22,7 +31,17 @@ export default class MailManager {
 
   public initialize() {
     this.drawMailBox();
-    this.addMailContents(MAILBOX[1] || []);
+    this.addMailContents([
+      PropertyType.HOME,
+      ...Array(2)
+        .fill(0)
+        .map(
+          () =>
+            (Math.floor(
+              Math.random() * (Object.keys(PROPERTIES).length / 2 - 1)
+            ) + 1) as PropertyType
+        ),
+    ]);
   }
 
   public init() {

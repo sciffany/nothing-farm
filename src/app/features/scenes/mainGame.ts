@@ -94,6 +94,11 @@ export default class MainGame extends Phaser.Scene {
         "https://api.dicebear.com/8.x/adventurer/svg?seed=" + name
       );
     });
+    ["hospital", "mall", "playground", "restaurant", "bookstore"].forEach(
+      (name) => {
+        this.load.image(name, "assets/" + name + ".png");
+      }
+    );
   }
 
   create() {
