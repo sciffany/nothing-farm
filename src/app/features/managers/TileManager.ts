@@ -38,6 +38,7 @@ export class Tile {
   public propertyId?: string;
   public propertyType?: PropertyType;
   public propertyStage: number = 0;
+  public requestIntensity?: number;
 
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
   private tilePlantSprite: Phaser.GameObjects.Sprite | null = null;
@@ -46,6 +47,7 @@ export class Tile {
     | Phaser.GameObjects.Sprite
     | Phaser.GameObjects.Image
     | null = null;
+  public propertyRequestSprite: Phaser.GameObjects.Shape | null = null;
 
   private scene: MainGame;
 
@@ -206,7 +208,25 @@ export class Tile {
     propertySprite.setOrigin(0, 0);
     propertySprite.depth = Layer.PROPERTIES;
     this.propertySprite = propertySprite;
+
     this.scene.tileManager.addTile(this);
+  }
+
+  public changeRequest(request: PropertyType) {
+    this.propertyRequestSprite = this.scene.add.circle(
+      this.x * Constants.TILE_DISPLAY_SIZE,
+      this.y * Constants.TILE_DISPLAY_SIZE,
+      10,
+      PROPERTIES[request].color
+    );
+    this.propertyRequestSprite.depth = Layer.PROPERTIES;
+    this.scene.tweens.add({
+      targets: this.propertyRequestSprite,
+      alpha: 0,
+      duration: 1000,
+      yoyo: true,
+      repeat: -1,
+    });
   }
 
   public changeObjectType(objectType: PickupableObjectType) {
@@ -234,6 +254,7 @@ export class Tile {
     this.tileSprite?.setAlpha(0);
     this.objectSprite?.setAlpha(0);
     this.propertySprite?.setAlpha(0);
+    this.propertyRequestSprite?.setAlpha(0);
   }
 
   public show() {
@@ -241,6 +262,11 @@ export class Tile {
     this.tileSprite?.setAlpha(1);
     this.objectSprite?.setAlpha(1);
     this.propertySprite?.setAlpha(1);
+    if (this.propertySprite) {
+      this.propertySprite.displayHeight = Constants.TILE_DISPLAY_SIZE * 4;
+      this.propertySprite.displayWidth = Constants.TILE_DISPLAY_SIZE * 4;
+    }
+    this.propertyRequestSprite?.setAlpha(1);
   }
 
   public changePlantStage(plantStage: TilePlantStage, plantType?: PlantType) {

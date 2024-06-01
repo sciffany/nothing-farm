@@ -9,11 +9,15 @@ import {
 } from "../locations";
 import { ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
+import { weightedRandom } from "../utils/random";
 
 export default class PropertyManager {
   public properties: {
     [propertyId: string]: {
+      x: number;
+      y: number;
       propertyType: PropertyType;
+      request?: PropertyType;
       occupants: {
         propertyId: string;
         firstName: string;
@@ -30,6 +34,7 @@ export default class PropertyManager {
   private occupantSprites: (
     | Phaser.GameObjects.Image
     | Phaser.GameObjects.Text
+    | Phaser.GameObjects.Rectangle
   )[] = [];
 
   constructor(scene: MainGame) {
@@ -37,15 +42,22 @@ export default class PropertyManager {
   }
 
   public addProperty({
+    x,
+    y,
     propertyId,
     propertyType,
   }: {
+    x: number;
+    y: number;
+
     propertyId: string;
     propertyType: PropertyType;
   }) {
     const property = PROPERTIES[propertyType];
     const lastName = LAST_NAMES[Math.floor(Math.random() * LAST_NAMES.length)];
     this.properties[propertyId] = {
+      x,
+      y,
       propertyType,
       occupants: Array(property.people)
         .fill(0)
@@ -89,12 +101,22 @@ export default class PropertyManager {
         0
       );
 
+      const rectangle = this.scene.add.rectangle(
+        Constants.TILE_DISPLAY_SIZE * 6 +
+          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
+        Constants.TILE_DISPLAY_SIZE * 2 + Constants.TILE_DISPLAY_SIZE * 3,
+        Constants.TILE_DISPLAY_SIZE * 4,
+        Constants.TILE_DISPLAY_SIZE,
+        0xffffff
+      );
+      rectangle.setOrigin(0.5, 0.5);
+
       const text = this.scene.add.text(
         Constants.TILE_DISPLAY_SIZE * 6 +
           Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
         Constants.TILE_DISPLAY_SIZE * 2 + Constants.TILE_DISPLAY_SIZE * 3,
         `${occupant.firstName}\n${occupant.lastName}`,
-        { ...Constants.TEXT_PROPS, color: "#ffffff" }
+        Constants.TEXT_PROPS
       );
       text.setOrigin(0.5, 0.5);
 
@@ -103,6 +125,7 @@ export default class PropertyManager {
         this.scene.dialogueManager.playDialogue(DialogueType.CHIT_CHAT);
       });
 
+      this.occupantSprites.push(rectangle);
       this.occupantSprites.push(image);
       this.occupantSprites.push(text);
     });
@@ -146,6 +169,35 @@ export default class PropertyManager {
     this.exitButton.setInteractive();
     this.exitButton.on("pointerdown", () => {
       this.scene.exitProperty();
+    });
+  }
+
+  public nextDay() {
+    Object.values(this.properties).forEach((property) => {
+      if (property.request) {
+        return;
+      }
+      const hasRequest = weightedRandom([
+        {
+          value: true,
+          weight: 0.05,
+        },
+        {
+          value: false,
+          weight: 0.9,
+        },
+      ]);
+      property.request = hasRequest
+        ? (Math.floor(
+            Math.random() * Object.values(PROPERTIES).length
+          ) as PropertyType)
+        : undefined;
+
+      if (property.request) {
+        this.scene.tileManager
+          .getTile(property.x, property.y)
+          ?.changeRequest(property.request);
+      }
     });
   }
 }

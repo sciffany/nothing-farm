@@ -153,7 +153,7 @@ export const PROPERTIES: {
     people: 0,
   },
   [PropertyType.HOME]: {
-    color: 0x00ff00,
+    color: 0xc45161,
     name: "Home",
     subType: PropertySubType.RESIDENTIAL,
     sprite: "houses",
@@ -173,7 +173,7 @@ export const PROPERTIES: {
     people: 0,
   },
   [PropertyType.BARN]: {
-    color: 0xff0000,
+    color: 0xe094a0,
     name: "Barn",
     subType: PropertySubType.RESIDENTIAL,
     sprite: "houses",
@@ -193,7 +193,7 @@ export const PROPERTIES: {
     people: 0,
   },
   [PropertyType.SMALL_HOUSE]: {
-    color: 0x0000ff,
+    color: 0xf2b6c0,
     name: "Small House",
     subType: PropertySubType.RESIDENTIAL,
     sprite: "houses",
@@ -213,7 +213,7 @@ export const PROPERTIES: {
     people: 4,
   },
   [PropertyType.SEED_MARKET]: {
-    color: 0xffff00,
+    color: 0xf2dde1,
     name: "Seed Market",
     subType: PropertySubType.COMMERCIAL,
     sprite: "houses",
@@ -233,7 +233,7 @@ export const PROPERTIES: {
     people: 4,
   },
   [PropertyType.RANCH]: {
-    color: 0xff00ff,
+    color: 0xf2dde1,
     name: "Ranch",
     subType: PropertySubType.COMMERCIAL,
     sprite: "houses",
@@ -253,7 +253,7 @@ export const PROPERTIES: {
     people: 2,
   },
   [PropertyType.HOSPITAL]: {
-    color: 0x00ffff,
+    color: 0xcbc7d8,
     name: "Hospital",
     subType: PropertySubType.HOSPITAL,
     sprite: "hospital",
@@ -273,7 +273,7 @@ export const PROPERTIES: {
     people: 2,
   },
   [PropertyType.PLAYGROUND]: {
-    color: 0xff00ff,
+    color: 0xcbc7d8,
     name: "Playground",
     subType: PropertySubType.PLAYGROUND,
     sprite: "playground",
@@ -293,7 +293,7 @@ export const PROPERTIES: {
     people: 2,
   },
   [PropertyType.RESTAURANT]: {
-    color: 0x00ffff,
+    color: 0x8db7d2,
     name: "Restaurant",
     subType: PropertySubType.RESTAURANT,
     sprite: "restaurant",
@@ -313,7 +313,7 @@ export const PROPERTIES: {
     people: 2,
   },
   [PropertyType.MALL]: {
-    color: 0xff00ff,
+    color: 0x5e62a9,
     name: "Mall",
     subType: PropertySubType.MALL,
     sprite: "mall",
@@ -333,7 +333,7 @@ export const PROPERTIES: {
     people: 2,
   },
   [PropertyType.BOOKSTORE]: {
-    color: 0xffffff,
+    color: 0x434279,
     name: "Bookstore",
     subType: PropertySubType.BOOKSTORE,
     sprite: "bookstore",

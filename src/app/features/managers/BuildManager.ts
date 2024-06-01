@@ -54,6 +54,8 @@ export default class BuildManager {
       const propertyId = cuid();
       tile?.addProperty(propertyId, propertyType);
       this.scene.propertyManager.addProperty({
+        x: tileX,
+        y: tileY,
         propertyId,
         propertyType,
       });

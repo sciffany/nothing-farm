@@ -89,5 +89,6 @@ export default class DayManager {
     this.scene.tileManager.nextDay();
     this.scene.energyManager.refill();
     this.scene.mailManager.nextDay();
+    this.scene.propertyManager.nextDay();
   }
 }
