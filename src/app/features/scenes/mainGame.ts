@@ -14,6 +14,7 @@ import { FIRST_NAMES, LocationType, PropertyType } from "../locations";
 import MailManager from "../managers/MailManager";
 import BuildManager from "../managers/BuildManager";
 import PropertyManager from "../managers/PropertyManager";
+import { PopulationManager } from "../managers/PopulationManager";
 
 export default class MainGame extends Phaser.Scene {
   public location: LocationType = LocationType.FARM;
@@ -31,6 +32,7 @@ export default class MainGame extends Phaser.Scene {
   public mailManager: MailManager;
   public buildManager: BuildManager;
   public propertyManager: PropertyManager;
+  public populationManager: PopulationManager;
 
   constructor() {
     super({ key: "MainGame" });
@@ -47,6 +49,7 @@ export default class MainGame extends Phaser.Scene {
     this.mailManager = new MailManager(this);
     this.buildManager = new BuildManager(this);
     this.propertyManager = new PropertyManager(this);
+    this.populationManager = new PopulationManager(this);
   }
 
   preload() {
@@ -119,6 +122,7 @@ export default class MainGame extends Phaser.Scene {
     this.dayManager.initialize();
     this.dayManager.init(PropertyType.OUTSIDE);
     this.mailManager.initialize();
+    this.populationManager.initialize();
   }
 
   public enterProperty(propertyId: string) {

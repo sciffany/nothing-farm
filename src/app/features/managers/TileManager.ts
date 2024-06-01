@@ -152,6 +152,8 @@ export class Tile {
         this.propertySprite.on("pointerdown", () => {
           this.scene.enterProperty(this.propertyId!);
         });
+
+        this.scene.populationManager.addPopulation(property.people);
       }
     }
   }

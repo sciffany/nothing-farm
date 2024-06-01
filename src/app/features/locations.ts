@@ -29,6 +29,7 @@ export enum PropertyType {
   RESTAURANT,
   MALL,
   BOOKSTORE,
+  MUSEUM,
 }
 
 export enum PropertySubType {
@@ -40,6 +41,7 @@ export enum PropertySubType {
   RESTAURANT,
   MALL,
   BOOKSTORE,
+  MUSEUM,
 }
 
 export const FIRST_NAMES = [
@@ -349,6 +351,26 @@ export const PROPERTIES: {
       log: 4,
       rock: 8,
       days: 2,
+    },
+    people: 2,
+  },
+  [PropertyType.MUSEUM]: {
+    color: 0x1b1b3a,
+    name: "Museum",
+    subType: PropertySubType.MUSEUM,
+    sprite: "museum",
+    frame: 0,
+    interiorChoices: [
+      {
+        sprite: "museumInterior",
+        frame: 0,
+      },
+    ],
+    cost: {
+      money: 300,
+      log: 8,
+      rock: 6,
+      days: 3,
     },
     people: 2,
   },
