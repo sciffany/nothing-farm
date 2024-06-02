@@ -25,7 +25,7 @@ export class Tile {
   public plantStageNum: number = 0;
   public plantStage: TilePlantStage;
   public objectType: PickupableObjectType = PickupableObjectType.NONE;
-  public plantType: PlantType | null = null;
+  public plantType: PlantType = PlantType.NONE;
   public propertyId?: string;
   public propertyType?: PropertyType;
   public propertyStage: number = 0;
@@ -108,7 +108,7 @@ export class Tile {
   public nextDay() {
     this.plantStageNum += 1;
 
-    if (this.plantType !== null) {
+    if (this.plantType != PlantType.NONE) {
       this.changePlantStage(PLANTS[this.plantType].growth[this.plantStageNum]);
     }
 
@@ -252,7 +252,7 @@ export class Tile {
     this.propertyRequestSprite = this.scene.add.circle(
       this.x * Constants.TILE_DISPLAY_SIZE + Constants.TILE_DISPLAY_SIZE / 2,
       this.y * Constants.TILE_DISPLAY_SIZE + Constants.TILE_DISPLAY_SIZE / 2,
-      ((this.requestIntensity || 0) + 1) * 2,
+      (((this.requestIntensity || 0) % 10) + 1) * 10,
       PROPERTIES[request].color
     );
     this.propertyRequestSprite.depth = Layer.PROPERTIES;
@@ -291,7 +291,6 @@ export class Tile {
     this.tileSprite?.setAlpha(0);
     this.objectSprite?.setAlpha(0);
     this.propertySprite?.setAlpha(0);
-    this.propertyRequestTween?.stop();
     this.propertyRequestSprite?.setAlpha(0);
   }
 
@@ -329,7 +328,7 @@ export class Tile {
       const plantFrame =
         plantStage -
         1 +
-        (Object.keys(TilePlantStage).length / 2 - 1) * this.plantType!;
+        (Object.keys(TilePlantStage).length / 2 - 1) * (this.plantType! - 1);
 
       if (this.tilePlantSprite) {
         this.tilePlantSprite.setTexture("plants", plantFrame);

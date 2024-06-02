@@ -7,6 +7,7 @@ import { ItemType } from "../objects";
 const SEED_FRAME = 5;
 
 export enum PlantType {
+  NONE,
   TURNIP,
   CORN,
   TOMATO,
@@ -25,6 +26,10 @@ export enum TilePlantStage {
 }
 
 export const PLANTS = {
+  [PlantType.NONE]: {
+    name: "None",
+    growth: [],
+  },
   [PlantType.TURNIP]: {
     name: "Turnip",
     growth: [
@@ -86,6 +91,8 @@ export default class Seed extends Item {
         return ItemType.TOMATO_SEEDS;
       case PlantType.CARROT:
         return ItemType.CARROT_SEEDS;
+      default:
+        return ItemType.NONE;
     }
   }
 
@@ -98,7 +105,7 @@ export default class Seed extends Item {
     const plantFrame =
       TilePlantStage.HARVESTED -
       1 +
-      (Object.keys(TilePlantStage).length / 2 - 1) * this.plantType;
+      (Object.keys(TilePlantStage).length / 2 - 1) * (this.plantType - 1);
 
     const pic = this.scene.add
       .sprite(0, 0, "plants", plantFrame)

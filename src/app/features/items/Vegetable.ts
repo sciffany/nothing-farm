@@ -1,6 +1,5 @@
 import Item from "./Item";
-import { TilePlantStage } from "../managers/TileManager";
-import { PLANTS, PlantType } from "./Seed";
+import { PLANTS, PlantType, TilePlantStage } from "./Seed";
 import { Layer } from "../constants";
 import MainGame from "../scenes/mainGame";
 import { ItemType } from "../objects";
@@ -24,6 +23,8 @@ export default class Vegetable extends Item {
         return ItemType.TOMATO;
       case PlantType.CARROT:
         return ItemType.CARROT;
+      default:
+        return ItemType.NONE;
     }
   }
 
@@ -31,7 +32,7 @@ export default class Vegetable extends Item {
     const plantFrame =
       TilePlantStage.HARVESTED -
       1 +
-      (Object.keys(TilePlantStage).length / 2 - 1) * this.plantType;
+      (Object.keys(TilePlantStage).length / 2 - 1) * (this.plantType - 1);
 
     this.sprite = this.scene.add
       .sprite(0, 0, "plants", plantFrame)

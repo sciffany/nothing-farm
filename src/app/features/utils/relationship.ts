@@ -2,19 +2,19 @@ import { Constants, Layer } from "../constants";
 import { RELATIONSHIP_TOTAL } from "../managers/PropertyManager";
 
 export function drawRelationshipBar(
-  baseBar: Phaser.GameObjects.Rectangle,
-  newBar: Phaser.GameObjects.Rectangle,
+  baseBar: Phaser.GameObjects.Image,
+  newBar: Phaser.GameObjects.Image,
   relationship: number
 ) {
   const level = Math.floor(relationship / RELATIONSHIP_TOTAL);
   const remainder = relationship % RELATIONSHIP_TOTAL;
 
   baseBar.displayWidth = Constants.TILE_DISPLAY_SIZE * 4;
-  baseBar.fillColor = RELATIONSHIP_COLORS[level];
+  baseBar.tint = RELATIONSHIP_COLORS[level];
 
   newBar.displayWidth =
     Constants.TILE_DISPLAY_SIZE * 4 * (remainder / RELATIONSHIP_TOTAL);
-  newBar.fillColor = RELATIONSHIP_COLORS[level + 1];
+  newBar.tint = RELATIONSHIP_COLORS[level + 1];
 }
 
 const RELATIONSHIP_COLORS: {

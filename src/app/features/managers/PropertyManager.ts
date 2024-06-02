@@ -175,24 +175,20 @@ export default class PropertyManager {
         );
       });
 
-      const relationship = this.scene.add.rectangle(
+      const relationship = this.scene.add.image(
         Constants.TILE_DISPLAY_SIZE * 6 +
           Constants.TILE_DISPLAY_SIZE * (index * 4 + 1),
         Constants.TILE_DISPLAY_SIZE * 6,
-        Constants.TILE_DISPLAY_SIZE * 4,
-        Constants.TILE_DISPLAY_SIZE,
-        0x000000
+        "marker"
       );
       relationship.setOrigin(0.5, 0.5);
 
-      const relationshipBar = this.scene.add.rectangle(
+      const relationshipBar = this.scene.add.image(
         Constants.TILE_DISPLAY_SIZE * 6 +
           Constants.TILE_DISPLAY_SIZE * (index * 4 + 1) -
           Constants.TILE_DISPLAY_SIZE * 2,
         Constants.TILE_DISPLAY_SIZE * 6,
-        Constants.TILE_DISPLAY_SIZE * 4,
-        Constants.TILE_DISPLAY_SIZE,
-        0x000000
+        "marker"
       );
       relationshipBar.setOrigin(0, 0.5);
 
