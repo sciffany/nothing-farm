@@ -7,6 +7,7 @@ import { PICKUPABLE_OBJECTS, PickupableObjectType } from "../objects";
 import { weightedRandom } from "../utils/random";
 import { fadeOut } from "../utils/animation";
 import { LocationType, PROPERTIES, PropertyType } from "../locations";
+import PickupableObject from "../items/PickupableObject";
 
 export enum TileType {
   PLAIN,
@@ -176,6 +177,32 @@ export class Tile {
       this.tileSprite.setOrigin(0, 0);
       this.tileSprite.depth = Layer.TILES_PRESS;
     }
+  }
+
+  public breakPickupable() {
+    if (this.objectType === PickupableObjectType.NONE) return;
+    this.objectSprite?.destroy();
+    let objectType = this.objectType;
+    Array(5)
+      .fill(0)
+      .forEach(() => {
+        const image = this.scene.add.image(
+          this.x * Constants.TILE_DISPLAY_SIZE +
+            Math.random() * Constants.TILE_DISPLAY_SIZE,
+          this.y * Constants.TILE_DISPLAY_SIZE +
+            Math.random() * Constants.TILE_DISPLAY_SIZE,
+          PICKUPABLE_OBJECTS[this.objectType].sprite,
+          PICKUPABLE_OBJECTS[this.objectType].frame
+        );
+        image.setInteractive();
+        image.depth = Layer.UI;
+        image.on("pointerover", () => {
+          this.scene.itemManager.addItem(
+            new PickupableObject(this.scene, objectType, 1)
+          );
+          image.destroy();
+        });
+      });
   }
 
   public addProperty(propertyId: string, propertyType: PropertyType) {

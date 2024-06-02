@@ -1,4 +1,4 @@
-import { Constants } from "../constants";
+import { Constants, Layer } from "../constants";
 import DayManager from "../managers/DayManager";
 import MoneyManager from "../managers/MoneyManager";
 import TileManager from "../managers/TileManager";

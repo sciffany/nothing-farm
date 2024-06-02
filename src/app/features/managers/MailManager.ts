@@ -1,5 +1,6 @@
 import { Constants, Layer } from "../constants";
 import { PROPERTIES, PropertyType } from "../locations";
+import { ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
 
 export default class MailManager {
@@ -140,19 +141,33 @@ export default class MailManager {
       );
 
       buildText.setOrigin(0.5, 0.5);
-      buildText.setInteractive();
       buildText.setScrollFactor(0);
       buildText.depth = Layer.UI;
 
-      buildButton.on("pointerdown", () => {
-        black.destroy();
-        mailContents.forEach((item) => item.destroy());
-        if (this.scene.buildManager.build(propertyType)) {
-          this.mailContents = this.mailContents.filter(
-            (item, index) => index !== i - 2
-          );
-        }
-      });
+      const numLogs =
+        this.scene.itemManager.findItemWithType(ItemType.LOG)?.quantity || 0;
+      const numRocks =
+        this.scene.itemManager.findItemWithType(ItemType.ROCK)?.quantity || 0;
+      const numMoney = this.scene.moneyManager.money;
+
+      if (
+        numMoney < property.cost.money ||
+        numLogs < property.cost.log ||
+        numRocks < property.cost.rock
+      ) {
+        buildButton.setTint(0x888800);
+      } else {
+        buildText.setInteractive();
+        buildButton.on("pointerdown", () => {
+          black.destroy();
+          mailContents.forEach((item) => item.destroy());
+          if (this.scene.buildManager.build(propertyType)) {
+            this.mailContents = this.mailContents.filter(
+              (item, index) => index !== i - 2
+            );
+          }
+        });
+      }
 
       mailContents.push(rectangle);
       mailContents.push(propertyText);

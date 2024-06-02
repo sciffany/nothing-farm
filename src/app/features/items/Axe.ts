@@ -31,10 +31,9 @@ export default class Axe extends Item {
     if (tile?.objectType === PickupableObjectType.LOG) {
       if (this.scene.energyManager.getEnergy() < 20) return;
       this.scene.energyManager.addEnergy(-20);
+
+      tile.breakPickupable();
       tile.changeObjectType(PickupableObjectType.NONE);
-      this.scene.itemManager.addItem(
-        new PickupableObject(this.scene, PickupableObjectType.LOG, 1)
-      );
     }
   }
 }

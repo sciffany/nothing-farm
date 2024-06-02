@@ -28,12 +28,10 @@ export default class Hammer extends Item {
   public use(x: number, y: number) {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (tile?.objectType === PickupableObjectType.ROCK) {
-      tile.changeObjectType(PickupableObjectType.NONE);
       if (this.scene.energyManager.getEnergy() < 20) return;
       this.scene.energyManager.addEnergy(-20);
-      this.scene.itemManager.addItem(
-        new PickupableObject(this.scene, PickupableObjectType.ROCK, 1)
-      );
+      tile.breakPickupable();
+      tile.changeObjectType(PickupableObjectType.NONE);
     }
   }
 }

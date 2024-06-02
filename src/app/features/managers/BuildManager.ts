@@ -13,21 +13,6 @@ export default class BuildManager {
   public build(propertyType: PropertyType) {
     const property = PROPERTIES[propertyType];
 
-    const numLogs =
-      this.scene.itemManager.findItemWithType(ItemType.LOG)?.quantity || 0;
-    const numRocks =
-      this.scene.itemManager.findItemWithType(ItemType.ROCK)?.quantity || 0;
-    const numMoney = this.scene.moneyManager.money;
-
-    if (
-      numMoney < property.cost.money ||
-      numLogs < property.cost.log ||
-      numRocks < property.cost.rock
-    ) {
-      this.scene.dialogueManager.showText("Not enough resources");
-      return false;
-    }
-
     this.scene.moneyManager.addMoney(-property.cost.money);
     this.scene.itemManager
       .findItemWithType(ItemType.LOG)
