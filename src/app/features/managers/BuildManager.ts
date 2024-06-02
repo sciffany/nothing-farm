@@ -52,8 +52,10 @@ export default class BuildManager {
 
     buildArea.on("pointermove", (pointer: Phaser.Input.Pointer) => {
       const [tileX, tileY] = this.scene.getTileCoordinates();
-      propertyShadow.x = tileX * Constants.TILE_DISPLAY_SIZE;
-      propertyShadow.y = tileY * Constants.TILE_DISPLAY_SIZE;
+      propertyShadow.x =
+        tileX * Constants.TILE_DISPLAY_SIZE - this.scene.cameras.main.scrollX;
+      propertyShadow.y =
+        tileY * Constants.TILE_DISPLAY_SIZE - this.scene.cameras.main.scrollY;
     });
     buildArea.on("pointerdown", () => {
       const [tileX, tileY] = this.scene.getTileCoordinates();

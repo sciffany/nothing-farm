@@ -11,6 +11,8 @@ import { ITEMS, ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
 import { weightedRandom } from "../utils/random";
 
+const RELATIONSHIP_TOTAL = 10;
+
 export default class PropertyManager {
   public properties: {
     [propertyId: string]: {
@@ -25,6 +27,8 @@ export default class PropertyManager {
         mbti: string;
         favoriteItem: ItemType;
         relationship: number;
+        talkedTo: boolean;
+        gifted: boolean;
       }[];
     };
   } = {};
@@ -71,6 +75,8 @@ export default class PropertyManager {
             Math.floor(Math.random() * Object.keys(ITEMS).length)
           ],
           relationship: 2,
+          talkedTo: false,
+          gifted: false,
         })),
     };
   }
@@ -127,12 +133,21 @@ export default class PropertyManager {
 
       image.setInteractive();
       image.on("pointerdown", () => {
-        occupant.relationship += 5;
-        relationshipBar.displayWidth =
-          (occupant.relationship / 20) * Constants.TILE_DISPLAY_SIZE * 2;
+        function increaseRelationship() {
+          if (!occupant.talkedTo) {
+            occupant.relationship += 5;
+            relationshipBar.displayWidth =
+              (occupant.relationship / RELATIONSHIP_TOTAL) *
+              Constants.TILE_DISPLAY_SIZE *
+              2;
+            occupant.talkedTo = true;
+          }
+        }
         this.scene.dialogueManager.playCharacterDialogue(
           propertyType,
-          occupant.mbti
+          occupant.mbti,
+          increaseRelationship,
+          this.properties[propertyId].request
         );
       });
 
@@ -158,7 +173,9 @@ export default class PropertyManager {
       relationshipBar.setOrigin(0, 0.5);
 
       relationshipBar.displayWidth =
-        (occupant.relationship / 20) * Constants.TILE_DISPLAY_SIZE * 2;
+        (occupant.relationship / RELATIONSHIP_TOTAL) *
+        Constants.TILE_DISPLAY_SIZE *
+        2;
 
       this.occupantSprites.push(relationshipBar);
       this.occupantSprites.push(relationship);

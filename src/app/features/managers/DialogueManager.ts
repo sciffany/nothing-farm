@@ -46,7 +46,12 @@ export default class DialogueManager {
     });
   }
 
-  public playCharacterDialogue(propertyType: PropertyType, mbti: string) {
+  public playCharacterDialogue(
+    propertyType: PropertyType,
+    mbti: string,
+    increaseRelationship: () => void,
+    request?: PropertyType
+  ) {
     const { black, marker } = addBlackAndMarker(this.scene);
     const randomMbtiLetter = mbti[
       Math.floor(Math.random() * mbti.length)
@@ -61,7 +66,18 @@ export default class DialogueManager {
         {
           text: "Chit Chat",
           action: () => {
-            this.showText(quip);
+            if (request) {
+              this.showText(
+                `I'm looking for a ${PROPERTIES[
+                  request
+                ].name.toLowerCase()}. Would appreciate if you could help build one near my house,`
+              );
+            } else {
+              this.showText(quip);
+            }
+            if (increaseRelationship) {
+              increaseRelationship();
+            }
             destroy();
             black.destroy();
             marker.destroy();
