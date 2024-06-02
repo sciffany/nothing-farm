@@ -138,6 +138,7 @@ export const PROPERTIES: {
     };
     people: number;
     serviceText?: string;
+    requestable?: boolean;
   };
 } = {
   [PropertyType.OUTSIDE]: {
@@ -154,6 +155,7 @@ export const PROPERTIES: {
       days: 0,
     },
     people: 0,
+    requestable: false,
   },
   [PropertyType.HOME]: {
     color: 0xc45161,
@@ -174,6 +176,7 @@ export const PROPERTIES: {
       days: 0,
     },
     people: 0,
+    requestable: false,
   },
   [PropertyType.BARN]: {
     color: 0xe094a0,
@@ -194,6 +197,7 @@ export const PROPERTIES: {
       days: 2,
     },
     people: 0,
+    requestable: true,
   },
   [PropertyType.SMALL_HOUSE]: {
     color: 0xf2b6c0,

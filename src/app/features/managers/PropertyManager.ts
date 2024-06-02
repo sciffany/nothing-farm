@@ -59,6 +59,9 @@ export default class PropertyManager {
   }) {
     const property = PROPERTIES[propertyType];
     const lastName = LAST_NAMES[Math.floor(Math.random() * LAST_NAMES.length)];
+    const possibleFaves = Object.entries(ITEMS).filter(
+      ([itemType, itemContent]) => itemContent.sellable
+    );
     this.properties[propertyId] = {
       x,
       y,
@@ -71,9 +74,9 @@ export default class PropertyManager {
             FIRST_NAMES[Math.floor(Math.random() * FIRST_NAMES.length)],
           lastName,
           mbti: MBTI[Math.floor(Math.random() * MBTI.length)],
-          favoriteItem: (Object.keys(ITEMS) as unknown[] as ItemType[])[
-            Math.floor(Math.random() * Object.keys(ITEMS).length)
-          ],
+          favoriteItem: possibleFaves[
+            Math.floor(Math.random() * possibleFaves.length)
+          ][0] as unknown as ItemType,
           relationship: 2,
           talkedTo: false,
           gifted: false,
@@ -143,10 +146,20 @@ export default class PropertyManager {
             occupant.talkedTo = true;
           }
         }
+        function loveItem(itemType: ItemType) {
+          if (itemType == occupant.favoriteItem) {
+            occupant.relationship += 10;
+            relationshipBar.displayWidth =
+              (occupant.relationship / RELATIONSHIP_TOTAL) *
+              Constants.TILE_DISPLAY_SIZE *
+              2;
+          }
+        }
         this.scene.dialogueManager.playCharacterDialogue(
           propertyType,
           occupant.mbti,
           increaseRelationship,
+          loveItem,
           this.properties[propertyId].request
         );
       });
@@ -234,14 +247,18 @@ export default class PropertyManager {
         return;
       }
 
+      if (property.propertyType == PropertyType.HOME) {
+        return;
+      }
+
       const hasRequest = weightedRandom([
         {
           value: true,
-          weight: 0.1,
+          weight: 0.5,
         },
         {
           value: false,
-          weight: 0.9,
+          weight: 0.5,
         },
       ]);
       property.request = hasRequest

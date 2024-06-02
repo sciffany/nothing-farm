@@ -1,6 +1,7 @@
 import { Constants, Layer } from "../constants";
 import { DIALOGUES, DialogueType, OutcomeType, QUIPS } from "../dialogues";
 import { LocationType, PROPERTIES, PropertyType } from "../locations";
+import { ITEMS, ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
 import { TransactionGroup } from "../transactionGroups";
 import { addBlackAndMarker, createScroll } from "../utils/scroll";
@@ -50,6 +51,7 @@ export default class DialogueManager {
     propertyType: PropertyType,
     mbti: string,
     increaseRelationship: () => void,
+    loveItem: (item: ItemType) => void,
     request?: PropertyType
   ) {
     const { black, marker } = addBlackAndMarker(this.scene);
@@ -98,13 +100,46 @@ export default class DialogueManager {
         {
           text: "Gift",
           action: () => {
+            const destroy2 = createScroll(
+              this.scene,
+              [
+                ...this.scene.itemManager.items
+                  .filter((item) => ITEMS[item.getType() as ItemType].sellable)
+                  .map((item) => ({
+                    text: item.name,
+                    action: () => {
+                      loveItem(item.getType() as ItemType);
+                      this.showText(`Thanks for the ${item.name}!`);
+                      destroy2();
+                      black.destroy();
+                      marker.destroy();
+                    },
+                  })),
+                {
+                  text: "Exit",
+                  action: () => {
+                    destroy2();
+                    black.destroy();
+                    marker.destroy();
+                  },
+                },
+              ],
+              marker
+            );
+            destroy();
+            black.destroy();
+          },
+        },
+        {
+          text: "Ask for recommendation",
+          action: () => {
             destroy();
             black.destroy();
             marker.destroy();
           },
         },
         {
-          text: "Ask for recommendation",
+          text: "Exit",
           action: () => {
             destroy();
             black.destroy();

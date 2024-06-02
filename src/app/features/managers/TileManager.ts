@@ -249,9 +249,9 @@ export class Tile {
 
   public changeRequest(request: PropertyType) {
     this.propertyRequestSprite = this.scene.add.circle(
-      this.x * Constants.TILE_DISPLAY_SIZE,
-      this.y * Constants.TILE_DISPLAY_SIZE,
-      10,
+      this.x * Constants.TILE_DISPLAY_SIZE + Constants.TILE_DISPLAY_SIZE / 2,
+      this.y * Constants.TILE_DISPLAY_SIZE + Constants.TILE_DISPLAY_SIZE / 2,
+      Constants.TILE_DISPLAY_SIZE / 4,
       PROPERTIES[request].color
     );
     this.propertyRequestSprite.depth = Layer.PROPERTIES;
