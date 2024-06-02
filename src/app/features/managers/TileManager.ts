@@ -29,6 +29,7 @@ export class Tile {
   public propertyId?: string;
   public propertyType?: PropertyType;
   public propertyStage: number = 0;
+  public requestType?: PropertyType;
   public requestIntensity?: number;
 
   private tileSprite: Phaser.GameObjects.Sprite | null = null;
@@ -249,6 +250,7 @@ export class Tile {
   }
 
   public changeRequest(request: PropertyType) {
+    this.requestType = request;
     this.propertyRequestSprite = this.scene.add.circle(
       this.x * Constants.TILE_DISPLAY_SIZE + Constants.TILE_DISPLAY_SIZE / 2,
       this.y * Constants.TILE_DISPLAY_SIZE + Constants.TILE_DISPLAY_SIZE / 2,
@@ -256,14 +258,14 @@ export class Tile {
       PROPERTIES[request].color
     );
     this.propertyRequestSprite.depth = Layer.PROPERTIES;
-    const tween = this.scene.tweens.add({
+    this.propertyRequestTween = this.scene.tweens.add({
       targets: this.propertyRequestSprite,
-      alpha: 0,
+      alpha: 0.1,
       duration: 1000,
       yoyo: true,
       repeat: -1,
     });
-    this.propertyRequestTween = tween;
+    this.hide();
   }
 
   public changeObjectType(objectType: PickupableObjectType) {
@@ -291,6 +293,7 @@ export class Tile {
     this.tileSprite?.setAlpha(0);
     this.objectSprite?.setAlpha(0);
     this.propertySprite?.setAlpha(0);
+    this.propertyRequestTween?.destroy();
     this.propertyRequestSprite?.setAlpha(0);
   }
 
@@ -304,10 +307,10 @@ export class Tile {
       this.propertySprite.displayWidth = Constants.TILE_DISPLAY_SIZE * 2;
     }
     if (this.propertyRequestSprite) {
-      this.propertyRequestSprite?.setAlpha(1);
+      this.propertyRequestSprite.setAlpha(1);
       this.propertyRequestTween = this.scene.tweens.add({
         targets: this.propertyRequestSprite,
-        alpha: 0,
+        alpha: 0.1,
         duration: 1000,
         yoyo: true,
         repeat: -1,

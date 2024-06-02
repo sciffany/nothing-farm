@@ -150,7 +150,7 @@ export default class PropertyManager {
         }
         function loveItem(itemType: ItemType) {
           if (itemType == occupant.favoriteItem) {
-            occupant.relationship += 10;
+            occupant.relationship += 15;
             drawRelationshipBar(
               relationship,
               relationshipBar,
@@ -246,9 +246,7 @@ export default class PropertyManager {
 
   public nextDay() {
     Object.values(this.properties).forEach((property) => {
-      if (property.request) {
-        return;
-      }
+      console.log(property);
       const growthStage =
         this.scene.tileManager.getTile(property.x, property.y)?.propertyStage ||
         0;
