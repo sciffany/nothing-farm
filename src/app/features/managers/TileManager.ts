@@ -133,6 +133,8 @@ export class Tile {
     this.plantStageNum += 1;
 
     if (this.plantType != PlantType.NONE) {
+      console.log(this.plantStageNum);
+      console.log(PLANTS[this.plantType].growth);
       this.changePlantStage(PLANTS[this.plantType].growth[this.plantStageNum]);
     }
 
@@ -141,7 +143,7 @@ export class Tile {
       this.changeType(TileType.TILLED);
     }
 
-    if (this.propertyType && this.propertySprite) {
+    if (this.propertyType && this.propertySprite && this.propertyId) {
       this.propertyStage += 1;
       const property = PROPERTIES[this.propertyType];
       if (this.propertyStage >= property.cost.days) {
@@ -151,8 +153,12 @@ export class Tile {
         this.propertySprite.on("pointerdown", () => {
           this.scene.enterProperty(this.propertyId!);
         });
-
-        this.scene.populationManager.addPopulation(property.people);
+        if (this.propertyStage === property.cost.days) {
+          this.scene.populationManager.addPopulation(
+            this.scene.propertyManager.properties[this.propertyId].occupants
+              .length
+          );
+        }
       }
     }
   }

@@ -63,7 +63,7 @@ export default class PropertyManager {
     const possibleFaves = Object.entries(ITEMS).filter(
       ([itemType, itemContent]) => itemContent.sellable
     );
-    const numOccupants = Math.floor(Math.random() * property.people) + 1;
+    const numOccupants = property.people === 0 ? 0 : 1;
     this.properties[propertyId] = {
       x,
       y,
@@ -248,7 +248,6 @@ export default class PropertyManager {
 
   public nextDay() {
     Object.values(this.properties).forEach((property) => {
-      console.log(property);
       const growthStage =
         this.scene.tileManager.getTile(property.x, property.y)?.propertyStage ||
         0;

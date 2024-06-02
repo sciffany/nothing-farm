@@ -137,6 +137,7 @@ export default class MainGame extends Phaser.Scene {
     this.cameraManager.destroy();
     this.cameraManager.resetCamera();
     this.mailManager.destroy();
+    this.objectManager.destroy();
     this.propertyManager.open(propertyId);
   }
 
@@ -145,6 +146,7 @@ export default class MainGame extends Phaser.Scene {
     this.tileManager.init();
     this.cameraManager.initialize(this.location);
     this.mailManager.init();
+    this.objectManager.init();
     this.dayManager.init(PropertyType.OUTSIDE);
     this.propertyManager.close();
   }

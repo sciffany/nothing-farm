@@ -1,4 +1,4 @@
-import { Constants } from "../constants";
+import { Constants, Layer } from "../constants";
 import { LOCATIONS, LocationType } from "../locations";
 import { CLICKABLE_OBJECTS, ClickableObjectType } from "../objects";
 import MainGame from "../scenes/mainGame";
@@ -25,10 +25,16 @@ export default class ObjectManager {
     houseSprite.on("pointerdown", () => {
       objectProperties.action(this.scene);
     });
+
+    houseSprite.depth = Layer.TILES_PRESS;
     this.sprites.push(houseSprite);
   }
 
   public destroy() {
-    this.sprites.forEach((sprite) => sprite.destroy());
+    this.sprites.forEach((sprite) => sprite.setAlpha(0));
+  }
+
+  public init() {
+    this.sprites.forEach((sprite) => sprite.setAlpha(1));
   }
 }

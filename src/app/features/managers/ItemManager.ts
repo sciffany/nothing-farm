@@ -31,6 +31,8 @@ export default class ItemManager {
       new Hand(this.scene),
       new Axe(this.scene),
       new Hammer(this.scene),
+      new Seed(this.scene, PlantType.CARROT, 5),
+      new Seed(this.scene, PlantType.CORN, 5),
     ];
     this.selectedItem = this.items[0];
     this.selector = null;

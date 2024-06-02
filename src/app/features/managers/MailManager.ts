@@ -16,7 +16,7 @@ export default class MailManager {
 
   public nextDay() {
     this.addMailContents(
-      Array(2)
+      Array(1)
         .fill(0)
         .map(() =>
           weightedRandom([
@@ -42,7 +42,7 @@ export default class MailManager {
     this.drawMailBox();
     this.addMailContents([
       PropertyType.HOME,
-      ...Array(8)
+      ...Array(5)
         .fill(0)
         .map(() =>
           weightedRandom([

@@ -109,6 +109,9 @@ export default class DayManager {
         this.scene.energyManager.refill();
         this.scene.mailManager.nextDay();
         this.scene.propertyManager.nextDay();
+        this.scene.moneyManager.addMoney(
+          this.scene.populationManager?.population * 10
+        );
 
         this.scene.tweens.add({
           targets: rect,

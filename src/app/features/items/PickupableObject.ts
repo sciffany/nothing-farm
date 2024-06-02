@@ -28,7 +28,5 @@ export default class PickupableObject extends Item {
     this.moveToPosition(0, position);
   }
 
-  public use(x: number, y: number) {
-    console.log("Used pickupable object");
-  }
+  public use(x: number, y: number) {}
 }
