@@ -169,6 +169,7 @@ export default class MainGame extends Phaser.Scene {
     rectangle.setOrigin(0, 0);
     rectangle.setInteractive();
     rectangle.setAlpha(0.01);
+    rectangle.depth = Layer.TILES_PRESS;
     rectangle.setScrollFactor(0);
     rectangle.on("pointerdown", () => {
       const [tileX, tileY] = this.getTileCoordinates();
