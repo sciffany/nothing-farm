@@ -2,6 +2,7 @@ import { Constants, Layer } from "../constants";
 import { PROPERTIES, PropertyType } from "../locations";
 import { ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
+import { weightedRandom } from "../utils/random";
 
 export default class MailManager {
   private scene: MainGame;
@@ -17,10 +18,18 @@ export default class MailManager {
     this.addMailContents(
       Array(3)
         .fill(0)
-        .map(
-          () =>
-            (Math.floor(Math.random() * (Object.keys(PROPERTIES).length - 2)) +
-              2) as PropertyType
+        .map(() =>
+          weightedRandom([
+            { value: PropertyType.SMALL_HOUSE, weight: 20 },
+            { value: PropertyType.BOOKSTORE, weight: 5 },
+            { value: PropertyType.BARN, weight: 5 },
+            { value: PropertyType.HOSPITAL, weight: 5 },
+            { value: PropertyType.MALL, weight: 5 },
+            { value: PropertyType.MUSEUM, weight: 5 },
+            { value: PropertyType.PLAYGROUND, weight: 5 },
+            { value: PropertyType.SEED_MARKET, weight: 5 },
+            { value: PropertyType.RANCH, weight: 5 },
+          ])
         )
     );
   }
@@ -35,10 +44,18 @@ export default class MailManager {
       PropertyType.HOME,
       ...Array(2)
         .fill(0)
-        .map(
-          () =>
-            (Math.floor(Math.random() * (Object.keys(PROPERTIES).length - 2)) +
-              2) as PropertyType
+        .map(() =>
+          weightedRandom([
+            { value: PropertyType.SMALL_HOUSE, weight: 20 },
+            { value: PropertyType.BOOKSTORE, weight: 5 },
+            { value: PropertyType.BARN, weight: 5 },
+            { value: PropertyType.HOSPITAL, weight: 5 },
+            { value: PropertyType.MALL, weight: 5 },
+            { value: PropertyType.MUSEUM, weight: 5 },
+            { value: PropertyType.PLAYGROUND, weight: 5 },
+            { value: PropertyType.SEED_MARKET, weight: 5 },
+            { value: PropertyType.RANCH, weight: 5 },
+          ])
         ),
     ]);
   }

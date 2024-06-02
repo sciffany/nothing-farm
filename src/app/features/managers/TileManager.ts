@@ -1,7 +1,7 @@
 import { Constants, Layer } from "../constants";
 import nothingFarmJson from "../../../../public/assets/nothing_farm.json";
 import westSideJson from "../../../../public/assets/west_side.json";
-import { PlantType } from "../items/Seed";
+import { PLANTS, PlantType, TilePlantStage } from "../items/Seed";
 import MainGame from "../scenes/mainGame";
 import { PICKUPABLE_OBJECTS, PickupableObjectType } from "../objects";
 import { weightedRandom } from "../utils/random";
@@ -16,17 +16,6 @@ export enum TileType {
   WATERED,
   ITEM,
   WATER,
-}
-
-export enum TilePlantStage {
-  NONE,
-  SEEDED,
-  GROWN_STAGE_1,
-  GROWN_STAGE_2,
-  GROWN_STAGE_3,
-  GROWN_STAGE_4,
-  HARVESTED,
-  WITHERED,
 }
 
 export class Tile {
@@ -116,28 +105,8 @@ export class Tile {
   }
 
   public nextDay() {
-    // grow plant
-    if (
-      this.plantStage === TilePlantStage.SEEDED &&
-      this.type === TileType.WATERED
-    ) {
-      this.changePlantStage(TilePlantStage.GROWN_STAGE_1);
-    } else if (
-      this.plantStage === TilePlantStage.GROWN_STAGE_1 &&
-      this.type === TileType.WATERED
-    ) {
-      this.changePlantStage(TilePlantStage.GROWN_STAGE_2);
-    } else if (
-      this.plantStage === TilePlantStage.GROWN_STAGE_2 &&
-      this.type === TileType.WATERED
-    ) {
-      this.changePlantStage(TilePlantStage.GROWN_STAGE_3);
-    } else if (
-      this.plantStage === TilePlantStage.GROWN_STAGE_3 &&
-      this.type === TileType.WATERED
-    ) {
-      this.changePlantStage(TilePlantStage.GROWN_STAGE_4);
-    }
+    this.plantStageNum += 1;
+    this.changePlantStage(PLANTS[this.plantType].growth[this.plantStageNum]);
 
     // unwater tile
     if (this.type === TileType.WATERED) {

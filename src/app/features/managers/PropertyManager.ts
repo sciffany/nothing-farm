@@ -50,7 +50,6 @@ export default class PropertyManager {
   }: {
     x: number;
     y: number;
-
     propertyId: string;
     propertyType: PropertyType;
   }) {
@@ -99,7 +98,7 @@ export default class PropertyManager {
     this.properties[propertyId].occupants.forEach((occupant, index) => {
       const image = this.scene.add.image(
         Constants.TILE_DISPLAY_SIZE * 6 +
-          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
+          Constants.TILE_DISPLAY_SIZE * (index * 4 + 1),
         Constants.TILE_DISPLAY_SIZE * 2,
         occupant.firstName,
         0
@@ -107,7 +106,7 @@ export default class PropertyManager {
 
       const rectangle = this.scene.add.rectangle(
         Constants.TILE_DISPLAY_SIZE * 6 +
-          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
+          Constants.TILE_DISPLAY_SIZE * (index * 4 + 1),
         Constants.TILE_DISPLAY_SIZE * 2 + Constants.TILE_DISPLAY_SIZE * 3,
         Constants.TILE_DISPLAY_SIZE * 4,
         Constants.TILE_DISPLAY_SIZE,
@@ -117,7 +116,7 @@ export default class PropertyManager {
 
       const text = this.scene.add.text(
         Constants.TILE_DISPLAY_SIZE * 6 +
-          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
+          Constants.TILE_DISPLAY_SIZE * (index * 4 + 1),
         Constants.TILE_DISPLAY_SIZE * 2 + Constants.TILE_DISPLAY_SIZE * 3,
         `${occupant.firstName} ${occupant.lastName}\ninto ${
           ITEMS[occupant.favoriteItem].name
@@ -136,7 +135,7 @@ export default class PropertyManager {
 
       const relationship = this.scene.add.rectangle(
         Constants.TILE_DISPLAY_SIZE * 6 +
-          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1),
+          Constants.TILE_DISPLAY_SIZE * (index * 4 + 1),
         Constants.TILE_DISPLAY_SIZE * 6,
         Constants.TILE_DISPLAY_SIZE * 4,
         Constants.TILE_DISPLAY_SIZE,
@@ -146,7 +145,7 @@ export default class PropertyManager {
 
       const relationshipBar = this.scene.add.rectangle(
         Constants.TILE_DISPLAY_SIZE * 6 +
-          Constants.TILE_DISPLAY_SIZE * (index * 3 + 1) -
+          Constants.TILE_DISPLAY_SIZE * (index * 4 + 1) -
           Constants.TILE_DISPLAY_SIZE * 2,
         Constants.TILE_DISPLAY_SIZE * 6,
         Constants.TILE_DISPLAY_SIZE * 4,

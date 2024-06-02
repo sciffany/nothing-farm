@@ -355,7 +355,7 @@ export const PROPERTIES: {
     people: 2,
   },
   [PropertyType.MUSEUM]: {
-    color: 0x1b1b3a,
+    color: 0xf1cdd2,
     name: "Museum",
     subType: PropertySubType.MUSEUM,
     sprite: "museum",

@@ -1,6 +1,6 @@
 import Item from "./Item";
 import MainGame from "../scenes/mainGame";
-import { TilePlantStage, TileType } from "../managers/TileManager";
+import { TileType } from "../managers/TileManager";
 import { Layer } from "../constants";
 import { ItemType } from "../objects";
 
@@ -13,18 +13,56 @@ export enum PlantType {
   CARROT,
 }
 
+export enum TilePlantStage {
+  NONE,
+  SEEDED,
+  GROWN_STAGE_1,
+  GROWN_STAGE_2,
+  GROWN_STAGE_3,
+  GROWN_STAGE_4,
+  HARVESTED,
+  WITHERED,
+}
+
 export const PLANTS = {
   [PlantType.TURNIP]: {
     name: "Turnip",
+    growth: [
+      TilePlantStage.SEEDED,
+      TilePlantStage.GROWN_STAGE_1,
+      TilePlantStage.GROWN_STAGE_4,
+    ],
   },
   [PlantType.CORN]: {
     name: "Corn",
+    growth: [
+      TilePlantStage.SEEDED,
+      TilePlantStage.GROWN_STAGE_1,
+      TilePlantStage.GROWN_STAGE_2,
+      TilePlantStage.GROWN_STAGE_2,
+      TilePlantStage.GROWN_STAGE_3,
+      TilePlantStage.GROWN_STAGE_3,
+      TilePlantStage.GROWN_STAGE_4,
+    ],
   },
   [PlantType.TOMATO]: {
     name: "Tomato",
+    growth: [
+      TilePlantStage.SEEDED,
+      TilePlantStage.GROWN_STAGE_1,
+      TilePlantStage.GROWN_STAGE_3,
+      TilePlantStage.GROWN_STAGE_4,
+    ],
   },
   [PlantType.CARROT]: {
     name: "Carrot",
+    growth: [
+      TilePlantStage.SEEDED,
+      TilePlantStage.GROWN_STAGE_1,
+      TilePlantStage.GROWN_STAGE_2,
+      TilePlantStage.GROWN_STAGE_3,
+      TilePlantStage.GROWN_STAGE_4,
+    ],
   },
 };
 
