@@ -33,6 +33,7 @@ export class Tile {
   public x: number;
   public y: number;
   public type: TileType;
+  public plantStageNum: number = 0;
   public plantStage: TilePlantStage;
   public objectType: PickupableObjectType = PickupableObjectType.NONE;
   public plantType: PlantType = PlantType.TURNIP;
@@ -186,11 +187,15 @@ export class Tile {
     Array(5)
       .fill(0)
       .forEach(() => {
-        const image = this.scene.add.image(
+        const x =
           this.x * Constants.TILE_DISPLAY_SIZE +
-            Math.random() * Constants.TILE_DISPLAY_SIZE,
+          Math.random() * Constants.TILE_DISPLAY_SIZE;
+        const y =
           this.y * Constants.TILE_DISPLAY_SIZE +
-            Math.random() * Constants.TILE_DISPLAY_SIZE,
+          Math.random() * Constants.TILE_DISPLAY_SIZE;
+        const image = this.scene.add.image(
+          x,
+          y,
           PICKUPABLE_OBJECTS[this.objectType].sprite,
           PICKUPABLE_OBJECTS[this.objectType].frame
         );
@@ -200,6 +205,35 @@ export class Tile {
           this.scene.itemManager.addItem(
             new PickupableObject(this.scene, objectType, 1)
           );
+
+          const qtyText = this.scene.add.text(
+            x,
+            y,
+            `+1 ${PICKUPABLE_OBJECTS[objectType].name}`,
+            {
+              fontSize: "12px",
+              color: "#b55945",
+              fontFamily: "DePixelSchmal",
+            }
+          );
+          qtyText.depth = Layer.UI;
+
+          this.scene.tweens.add({
+            targets: qtyText,
+            y: -Constants.TILE_DISPLAY_SIZE,
+            ease: "Power1",
+            duration: 2000,
+          });
+
+          this.scene.tweens.add({
+            targets: qtyText,
+            alpha: 0,
+            ease: "Power1",
+            duration: 2000,
+            onComplete: () => {
+              qtyText.destroy();
+            },
+          });
           image.destroy();
         });
       });
@@ -232,8 +266,8 @@ export class Tile {
         "construction"
       );
     }
-    propertySprite.displayHeight = Constants.TILE_DISPLAY_SIZE * 4;
-    propertySprite.displayWidth = Constants.TILE_DISPLAY_SIZE * 4;
+    propertySprite.displayHeight = Constants.TILE_DISPLAY_SIZE * 2;
+    propertySprite.displayWidth = Constants.TILE_DISPLAY_SIZE * 2;
     propertySprite.setOrigin(0, 0);
     propertySprite.depth = Layer.PROPERTIES;
     this.propertySprite = propertySprite;
@@ -292,8 +326,8 @@ export class Tile {
     this.objectSprite?.setAlpha(1);
     this.propertySprite?.setAlpha(1);
     if (this.propertySprite) {
-      this.propertySprite.displayHeight = Constants.TILE_DISPLAY_SIZE * 4;
-      this.propertySprite.displayWidth = Constants.TILE_DISPLAY_SIZE * 4;
+      this.propertySprite.displayHeight = Constants.TILE_DISPLAY_SIZE * 2;
+      this.propertySprite.displayWidth = Constants.TILE_DISPLAY_SIZE * 2;
     }
     this.propertyRequestSprite?.setAlpha(1);
   }

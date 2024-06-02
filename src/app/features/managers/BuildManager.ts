@@ -28,8 +28,8 @@ export default class BuildManager {
       property.frame
     );
     propertyShadow.setOrigin(0, 0);
-    propertyShadow.displayWidth = Constants.TILE_DISPLAY_SIZE * 4;
-    propertyShadow.displayHeight = Constants.TILE_DISPLAY_SIZE * 4;
+    propertyShadow.displayWidth = Constants.TILE_DISPLAY_SIZE * 2;
+    propertyShadow.displayHeight = Constants.TILE_DISPLAY_SIZE * 2;
     propertyShadow.setAlpha(0.5);
     propertyShadow.setScrollFactor(0);
     propertyShadow.depth = Layer.PROPERTIES;

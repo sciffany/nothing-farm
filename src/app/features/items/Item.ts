@@ -33,29 +33,6 @@ export default abstract class Item {
 
   public addQuantity(quantity: number) {
     this.quantity += quantity;
-    const qtyText = this.scene.add.text(0, 0, `+${quantity} ${this.name}`, {
-      fontSize: "12px",
-      color: "#b55945",
-      fontFamily: "DePixelSchmal",
-    });
-    qtyText.depth = Layer.UI;
-
-    this.scene.tweens.add({
-      targets: qtyText,
-      y: -Constants.TILE_DISPLAY_SIZE,
-      ease: "Power1",
-      duration: 2000,
-    });
-
-    this.scene.tweens.add({
-      targets: qtyText,
-      alpha: 0,
-      ease: "Power1",
-      duration: 2000,
-      onComplete: () => {
-        qtyText.destroy();
-      },
-    });
   }
 
   public changeQuantity(quantity: number) {
