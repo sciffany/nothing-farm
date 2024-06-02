@@ -10,8 +10,9 @@ import {
 import { ITEMS, ItemType } from "../objects";
 import MainGame from "../scenes/mainGame";
 import { weightedRandom } from "../utils/random";
+import { drawRelationshipBar } from "../utils/relationship";
 
-const RELATIONSHIP_TOTAL = 10;
+export const RELATIONSHIP_TOTAL = 10;
 
 export default class PropertyManager {
   public properties: {
@@ -139,27 +140,30 @@ export default class PropertyManager {
         function increaseRelationship() {
           if (!occupant.talkedTo) {
             occupant.relationship += 5;
-            relationshipBar.displayWidth =
-              (occupant.relationship / RELATIONSHIP_TOTAL) *
-              Constants.TILE_DISPLAY_SIZE *
-              2;
+            drawRelationshipBar(
+              relationship,
+              relationshipBar,
+              occupant.relationship
+            );
             occupant.talkedTo = true;
           }
         }
         function loveItem(itemType: ItemType) {
           if (itemType == occupant.favoriteItem) {
             occupant.relationship += 10;
-            relationshipBar.displayWidth =
-              (occupant.relationship / RELATIONSHIP_TOTAL) *
-              Constants.TILE_DISPLAY_SIZE *
-              2;
+            drawRelationshipBar(
+              relationship,
+              relationshipBar,
+              occupant.relationship
+            );
             return true;
           }
           occupant.relationship += 5;
-          relationshipBar.displayWidth =
-            (occupant.relationship / RELATIONSHIP_TOTAL) *
-            Constants.TILE_DISPLAY_SIZE *
-            2;
+          drawRelationshipBar(
+            relationship,
+            relationshipBar,
+            occupant.relationship
+          );
           return false;
         }
         this.scene.dialogueManager.playCharacterDialogue(
@@ -188,14 +192,16 @@ export default class PropertyManager {
         Constants.TILE_DISPLAY_SIZE * 6,
         Constants.TILE_DISPLAY_SIZE * 4,
         Constants.TILE_DISPLAY_SIZE,
-        0xffc0cb
+        0x000000
       );
       relationshipBar.setOrigin(0, 0.5);
 
       relationshipBar.displayWidth =
         (occupant.relationship / RELATIONSHIP_TOTAL) *
         Constants.TILE_DISPLAY_SIZE *
-        2;
+        4;
+
+      drawRelationshipBar(relationship, relationshipBar, occupant.relationship);
 
       this.occupantSprites.push(relationshipBar);
       this.occupantSprites.push(relationship);

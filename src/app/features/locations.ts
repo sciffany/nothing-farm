@@ -197,7 +197,7 @@ export const PROPERTIES: {
       days: 2,
     },
     people: 0,
-    requestable: true,
+    requestable: false,
   },
   [PropertyType.SMALL_HOUSE]: {
     color: 0xf2b6c0,
@@ -218,6 +218,7 @@ export const PROPERTIES: {
       days: 1,
     },
     people: 4,
+    requestable: false,
   },
   [PropertyType.SEED_MARKET]: {
     color: 0xf2dde1,
