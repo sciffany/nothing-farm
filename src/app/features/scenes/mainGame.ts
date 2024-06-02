@@ -107,6 +107,12 @@ export default class MainGame extends Phaser.Scene {
     ].forEach((name) => {
       this.load.image(name, "assets/" + name + ".png");
     });
+    ["cow", "pig", "chicken", "sheep"].forEach((name) => {
+      this.load.image(
+        name,
+        "assets/nothing-farm-asset-pack/animals/" + name + ".png"
+      );
+    });
   }
 
   create() {

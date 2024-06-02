@@ -255,7 +255,7 @@ export default class PropertyManager {
         return;
       }
 
-      if (property.propertyType == PropertyType.HOME) {
+      if (property.propertyType == PropertyType.HOME || !!property.request) {
         return;
       }
 

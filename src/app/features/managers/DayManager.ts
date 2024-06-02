@@ -104,7 +104,7 @@ export default class DayManager {
       targets: rect,
       alpha: 1,
       duration: 1000,
-      onComplete: () => {
+      onComplete: async () => {
         this.scene.tileManager.nextDay();
         this.scene.energyManager.refill();
         this.scene.mailManager.nextDay();
@@ -112,6 +112,19 @@ export default class DayManager {
         this.scene.moneyManager.addMoney(
           this.scene.populationManager?.population * 10
         );
+
+        const text = this.scene.add.text(
+          Constants.WIDTH / 2,
+          Constants.HEIGHT / 2,
+          `Day Over.\nTaxes collected: ${
+            this.scene.populationManager?.population * 10
+          }`,
+          { ...Constants.TEXT_PROPS, color: "#ffffff" }
+        );
+        text.setOrigin(0.5, 0.5);
+        text.setDepth(Layer.APPRECIATION);
+        await new Promise((r) => setTimeout(r, 2000));
+        text.destroy();
 
         this.scene.tweens.add({
           targets: rect,

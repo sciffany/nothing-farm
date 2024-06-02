@@ -30,8 +30,10 @@ export default class WateringCan extends Item {
     this.useUp();
     const tile = this.scene.tileManager.getTile(x, y);
     if (tile?.getType() === TileType.TILLED) {
-      this.scene.energyManager.addEnergy(-5);
-      tile?.changeType(TileType.WATERED);
+      if (this.scene.energyManager.getEnergy() >= 5) {
+        this.scene.energyManager.addEnergy(-5);
+        tile?.changeType(TileType.WATERED);
+      }
     }
 
     if (tile?.getType() === TileType.WATER) {

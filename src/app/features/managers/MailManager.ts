@@ -42,7 +42,7 @@ export default class MailManager {
     this.drawMailBox();
     this.addMailContents([
       PropertyType.HOME,
-      ...Array(5)
+      ...Array(3)
         .fill(0)
         .map(() =>
           weightedRandom([

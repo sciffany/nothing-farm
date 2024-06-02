@@ -132,9 +132,7 @@ export class Tile {
   public nextDay() {
     this.plantStageNum += 1;
 
-    if (this.plantType != PlantType.NONE) {
-      console.log(this.plantStageNum);
-      console.log(PLANTS[this.plantType].growth);
+    if (this.plantType != PlantType.NONE && this.type == TileType.WATERED) {
       this.changePlantStage(PLANTS[this.plantType].growth[this.plantStageNum]);
     }
 
@@ -305,10 +303,11 @@ export class Tile {
         occupant.setOrigin(0, 0);
         occupant.depth = Layer.APPRECIATION;
 
+        this.scene.moneyManager.addMoney(1000);
         this.scene.dialogueManager.showText(
           `Thanks so much for building ${PROPERTIES[
             this.propertyType
-          ].name.toLocaleLowerCase()}! I can't wait to visit it soon! Here's a gift for you!`,
+          ].name.toLocaleLowerCase()}! I can't wait to visit it soon! Here's $1000 for you!`,
           () => {
             occupant.destroy();
           }
@@ -519,6 +518,9 @@ export default class TileManager {
   }
 
   public addTile(tile: Tile) {
+    if (this.plantedTileList[this.location].includes(tile)) {
+      return;
+    }
     this.plantedTileList[this.location]?.push(tile);
   }
 }

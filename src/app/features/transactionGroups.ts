@@ -3,6 +3,7 @@ import { ItemType } from "./objects";
 export enum TransactionGroup {
   NONE,
   SEEDS,
+  ANIMALS,
 }
 
 export const TRANSACTIONS = {
@@ -25,4 +26,22 @@ export const TRANSACTIONS = {
     },
   ],
   [TransactionGroup.NONE]: [],
+  [TransactionGroup.ANIMALS]: [
+    {
+      item: ItemType.COW,
+      price: 500,
+    },
+    {
+      item: ItemType.PIG,
+      price: 300,
+    },
+    {
+      item: ItemType.CHICKEN,
+      price: 100,
+    },
+    {
+      item: ItemType.SHEEP,
+      price: 400,
+    },
+  ],
 };

@@ -10,10 +10,19 @@ import Travel from "./items/Travel";
 import WateringCan from "./items/WateringCan";
 import Item from "./items/Item";
 import Hammer from "./items/Hammer";
+import Animal from "./items/Animal";
 
 export enum ClickableObjectType {
   NONE,
   SHIP_BOX,
+}
+
+export enum AnimalType {
+  COW,
+  PIG,
+  CHICKEN,
+  SHEEP,
+  NONE,
 }
 
 export enum ItemType {
@@ -35,6 +44,10 @@ export enum ItemType {
   LOG,
   ROCK,
   YELLOW_FLOWER,
+  COW,
+  PIG,
+  CHICKEN,
+  SHEEP,
 }
 
 export const ITEMS: {
@@ -157,6 +170,30 @@ export const ITEMS: {
     sellable: false,
     price: 0,
   },
+  [ItemType.COW]: {
+    name: "Cow",
+    constructor: (scene: MainGame) => new Animal(scene, AnimalType.COW, 1),
+    sellable: true,
+    price: 500,
+  },
+  [ItemType.PIG]: {
+    name: "Pig",
+    constructor: (scene: MainGame) => new Animal(scene, AnimalType.PIG, 1),
+    sellable: true,
+    price: 300,
+  },
+  [ItemType.CHICKEN]: {
+    name: "Chicken",
+    constructor: (scene: MainGame) => new Animal(scene, AnimalType.CHICKEN, 1),
+    sellable: true,
+    price: 100,
+  },
+  [ItemType.SHEEP]: {
+    name: "Sheep",
+    constructor: (scene: MainGame) => new Animal(scene, AnimalType.SHEEP, 1),
+    sellable: true,
+    price: 400,
+  },
 };
 
 export const CLICKABLE_OBJECTS: {
@@ -227,5 +264,38 @@ export const PICKUPABLE_OBJECTS: {
     sprite: "tree",
     name: "Tree",
     itemType: ItemType.NONE,
+  },
+};
+
+export const ANIMALS = {
+  [AnimalType.NONE]: {
+    name: "None",
+    sprite: "none",
+    frame: 0,
+    itemType: ItemType.NONE,
+  },
+  [AnimalType.COW]: {
+    name: "Cow",
+    sprite: "cow",
+    frame: 0,
+    itemType: ItemType.COW,
+  },
+  [AnimalType.PIG]: {
+    name: "Pig",
+    sprite: "pig",
+    frame: 0,
+    itemType: ItemType.PIG,
+  },
+  [AnimalType.CHICKEN]: {
+    name: "Chicken",
+    sprite: "chicken",
+    frame: 0,
+    itemType: ItemType.CHICKEN,
+  },
+  [AnimalType.SHEEP]: {
+    name: "Sheep",
+    sprite: "sheep",
+    frame: 0,
+    itemType: ItemType.SHEEP,
   },
 };
