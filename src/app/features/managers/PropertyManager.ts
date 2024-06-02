@@ -115,6 +115,8 @@ export default class PropertyManager {
         0
       );
 
+      image.depth = Layer.UI;
+
       const rectangle = this.scene.add.rectangle(
         Constants.TILE_DISPLAY_SIZE * 6 +
           Constants.TILE_DISPLAY_SIZE * (index * 4 + 1),
@@ -124,6 +126,8 @@ export default class PropertyManager {
         0xffffff
       );
       rectangle.setOrigin(0.5, 0.5);
+
+      rectangle.depth = Layer.UI;
 
       const text = this.scene.add.text(
         Constants.TILE_DISPLAY_SIZE * 6 +
@@ -135,6 +139,8 @@ export default class PropertyManager {
         Constants.TEXT_PROPS
       );
       text.setOrigin(0.5, 0.5);
+
+      text.depth = Layer.UI;
 
       image.setInteractive();
       image.on("pointerdown", () => {
