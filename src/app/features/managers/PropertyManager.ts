@@ -153,7 +153,14 @@ export default class PropertyManager {
               (occupant.relationship / RELATIONSHIP_TOTAL) *
               Constants.TILE_DISPLAY_SIZE *
               2;
+            return true;
           }
+          occupant.relationship += 5;
+          relationshipBar.displayWidth =
+            (occupant.relationship / RELATIONSHIP_TOTAL) *
+            Constants.TILE_DISPLAY_SIZE *
+            2;
+          return false;
         }
         this.scene.dialogueManager.playCharacterDialogue(
           propertyType,

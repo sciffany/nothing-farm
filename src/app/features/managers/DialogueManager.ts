@@ -51,7 +51,7 @@ export default class DialogueManager {
     propertyType: PropertyType,
     mbti: string,
     increaseRelationship: () => void,
-    loveItem: (item: ItemType) => void,
+    loveItem: (item: ItemType) => boolean,
     request?: PropertyType
   ) {
     const { black, marker } = addBlackAndMarker(this.scene);
@@ -72,7 +72,7 @@ export default class DialogueManager {
               this.showText(
                 `I'm looking for a ${PROPERTIES[
                   request
-                ].name.toLowerCase()}. Would appreciate if you could help build one near my house,`
+                ].name.toLowerCase()}. Would appreciate if you could help build one near my house.`
               );
             } else {
               this.showText(quip);
@@ -108,8 +108,12 @@ export default class DialogueManager {
                   .map((item) => ({
                     text: item.name,
                     action: () => {
-                      loveItem(item.getType() as ItemType);
-                      this.showText(`Thanks for the ${item.name}!`);
+                      const result = loveItem(item.getType() as ItemType);
+                      this.showText(
+                        `Thanks for the ${item.name}! ${
+                          result ? "I love it!" : "It's okay."
+                        }`
+                      );
                       destroy2();
                       black.destroy();
                       marker.destroy();

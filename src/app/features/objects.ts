@@ -131,7 +131,7 @@ export const ITEMS: {
     price: 10,
   },
   [ItemType.ROCK]: {
-    name: "Log",
+    name: "Rock",
     constructor: (scene: MainGame) =>
       new PickupableObject(scene, PickupableObjectType.ROCK, 1),
     sellable: true,

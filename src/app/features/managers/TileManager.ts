@@ -38,7 +38,8 @@ export class Tile {
     | Phaser.GameObjects.Sprite
     | Phaser.GameObjects.Image
     | null = null;
-  public propertyRequestSprite: Phaser.GameObjects.Shape | null = null;
+  private propertyRequestSprite: Phaser.GameObjects.Shape | null = null;
+  private propertyRequestTween: Phaser.Tweens.Tween | null = null;
 
   private scene: MainGame;
 
@@ -251,17 +252,18 @@ export class Tile {
     this.propertyRequestSprite = this.scene.add.circle(
       this.x * Constants.TILE_DISPLAY_SIZE + Constants.TILE_DISPLAY_SIZE / 2,
       this.y * Constants.TILE_DISPLAY_SIZE + Constants.TILE_DISPLAY_SIZE / 2,
-      Constants.TILE_DISPLAY_SIZE / 4,
+      ((this.requestIntensity || 0) + 1) * 2,
       PROPERTIES[request].color
     );
     this.propertyRequestSprite.depth = Layer.PROPERTIES;
-    this.scene.tweens.add({
+    const tween = this.scene.tweens.add({
       targets: this.propertyRequestSprite,
       alpha: 0,
       duration: 1000,
       yoyo: true,
       repeat: -1,
     });
+    this.propertyRequestTween = tween;
   }
 
   public changeObjectType(objectType: PickupableObjectType) {
@@ -289,6 +291,7 @@ export class Tile {
     this.tileSprite?.setAlpha(0);
     this.objectSprite?.setAlpha(0);
     this.propertySprite?.setAlpha(0);
+    this.propertyRequestTween?.stop();
     this.propertyRequestSprite?.setAlpha(0);
   }
 
@@ -301,7 +304,16 @@ export class Tile {
       this.propertySprite.displayHeight = Constants.TILE_DISPLAY_SIZE * 2;
       this.propertySprite.displayWidth = Constants.TILE_DISPLAY_SIZE * 2;
     }
-    this.propertyRequestSprite?.setAlpha(1);
+    if (this.propertyRequestSprite) {
+      this.propertyRequestSprite?.setAlpha(1);
+      this.propertyRequestTween = this.scene.tweens.add({
+        targets: this.propertyRequestSprite,
+        alpha: 0,
+        duration: 1000,
+        yoyo: true,
+        repeat: -1,
+      });
+    }
   }
 
   public changePlantStage(plantStage: TilePlantStage, plantType?: PlantType) {
