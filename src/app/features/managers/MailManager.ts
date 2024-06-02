@@ -34,7 +34,7 @@ export default class MailManager {
     );
   }
 
-  private addMailContents(mailContents: PropertyType[]) {
+  public addMailContents(mailContents: PropertyType[]) {
     this.mailContents = [...this.mailContents, ...mailContents];
   }
 

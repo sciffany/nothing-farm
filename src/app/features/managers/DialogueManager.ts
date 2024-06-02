@@ -50,6 +50,7 @@ export default class DialogueManager {
   public playCharacterDialogue(
     propertyType: PropertyType,
     mbti: string,
+    relationship: number,
     increaseRelationship: () => void,
     loveItem: (item: ItemType) => boolean,
     request?: PropertyType
@@ -70,7 +71,7 @@ export default class DialogueManager {
           action: () => {
             if (request) {
               this.showText(
-                `I'm looking for a ${PROPERTIES[
+                `I'm looking to visit a(n) ${PROPERTIES[
                   request
                 ].name.toLowerCase()}. Would appreciate if you could help build one near my house.`
               );
@@ -137,9 +138,54 @@ export default class DialogueManager {
         {
           text: "Ask for recommendation",
           action: () => {
+            const destroy2 = createScroll(
+              this.scene,
+              [
+                ...Object.entries(PROPERTIES)
+                  .filter(([, property]) => {
+                    return property.requestable != false;
+                  })
+                  .map(([type, property]) => ({
+                    text: property.name,
+                    action: () => {
+                      if (relationship < 10) {
+                        this.showText(
+                          "I don't know you well enough to recommend anything."
+                        );
+                        return;
+                      } else {
+                        let recommendByChance = Math.random() < 0.5;
+                        if (relationship > 20) {
+                          recommendByChance = Math.random() < 0.8;
+                        } else if (relationship > 30) {
+                          recommendByChance = Math.random() < 0.9;
+                        }
+
+                        this.showText(
+                          `I know a great ${property.name.toLowerCase()} near here!`
+                        );
+                        this.scene.mailManager.addMailContents([
+                          type as unknown as PropertyType,
+                        ]);
+                      }
+                      destroy2();
+                      black.destroy();
+                      marker.destroy();
+                    },
+                  })),
+                {
+                  text: "Exit",
+                  action: () => {
+                    destroy2();
+                    black.destroy();
+                    marker.destroy();
+                  },
+                },
+              ],
+              marker
+            );
             destroy();
             black.destroy();
-            marker.destroy();
           },
         },
         {

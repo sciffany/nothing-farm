@@ -169,6 +169,7 @@ export default class PropertyManager {
         this.scene.dialogueManager.playCharacterDialogue(
           propertyType,
           occupant.mbti,
+          occupant.relationship,
           increaseRelationship,
           loveItem,
           this.properties[propertyId].request
