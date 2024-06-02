@@ -63,11 +63,12 @@ export default class PropertyManager {
     const possibleFaves = Object.entries(ITEMS).filter(
       ([itemType, itemContent]) => itemContent.sellable
     );
+    const numOccupants = Math.floor(Math.random() * property.people) + 1;
     this.properties[propertyId] = {
       x,
       y,
       propertyType,
-      occupants: Array(property.people)
+      occupants: Array(numOccupants)
         .fill(0)
         .map(() => ({
           propertyId: propertyId,
@@ -262,7 +263,7 @@ export default class PropertyManager {
       const hasRequest = weightedRandom([
         {
           value: true,
-          weight: 0.5,
+          weight: 0.1,
         },
         {
           value: false,

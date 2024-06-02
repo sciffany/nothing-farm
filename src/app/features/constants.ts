@@ -25,4 +25,5 @@ export enum Layer {
   BUILD_PRESS,
   UI,
   DIALOGUE,
+  APPRECIATION,
 }

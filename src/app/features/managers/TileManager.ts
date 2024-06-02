@@ -106,6 +106,29 @@ export class Tile {
     }
   }
 
+  public getNearByTilesByRadius(radius: number = 10) {
+    let tiles = [];
+    for (let i = -radius; i <= radius; i++) {
+      for (let j = -radius; j <= radius; j++) {
+        let x = this.x + i;
+        let y = this.y + j;
+        if (
+          x >= 0 &&
+          x < Constants.MAP_WIDTH &&
+          y >= 0 &&
+          y < Constants.MAP_HEIGHT
+        ) {
+          // check radius
+          if (Math.abs(i) + Math.abs(j) > radius) {
+            continue;
+          }
+          tiles.push(this.scene.tileManager.getTile(x, y));
+        }
+      }
+    }
+    return tiles;
+  }
+
   public nextDay() {
     this.plantStageNum += 1;
 
@@ -245,6 +268,47 @@ export class Tile {
     propertySprite.setOrigin(0, 0);
     propertySprite.depth = Layer.PROPERTIES;
     this.propertySprite = propertySprite;
+
+    const nearbyTiles = this.getNearByTilesByRadius(10);
+
+    nearbyTiles.forEach((tile) => {
+      if (tile && this.propertyType && tile.requestType == this.propertyType) {
+        tile.requestType = PropertyType.OUTSIDE;
+        tile.requestIntensity = 0;
+        tile.propertyRequestSprite?.destroy();
+        tile.propertyRequestTween?.destroy();
+
+        const happyOccupants =
+          this.scene.propertyManager.properties[tile.propertyId!].occupants;
+
+        const occupantNum = Math.floor(Math.random() * happyOccupants.length);
+
+        const randomOccupant = happyOccupants[occupantNum];
+
+        this.scene.propertyManager.properties[tile.propertyId!].occupants[
+          occupantNum
+        ].relationship += 10;
+
+        const occupant = this.scene.add.image(
+          tile.x * Constants.TILE_DISPLAY_SIZE,
+          tile.y * Constants.TILE_DISPLAY_SIZE,
+          randomOccupant.firstName,
+          0
+        );
+        occupant.setScale(0.5);
+        occupant.setOrigin(0, 0);
+        occupant.depth = Layer.APPRECIATION;
+
+        this.scene.dialogueManager.showText(
+          `Thanks so much for building ${PROPERTIES[
+            this.propertyType
+          ].name.toLocaleLowerCase()}! I can't wait to visit it soon! Here's a gift for you!`,
+          () => {
+            occupant.destroy();
+          }
+        );
+      }
+    });
 
     this.scene.tileManager.addTile(this);
   }

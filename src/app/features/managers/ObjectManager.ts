@@ -11,28 +11,21 @@ export default class ObjectManager {
     this.scene = scene;
   }
 
-  public initialize(locationType: LocationType) {
-    // Object.entries(LOCATIONS[this.currLoc].objects).forEach(
-    //   ([type, object]) => {
-    //     const { location, spriteFrame } = object;
-    //     let sprite;
-    //     const houseSprite = this.scene.add.sprite(
-    //       location.x * Constants.TILE_DISPLAY_SIZE,
-    //       location.y * Constants.TILE_DISPLAY_SIZE,
-    //       "objects",
-    //       spriteFrame
-    //     );
-    //     houseSprite.setOrigin(0, 0);
-    //     houseSprite.setScale(2);
-    //     sprite = houseSprite;
-    //     const objectProperties = CLICKABLE_OBJECTS[parseInt(type)];
-    //     sprite.setInteractive();
-    //     sprite.on("pointerdown", () => {
-    //       objectProperties.action(this.scene);
-    //     });
-    //     this.sprites.push(sprite);
-    //   }
-    // );
+  public initialize() {
+    const houseSprite = this.scene.add.sprite(
+      6 * Constants.TILE_DISPLAY_SIZE,
+      6 * Constants.TILE_DISPLAY_SIZE,
+      "sellbox",
+      0
+    );
+    houseSprite.setOrigin(0, 0);
+    houseSprite.setScale(2);
+    const objectProperties = CLICKABLE_OBJECTS[ClickableObjectType.SHIP_BOX];
+    houseSprite.setInteractive();
+    houseSprite.on("pointerdown", () => {
+      objectProperties.action(this.scene);
+    });
+    this.sprites.push(houseSprite);
   }
 
   public destroy() {

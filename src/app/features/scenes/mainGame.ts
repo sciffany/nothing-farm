@@ -81,7 +81,7 @@ export default class MainGame extends Phaser.Scene {
       spacing: 2,
     });
     this.load.image("marker", "assets/marker.png");
-    this.load.spritesheet("objects", "assets/objects/sellbox.png", {
+    this.load.spritesheet("sellbox", "assets/objects/sellbox.png", {
       frameWidth: Constants.TILE_DISPLAY_SIZE,
       frameHeight: Constants.TILE_DISPLAY_SIZE,
     });
@@ -97,11 +97,16 @@ export default class MainGame extends Phaser.Scene {
         "https://api.dicebear.com/8.x/adventurer/svg?seed=" + name
       );
     });
-    ["hospital", "mall", "playground", "restaurant", "bookstore"].forEach(
-      (name) => {
-        this.load.image(name, "assets/" + name + ".png");
-      }
-    );
+    [
+      "hospital",
+      "mall",
+      "playground",
+      "restaurant",
+      "bookstore",
+      "museum",
+    ].forEach((name) => {
+      this.load.image(name, "assets/" + name + ".png");
+    });
   }
 
   create() {
@@ -115,7 +120,7 @@ export default class MainGame extends Phaser.Scene {
     this.cameraManager.initialize(LocationType.FARM);
     this.dialogueManager.playDialogue(DialogueType.WELCOME);
     this.transactionManager.initialize(LocationType.FARM);
-    this.objectManager.initialize(LocationType.FARM);
+    this.objectManager.initialize();
     this.itemManager.initialize();
     this.energyManager.initialize();
     this.moneyManager.initialize();

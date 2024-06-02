@@ -18,7 +18,7 @@ export default class DialogueManager {
     // this.playDialogue(dialogueType);
   }
 
-  public showText(text: string) {
+  public showText(text: string, callback?: () => void) {
     const { black, marker } = addBlackAndMarker(this.scene);
 
     const dialogueText = this.scene.add.text(
@@ -41,6 +41,9 @@ export default class DialogueManager {
 
     black.setInteractive();
     black.on("pointerdown", () => {
+      if (callback) {
+        callback();
+      }
       black.destroy();
       marker.destroy();
       dialogueText.destroy();
@@ -69,6 +72,18 @@ export default class DialogueManager {
         {
           text: "Chit Chat",
           action: () => {
+            this.showText(quip);
+            if (increaseRelationship) {
+              increaseRelationship();
+            }
+            destroy();
+            black.destroy();
+            marker.destroy();
+          },
+        },
+        {
+          text: "Be mayor",
+          action: () => {
             if (request) {
               this.showText(
                 `I'm looking to visit a(n) ${PROPERTIES[
@@ -76,10 +91,9 @@ export default class DialogueManager {
                 ].name.toLowerCase()}. Would appreciate if you could help build one near my house.`
               );
             } else {
-              this.showText(quip);
-            }
-            if (increaseRelationship) {
-              increaseRelationship();
+              this.showText(
+                "I don't have any requests right now. Thanks for asking though!"
+              );
             }
             destroy();
             black.destroy();
@@ -162,7 +176,7 @@ export default class DialogueManager {
                         }
 
                         this.showText(
-                          `I know a great ${property.name.toLowerCase()} near here!`
+                          `I know a great ${property.name.toLowerCase()} near here! Check your move-in request.`
                         );
                         this.scene.mailManager.addMailContents([
                           type as unknown as PropertyType,
