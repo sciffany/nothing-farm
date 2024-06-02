@@ -1,7 +1,7 @@
 import { Constants, Layer } from "../constants";
 import MainGame from "../scenes/mainGame";
 
-const START_ENERGY = 600;
+const START_ENERGY = 200;
 
 export default class EnergyManager {
   private scene: MainGame;

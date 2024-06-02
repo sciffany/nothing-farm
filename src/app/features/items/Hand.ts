@@ -1,10 +1,11 @@
 import Item from "./Item";
 import MainGame from "../scenes/mainGame";
-import { TilePlantStage, TileType } from "../managers/TileManager";
+import { TileType } from "../managers/TileManager";
 import Vegetable from "./Vegetable";
 import { Layer } from "../constants";
 import { ItemType, PickupableObjectType } from "../objects";
 import PickupableObject from "./PickupableObject";
+import { TilePlantStage } from "./Seed";
 
 const HAND_FRAME = 4;
 

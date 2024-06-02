@@ -9,6 +9,7 @@ import Seed from "./items/Seed";
 import Travel from "./items/Travel";
 import WateringCan from "./items/WateringCan";
 import Item from "./items/Item";
+import Hammer from "./items/Hammer";
 
 export enum ClickableObjectType {
   NONE,
@@ -30,6 +31,7 @@ export enum ItemType {
   CORN,
   CARROT,
   AXE,
+  HAMMER,
   LOG,
   ROCK,
   YELLOW_FLOWER,
@@ -148,6 +150,12 @@ export const ITEMS: {
       new PickupableObject(scene, PickupableObjectType.YELLOW_FLOWER, 1),
     sellable: true,
     price: 5,
+  },
+  [ItemType.HAMMER]: {
+    name: "Hammer",
+    constructor: (scene: MainGame) => new Hammer(scene),
+    sellable: false,
+    price: 0,
   },
 };
 

@@ -29,8 +29,8 @@ export default class Axe extends Item {
   public use(x: number, y: number) {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (tile?.objectType === PickupableObjectType.LOG) {
-      if (this.scene.energyManager.getEnergy() < 20) return;
-      this.scene.energyManager.addEnergy(-20);
+      if (this.scene.energyManager.getEnergy() < 5) return;
+      this.scene.energyManager.addEnergy(-5);
 
       tile.breakPickupable();
       tile.changeObjectType(PickupableObjectType.NONE);

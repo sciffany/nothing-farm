@@ -8,7 +8,7 @@ const HAMMER_FRAME = 3;
 
 export default class Hammer extends Item {
   constructor(scene: MainGame) {
-    super(scene, "Axe");
+    super(scene, "Hammer");
   }
 
   public initialize(position: number) {
@@ -22,14 +22,14 @@ export default class Hammer extends Item {
   }
 
   public getType() {
-    return ItemType.AXE;
+    return ItemType.HAMMER;
   }
 
   public use(x: number, y: number) {
     const tile = (this.scene as MainGame).tileManager?.getTile(x, y);
     if (tile?.objectType === PickupableObjectType.ROCK) {
-      if (this.scene.energyManager.getEnergy() < 20) return;
-      this.scene.energyManager.addEnergy(-20);
+      if (this.scene.energyManager.getEnergy() < 5) return;
+      this.scene.energyManager.addEnergy(-5);
       tile.breakPickupable();
       tile.changeObjectType(PickupableObjectType.NONE);
     }

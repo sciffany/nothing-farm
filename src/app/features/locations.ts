@@ -168,8 +168,8 @@ export const PROPERTIES: {
     ],
     cost: {
       money: 0,
-      log: 1,
-      rock: 1,
+      log: 0,
+      rock: 0,
       days: 0,
     },
     people: 0,
@@ -207,9 +207,9 @@ export const PROPERTIES: {
       },
     ],
     cost: {
-      money: 100,
-      log: 5,
-      rock: 5,
+      money: 0,
+      log: 0,
+      rock: 0,
       days: 1,
     },
     people: 4,

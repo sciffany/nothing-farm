@@ -16,11 +16,11 @@ export default class MailManager {
 
   public nextDay() {
     this.addMailContents(
-      Array(3)
+      Array(2)
         .fill(0)
         .map(() =>
           weightedRandom([
-            { value: PropertyType.SMALL_HOUSE, weight: 20 },
+            { value: PropertyType.SMALL_HOUSE, weight: 200 },
             { value: PropertyType.BOOKSTORE, weight: 5 },
             { value: PropertyType.BARN, weight: 5 },
             { value: PropertyType.HOSPITAL, weight: 5 },
@@ -42,11 +42,11 @@ export default class MailManager {
     this.drawMailBox();
     this.addMailContents([
       PropertyType.HOME,
-      ...Array(2)
+      ...Array(8)
         .fill(0)
         .map(() =>
           weightedRandom([
-            { value: PropertyType.SMALL_HOUSE, weight: 20 },
+            { value: PropertyType.SMALL_HOUSE, weight: 200 },
             { value: PropertyType.BOOKSTORE, weight: 5 },
             { value: PropertyType.BARN, weight: 5 },
             { value: PropertyType.HOSPITAL, weight: 5 },
@@ -166,11 +166,13 @@ export default class MailManager {
       const numRocks =
         this.scene.itemManager.findItemWithType(ItemType.ROCK)?.quantity || 0;
       const numMoney = this.scene.moneyManager.money;
+      const energy = this.scene.energyManager.getEnergy();
 
       if (
         numMoney < property.cost.money ||
         numLogs < property.cost.log ||
-        numRocks < property.cost.rock
+        numRocks < property.cost.rock ||
+        energy < 40
       ) {
         buildButton.setTint(0x888800);
       } else {

@@ -25,7 +25,7 @@ export class Tile {
   public plantStageNum: number = 0;
   public plantStage: TilePlantStage;
   public objectType: PickupableObjectType = PickupableObjectType.NONE;
-  public plantType: PlantType = PlantType.TURNIP;
+  public plantType: PlantType | null = null;
   public propertyId?: string;
   public propertyType?: PropertyType;
   public propertyStage: number = 0;
@@ -106,7 +106,10 @@ export class Tile {
 
   public nextDay() {
     this.plantStageNum += 1;
-    this.changePlantStage(PLANTS[this.plantType].growth[this.plantStageNum]);
+
+    if (this.plantType !== null) {
+      this.changePlantStage(PLANTS[this.plantType].growth[this.plantStageNum]);
+    }
 
     // unwater tile
     if (this.type === TileType.WATERED) {

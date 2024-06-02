@@ -21,6 +21,8 @@ export default class BuildManager {
       .findItemWithType(ItemType.ROCK)
       ?.useUp(property.cost.rock);
 
+    this.scene.energyManager.addEnergy(-40);
+
     const propertyShadow = this.scene.add.sprite(
       0,
       0,
