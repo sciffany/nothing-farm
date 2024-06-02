@@ -1,6 +1,6 @@
 import { Constants, Layer } from "../constants";
-import { DIALOGUES, DialogueType, OutcomeType } from "../dialogues";
-import { LocationType } from "../locations";
+import { DIALOGUES, DialogueType, OutcomeType, QUIPS } from "../dialogues";
+import { LocationType, PROPERTIES, PropertyType } from "../locations";
 import MainGame from "../scenes/mainGame";
 import { TransactionGroup } from "../transactionGroups";
 import { addBlackAndMarker, createScroll } from "../utils/scroll";
@@ -44,6 +44,60 @@ export default class DialogueManager {
       marker.destroy();
       dialogueText.destroy();
     });
+  }
+
+  public playCharacterDialogue(propertyType: PropertyType, mbti: string) {
+    const { black, marker } = addBlackAndMarker(this.scene);
+    const randomMbtiLetter = mbti[
+      Math.floor(Math.random() * mbti.length)
+    ] as keyof typeof QUIPS;
+    const possibleQuips = QUIPS[randomMbtiLetter];
+    const quip =
+      possibleQuips[Math.floor(Math.random() * possibleQuips.length)];
+
+    const destroy = createScroll(
+      this.scene,
+      [
+        {
+          text: "Chit Chat",
+          action: () => {
+            this.showText(quip);
+            destroy();
+            black.destroy();
+            marker.destroy();
+          },
+        },
+        ...(PROPERTIES[propertyType].serviceText
+          ? [
+              {
+                text: PROPERTIES[propertyType].serviceText ?? "Service",
+                action: () => {
+                  destroy();
+                  black.destroy();
+                  marker.destroy();
+                },
+              },
+            ]
+          : []),
+        {
+          text: "Gift",
+          action: () => {
+            destroy();
+            black.destroy();
+            marker.destroy();
+          },
+        },
+        {
+          text: "Ask for recommendation",
+          action: () => {
+            destroy();
+            black.destroy();
+            marker.destroy();
+          },
+        },
+      ],
+      marker
+    );
   }
 
   public playDialogue(dialogueType: DialogueType) {

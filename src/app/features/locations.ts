@@ -137,6 +137,7 @@ export const PROPERTIES: {
       days: number;
     };
     people: number;
+    serviceText?: string;
   };
 } = {
   [PropertyType.OUTSIDE]: {
@@ -233,6 +234,7 @@ export const PROPERTIES: {
       days: 1,
     },
     people: 2,
+    serviceText: "Buy Seeds",
   },
   [PropertyType.RANCH]: {
     color: 0xf2dde1,
@@ -253,6 +255,7 @@ export const PROPERTIES: {
       days: 3,
     },
     people: 2,
+    serviceText: "Buy Animals",
   },
   [PropertyType.HOSPITAL]: {
     color: 0xcbc7d8,
@@ -273,6 +276,7 @@ export const PROPERTIES: {
       days: 2,
     },
     people: 2,
+    serviceText: "Heal",
   },
   [PropertyType.PLAYGROUND]: {
     color: 0xe4aeb4,
@@ -293,6 +297,7 @@ export const PROPERTIES: {
       days: 1,
     },
     people: 2,
+    serviceText: "Play",
   },
   [PropertyType.RESTAURANT]: {
     color: 0x8db7d2,
@@ -313,6 +318,7 @@ export const PROPERTIES: {
       days: 1,
     },
     people: 2,
+    serviceText: "Cook",
   },
   [PropertyType.MALL]: {
     color: 0x5e62a9,
@@ -333,6 +339,7 @@ export const PROPERTIES: {
       days: 3,
     },
     people: 2,
+    serviceText: "Shop",
   },
   [PropertyType.BOOKSTORE]: {
     color: 0x434279,
@@ -353,6 +360,7 @@ export const PROPERTIES: {
       days: 2,
     },
     people: 2,
+    serviceText: "Buy Books",
   },
   [PropertyType.MUSEUM]: {
     color: 0xf1cdd2,
@@ -373,5 +381,6 @@ export const PROPERTIES: {
       days: 3,
     },
     people: 2,
+    serviceText: "Donate",
   },
 };

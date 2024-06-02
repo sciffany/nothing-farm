@@ -130,7 +130,10 @@ export default class PropertyManager {
         occupant.relationship += 5;
         relationshipBar.displayWidth =
           (occupant.relationship / 20) * Constants.TILE_DISPLAY_SIZE * 2;
-        this.scene.dialogueManager.playDialogue(DialogueType.CHIT_CHAT);
+        this.scene.dialogueManager.playCharacterDialogue(
+          propertyType,
+          occupant.mbti
+        );
       });
 
       const relationship = this.scene.add.rectangle(
