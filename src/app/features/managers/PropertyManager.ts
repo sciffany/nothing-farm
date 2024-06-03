@@ -268,7 +268,7 @@ export default class PropertyManager {
       const hasRequest = weightedRandom([
         {
           value: true,
-          weight: 0.1,
+          weight: 0.3,
         },
         {
           value: false,

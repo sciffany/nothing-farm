@@ -110,14 +110,14 @@ export default class DayManager {
         this.scene.mailManager.nextDay();
         this.scene.propertyManager.nextDay();
         this.scene.moneyManager.addMoney(
-          this.scene.populationManager?.population * 10
+          this.scene.populationManager?.population * 30
         );
 
         const text = this.scene.add.text(
           Constants.WIDTH / 2,
           Constants.HEIGHT / 2,
           `Day Over.\nTaxes collected: ${
-            this.scene.populationManager?.population * 10
+            this.scene.populationManager?.population * 30
           }`,
           { ...Constants.TEXT_PROPS, color: "#ffffff" }
         );
