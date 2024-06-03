@@ -105,17 +105,14 @@ export default class DialogueManager {
               {
                 text: PROPERTIES[propertyType].serviceText ?? "Service",
                 action: () => {
-                  switch (propertyType) {
-                    case PropertyType.SEED_MARKET:
-                      this.scene.transactionManager.playTransactionGroup(
-                        TransactionGroup.SEEDS
-                      );
-                      break;
-                    case PropertyType.RANCH:
-                      this.scene.transactionManager.playTransactionGroup(
-                        TransactionGroup.ANIMALS
-                      );
-                      break;
+                  if (propertyType == PropertyType.SEED_MARKET) {
+                    this.scene.transactionManager.playTransactionGroup(
+                      TransactionGroup.SEEDS
+                    );
+                  } else if (propertyType == PropertyType.RANCH) {
+                    this.scene.transactionManager.playTransactionGroup(
+                      TransactionGroup.ANIMALS
+                    );
                   }
                   destroy();
                   black.destroy();
