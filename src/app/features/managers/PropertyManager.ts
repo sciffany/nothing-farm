@@ -114,6 +114,8 @@ export default class PropertyManager {
         occupant.firstName,
         0
       );
+      image.displayHeight = Constants.TILE_DISPLAY_SIZE * 4;
+      image.displayWidth = Constants.TILE_DISPLAY_SIZE * 4;
 
       image.depth = Layer.UI;
 
