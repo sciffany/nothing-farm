@@ -92,10 +92,7 @@ export default class MainGame extends Phaser.Scene {
     this.load.image("flower", "assets/objects/flower.png");
     this.load.image("construction", "assets/construction.png");
     FIRST_NAMES.forEach((name) => {
-      this.load.image(
-        name,
-        "https://api.dicebear.com/8.x/adventurer/svg?seed=" + name
-      );
+      this.load.image(name, "/assets/people/" + name + ".png");
     });
     [
       "hospital",
